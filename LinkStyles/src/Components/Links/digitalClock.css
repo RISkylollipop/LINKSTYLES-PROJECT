@@ -1,0 +1,36 @@
+/* The wrapper div */
+
+
+/* greeting text */
+.digitalClockStyle p {
+  color: #5a2ea6;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 10px;
+}
+
+/* digitalClockContainer */
+.digitalClockStyle {
+  border-radius: 10px;
+  position: relative;
+  width: fit-content;
+  padding: 0 5px;
+}
+
+/* inner digitalClock box */
+.digitalClockStyle .digitalClock {
+  font-size: 8px;
+  border-radius: 6px;
+}
+
+/* actual clock digits */
+.digitalClockStyle .clock {
+  padding: 0;
+  font-size: 18px;
+}
+.clock{
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+}
+.digitalClockStyle{}

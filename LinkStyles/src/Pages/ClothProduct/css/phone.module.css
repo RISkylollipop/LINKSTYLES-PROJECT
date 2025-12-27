@@ -1,0 +1,87 @@
+.card-containers {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: hsl(0, 0%, 50%, );
+    transition: all 3s;
+
+}
+
+.headings {
+    width: 100%;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.cards {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 320px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.cards:hover {
+    transform: scale(1.05);
+}
+
+.card-body img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card-body span {
+    font-weight: bold;
+}
+
+.spandesign {
+    display: flex;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+.detailbtn,
+.addtocartbtn {
+    border-radius: 10px;
+    font-size: 20px;
+    width: 130px;
+}
+
+.detailbtn {
+    background-color: blue;
+    color: white;
+    transition: all 3s;
+}
+
+.detailbtn:hover {
+    background-color: rgb(109, 109, 240);
+    transition: all 3s;
+}
+
+.addtocartbtn {
+    background-color: green;
+    color: white;
+    transition: all 3s;
+}
+
+.addtocartbtn:hover {
+    background-color: #60ec81;
+    transition: all 3s;
+}

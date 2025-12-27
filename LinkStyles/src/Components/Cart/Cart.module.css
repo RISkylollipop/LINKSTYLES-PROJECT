@@ -1,0 +1,154 @@
+.cartContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.h2, .h3 {
+    text-align: center;
+    color: #333;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+}
+
+.cartItem img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.cartItem .h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #444;
+}
+
+.cartItem .p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.cartBtn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.cartBtn:hover {
+    background: #e60000;
+}
+
+/* Centering total price */
+.h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Add and Remove Button style */
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantityBtn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+.quantityBtn:hover {
+    background: #0056b3;
+}
+
+.quantityDisplay {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+@media screen and (max-width: 768px) {
+    .cartContainer {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .cartItem {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .cartItem img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .cartItem .h4 {
+        font-size: 16px;
+    }
+
+    .cartItem .p {
+        font-size: 14px;
+    }
+
+    .quantityControls {
+        margin-top: 10px;
+    }
+
+    .quantityBtn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .quantityDisplay {
+        font-size: 16px;
+        padding: 3px 8px;
+    }
+
+    .cartBtn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .h3 {
+        font-size: 18px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+    }
+}

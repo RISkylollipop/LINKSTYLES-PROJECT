@@ -1,0 +1,576 @@
+fetch((``), {
+      method: "POST",
+      headers: { 'Content-Type': ' application/json' },
+      body: JSON.stringify(formData)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error)
+        } else {
+          console.log(data.message);
+          alert(data.message)
+        }
+
+      })
+      .catch(err => {
+        console.log(err);
+        alert(err);
+        console.error(err);
+      });
+
+
+      // // fetch my opay account
+
+
+
+// // For Storage in database later
+// const payment = {}
+
+// // Monnify Configuration
+
+// const MONNIFY_BASE_URL = `https://sandbox.monnify.com`;
+// const API_KEY = process.env.API_KEY
+// const API_SECRET = process.env.API_SECRET
+// const CONTRACT_CODE = process.env.API_CONTRACT
+
+// // Step 1: Get Monnify Access Token
+
+// const getAccessToken = async () => {
+//     try {
+//         // Ensure API_KEY and API_SECRET are correct
+//         if (!API_KEY || !API_SECRET) {
+//             throw new Error('API_KEY or API_SECRET is missing');
+//         }
+
+//         const encoded = Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64');
+
+//         console.log('Requesting access token with authorization header:', `basic ${encoded}`);
+
+//         console.log('API_KEY:', API_KEY);
+//         console.log('API_SECRET:', API_SECRET);
+//         console.log('CONTRACT_CODE:', CONTRACT_CODE);
+//         // Request access token from Monnify
+//         const response = await axios.post(
+//             `${MONNIFY_BASE_URL}/auth/login`,
+//             {},
+//             {
+//                 headers: {
+//                     Authorization: `Basic ${encoded}`,
+//                 },
+//             }
+//         );
+
+//         // Check the response to ensure we get the access token
+//         if (response.data && response.data.responseBody && response.data.responseBody.accessToken) {
+//             console.log('Access token successfully obtained:', response.data.responseBody.accessToken);
+//             return response.data.responseBody.accessToken;
+//         } else {
+//             console.error('Failed to obtain access token: Missing accessToken in response', response.data);
+//             throw new Error('Failed to get access token');
+//         }
+//     } catch (error) {
+//         console.error('Error during access token request:', error.response?.data || error.message);
+//         throw new Error('Failed to get access token');
+//     }
+// };
+
+
+// // // Step 2: Generate Reserved Account
+
+// router.post(`/v1/generate-account`, async (req, res) => {
+//     try {
+//         const { customerName, customerEmail, amount, currency } = req.body;
+
+//         // Validation checks
+//         if (!customerEmail || customerEmail.trim() === "" || !customerName || customerName.trim() === "") {
+//             return res.status(400).json({ error: "Name and email must not be empty" });
+//         }
+
+//         if (typeof amount !== "number" || isNaN(amount)) {
+//             return res.status(400).json({ error: "Amount must be a valid number" });
+//         }
+
+//         // Get access token
+//         const accessToken = await getAccessToken();
+
+//         const paymentReference = `ref_${Date.now()}`;
+
+//         const accountRequest = {
+//             accountReference: paymentReference,
+//             accountName: "LINKSSTYLE GLOBAL LIMITED",
+//             currencyCode: "NGN",
+//             contractCode: CONTRACT_CODE,
+//             customerEmail: customerEmail,
+//             customerName: customerName,
+//             getAvailableBanks: false,
+//             incomeSplitConfig: [],
+//             amount
+//           };
+
+//         // Log request data before sending to Monnify for debugging
+//         console.log('Monnify Account Request:', accountRequest);
+
+//         // Call Monnify API to generate reserved account
+//         const response = await axios.post(
+//             `${MONNIFY_BASE_URL}/api/v2/bank-transfer/reserved-accounts`,
+//             accountRequest,
+//             { headers: { Authorization: `Bearer ${accessToken}` } }
+//         );
+
+//         // Log the response data for debugging
+//         console.log('Monnify Response:', response.data);
+
+//         const data = response.data.responseBody;
+
+//         // Save payment reference (for future use, replace with DB later)
+//         payment[paymentReference] = {
+//             status: "PENDING",
+//             email: customerEmail,
+//             name: customerName,
+//             amount,
+//         };
+
+//         return res.status(200).json({
+//             status: "success",
+//             reference: paymentReference,
+//             accountNumber: data.accountNumber,
+//             bankName: data.bankName,
+//             amount,
+//         });
+
+//     } catch (error) {
+//         console.error(error);
+//         if (error.response) {
+//             // Handle known API errors from Monnify
+//             const apiError = error.response.data;
+//             return res.status(error.response.status).json({
+//                 status: "error",
+//                 message: apiError.message || "Account generation failed",
+//                 details: apiError
+//             });
+//         } else {
+//             // Generic error handling
+//             return res.status(500).json({
+//                 status: "error",
+//                 message: "An unknown error occurred during account generation."
+//             });
+//         }
+//     }
+// });
+
+
+
+// module.exports = router;
+
+
+<div className={styles.inputgroup}>
+            <label className={styles.labelling}>Firstname:</label>
+
+            <input type="text" placeholder="FirstName" />
+          </div>
+ <form className={styles.format} onSubmit={handleSubmit}>
+          <div>
+            <div className={styles.previewImageContainer}>
+              
+            </div>
+            <input 
+            className={styles.fileInput}
+            type="file" onChange={handleFileChange} />
+          </div>
+
+          {message && <p style={{ color: messageColor }}>{message}</p>}
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Firs</label>
+            <input type="file" className={styles.input} />
+          </div>
+
+          {/* <FloatingLabel
+            controlId="floatingInput1"
+            label="Profile Picture"
+            value=""
+            className="mb-3"
+          >
+            <Form.Control  />
+          </FloatingLabel> */}
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>First Name</label>
+            <input type="text" className={styles.input} />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>First Name</label>
+            <input type="text" className={styles.input} />
+          </div>
+
+          {/*  */}
+
+          {/* <FloatingLabel
+            controlId="floatingInput2"
+            label="Middle Name"
+            
+            // className="mb-3"
+          >
+            <Form.Control type="text" placeholder="Middle Name" />
+          </FloatingLabel> */}
+
+          {/* <FloatingLabel
+            controlId="floatingInput3"
+            label="Last Name"
+           
+            // className="mb-3"
+          >
+            <Form.Control type="text" placeholder="Last Name / Surname" />
+          </FloatingLabel> */}
+
+          {/* <FloatingLabel
+            controlId="floatingInput4"
+            label="Email Address"
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            // className="mb-3"
+          >
+            <Form.Control type="email" placeholder="Email Address" />
+          </FloatingLabel> */}
+
+          {/* <FloatingLabel
+            controlId="floatingInput5"
+            label="Phone_number"
+            onChange={(e) =>
+              setFormData({ ...formData, phone_number: e.target.value })
+            }
+            // className="mb-3"
+          >
+            <Form.Control type="phone" placeholder="Phone_number" />
+          </FloatingLabel> */}
+
+          {/* <FloatingLabel
+            controlId="floatingInput7"
+            label="Password"
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            // className="mb-3"
+          >
+            <Form.Control type="password" placeholder="Secure Password" />
+          </FloatingLabel> */}
+          {/* 
+          <FloatingLabel
+            controlId="floatingInput8"
+            label="City"
+            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+            // className="mb-3"
+          >
+            <Form.Control type="text" placeholder="City" />
+          </FloatingLabel> */}
+
+          
+
+          {/* <FloatingLabel
+            controlId="floatingInput"
+            label="Nearest_landmark"
+            onChange={(e) =>
+              setFormData({ ...formData, nearest_landmark: e.target.value })
+            }
+            // className="mb-3"
+          >
+            <Form.Control type="text" placeholder="Nearest_landmark" />
+          </FloatingLabel> */}
+          {/* 
+          <FloatingLabel
+            controlId="floatingInput10"
+            label="Home Address"
+            onChange={(e) =>
+              setFormData({ ...formData, address: e.target.value })
+            }
+            className={"mb-3 " + styles.input}
+          >
+            <Form.Control type="text" placeholder="Home Address" />
+          </FloatingLabel> */}
+
+          <label style={{ fontFamily: "cursive", color: "white" }}>
+            Gender
+          </label>
+          <div style={{ display: "flex", gap: "20px", color: "white" }}>
+            <span>
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="Male"
+                checked={formData.Gender === "Male"}
+                onChange={(e) =>
+                  setFormData({ ...formData, Gender: e.target.value })
+                }
+              />
+              <label
+                style={{ fontFamily: "cursive", color: "white" }}
+                htmlFor="male"
+              >
+                Male
+              </label>
+            </span>
+
+            <span>
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="Female"
+                checked={formData.Gender === "Female"}
+                onChange={(e) =>
+                  setFormData({ ...formData, Gender: e.target.value })
+                }
+              />
+              <label
+                style={{ fontFamily: "cursive", color: "white" }}
+                htmlFor="female"
+              >
+                Female
+              </label>
+            </span>
+
+            <span>
+              <input
+                type="radio"
+                id="other"
+                name="gender"
+                value="Other"
+                checked={formData.Gender === "Other"}
+                onChange={(e) =>
+                  setFormData({ ...formData, Gender: e.target.value })
+                }
+              />
+              <label
+                style={{ fontFamily: "cursive", color: "white" }}
+                htmlFor="other"
+              >
+                Other
+              </label>
+            </span>
+
+            <span>
+              <input
+                type="radio"
+                id="prefer-not"
+                name="gender"
+                value="Prefer not to say"
+                checked={formData.Gender === "Prefer not to say"}
+                onChange={(e) =>
+                  setFormData({ ...formData, Gender: e.target.value })
+                }
+              />
+              <label
+                style={{ fontFamily: "cursive", color: "white" }}
+                htmlFor="prefer-not"
+              >
+                Prefer not to say
+              </label>
+            </span>
+          </div>
+
+          <button type="submit">Submit</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div
+          className={styles.registerContainer} 
+          
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundBlendMode: "multiply",
+          backgroundPosition: "center",
+          
+        }}
+        
+        
+      >
+        <div className={styles.cardHeader}>
+          <h3>Create an account</h3>
+          <h3>Enter your information to create an account</h3>
+        </div>
+        <ToastContainer position="top-center" autoClose={7000} />
+
+        <form className={styles.FormStyle} onSubmit={handleSubmit}>
+          {/* ✅ Profile picture preview */}
+          <div className={styles.mainPreviewImageContainer}>
+            <div className={styles.previewImageContainer}>
+              {preview ? (
+                <img src={preview} alt="Preview" />
+              ) : (
+                "PROFILE PICTURE"
+              )}
+            </div>
+            {message && <p style={{ color: messageColor }}>{message}</p>}
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+          </div>
+
+          {/* ✅ Input fields */}
+          <div className={styles.textDivContainer}>
+            {[
+              ["Firstname:", "first_name", "text", "First Name"],
+              ["Lastname:", "lastname", "text", "Last Name"],
+              ["Middle Name:", "middle_name", "text", "Middle Name"],
+              ["Email:", "email", "email", "Email Address"],
+              ["Phone Number:", "phone_number", "tel", "Phone Number"],
+              ["Password:", "password", "password", "Secure Password"],
+              ["City:", "city", "text", "City"],
+              [
+                "Nearest Landmark:",
+                "nearest_landmark",
+                "text",
+                "Nearest Landmark",
+              ],
+              [
+                "Delivery Home Address:",
+                "address",
+                "text",
+                "Delivery Home Address",
+              ],
+            ].map(([label, key, type, placeholder]) => (
+              <div key={key} className={styles.inputgroup}>
+                <label className={styles.labelling}>{label}</label>
+                <input
+                  type={type}
+                  value={formData[key]}
+                  onChange={(e) =>
+                    setFormData({ ...formData, [key]: e.target.value })
+                  }
+                  placeholder={placeholder}
+                  required
+                />
+              </div>
+            ))}
+
+            {/* ✅ Country dropdown */}
+            <select
+              style={{
+                height: "40px",
+                borderRadius: "10px",
+                padding: "10px",
+                maxWidth: "60vw",
+                marginBottom: "10px",
+              }}
+              name="country"
+              value={formData.country}
+              onChange={handleCountryChange}
+              required
+            >
+              <option value="">Select Country</option>
+              {countries.map((country, idx) => (
+                <option key={idx} value={country.name}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+
+            {/* ✅ State dropdown */}
+            {states.length > 0 && (
+              <select
+                style={{
+                  height: "40px",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  maxWidth: "70vw",
+                  marginBottom: "10px",
+                }}
+                name="state"
+                value={formData.state}
+                onChange={(e) =>
+                  setFormData({ ...formData, state: e.target.value })
+                }
+                required
+              >
+                <option value="">Select State / Region</option>
+                {states.map((state, idx) => (
+                  <option key={idx} value={state.name}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+            )}
+
+            {/* ✅ Submit */}
+            <button type="submit" disabled={loading}>
+
+              {loading ? "Registering..." : "Register"}
+            </button>
+          </div>
+        </form>
+      </div>

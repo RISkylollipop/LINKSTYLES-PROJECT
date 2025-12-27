@@ -1,0 +1,72 @@
+/* StarRating.module.css */
+.starRating {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h3 {
+  color: #333;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.active {
+  color: gold;
+  cursor: pointer;
+}
+
+.inactive {
+  color: #ccc;
+  cursor: pointer;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.reviewList {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.reviewItem {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.reviewItem strong {
+  color: #007bff;
+}
+
+  

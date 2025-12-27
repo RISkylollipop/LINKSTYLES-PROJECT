@@ -1,0 +1,14 @@
+{
+    "categories": [
+        {"shoe": "slide", "id": 1},
+        {"shoe": "palm", "id": 2},
+        {"shoe": "canvas", "id": 3},
+        {"shoe": "trainers", "id": 4}
+    ],
+    "type": [
+        {"name": "rubber"},
+        {"name": "timber"},
+        {"name": "leather"},
+        {"name": "carbon"}
+    ]
+}

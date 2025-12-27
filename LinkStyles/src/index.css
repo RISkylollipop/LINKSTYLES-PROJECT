@@ -1,0 +1,23 @@
+body{
+  font-family: 'Montserrat', sans-serif;
+}
+.brandkit{
+ position: relative;
+ margin: 750px auto 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .brandkit {
+    margin:  600px auto 0 auto;
+  }
+  
+}
+
+.latesttrend{
+  margin: 20px auto 0 auto;
+  text-align: center;
+}
+
+.Footer{
+  font-family: 'Montserrat', sans-serif;
+}

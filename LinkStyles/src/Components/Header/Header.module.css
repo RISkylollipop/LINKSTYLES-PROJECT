@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+/* Header */
+
+.logo {
+    padding-top: 10px;
+    font-weight: 500;
+    color: gray;
+    text-transform: capitalize;
+    font-family: 'Alex Brush', cursive;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.HeaderNavbar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #f1f1f2;
+}
+
+/* Navigation Links */
+
+.li {
+    list-style: none;
+    margin-right: 15px;
+    white-space: nowrap;
+}
+
+.a {
+    text-decoration: none;
+    color: gray;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.5s ease;
+}
+
+.a:hover {
+    color: rgb(87, 59, 7);
+    transition: all 1s ease;
+}
+
+.a:active {
+    color: rgb(248, 182, 59);
+    transition: all 0.5s ease;
+}
+
+/* Cart & Profile Icons */
+.cart {
+    position: absolute;
+    right: 20px;
+    font-size: 18px;
+    padding-top: 20px;
+    color: gray;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.profile {
+    position: absolute;
+    right: 70px;
+    padding-top: 20px;
+    cursor: pointer;
+}
+
+.cart:hover {
+    opacity: 0.8;
+}
+
+.bi-person,
+.bi-bag-fill {
+    font-size: 20px;
+    color: gray;
+}
+
+.bi-bag-fill:hover {
+    opacity: 0.7;
+}
+
+/* Hide Profile & Cart Icons for Small Screens */
+.profileCartIconList {
+    display: none;
+}
+/* Sidebar collapse */
+.sidebar {
+  display: inline;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: fit-content;
+  background-color: #f1f1f2;;
+  transition: right 0.3s ease;
+  z-index: 2000;
+  padding-top: 60px;
+}
+
+.sidebar.show {
+  right: 0; 
+}
+
+.sidebar .li {
+  display: block;
+  margin: 15px 20px;
+  text-align: left;
+}
+
+.sidebar .a {
+  color: gray;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.sidebar .a:hover {
+  color: #FF8C00;
+}
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+   
+    .HeaderNavbar {
+        background-color: #8e8e9b;
+    }
+
+    .li {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .a {
+        font-size: 18px;
+    }
+
+    
+}
+@media screen and (min-width: 300px) and (max-width: 604px) {
+    .HeaderNavbar {
+        background-color: #dcdceb;
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,52 @@
+.addProductContainer{
+    width: 100vw;
+    margin: 0;
+    padding: 20px;
+    background-image: repeating-radial-gradient(
+  circle,
+  green 10%,
+  blue 15%,
+  yellow 10%
+);
+text-align: center;
+}
+
+.addProductContainer label, .addProductContainer h1{
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: oblique;
+}
+.addProductContainer form{
+    width: 70%;
+    margin: 10px auto;
+    overflow: hidden;
+    height: fit-content;
+    
+}
+.addProductContainer label{
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    font-weight: 1000;
+    text-align: left;
+    margin-left: 20%;
+    color: white;
+}
+.addProductContainer input, .addProductContainer textarea{
+    max-width: 60%;
+}
+.addProductContainer button{
+    margin-top: 20px;
+    width: 20%;
+    padding: 5px;
+    font-size: 25px;
+    border-style: dotted;
+    border-radius: 10px;
+}
+.addProductContainer select, .addProductContainer option{
+    width: 30%;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 25px;
+}

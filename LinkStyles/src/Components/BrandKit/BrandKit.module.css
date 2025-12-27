@@ -1,0 +1,69 @@
+.brandkitContainer {
+  position: relative;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  
+}
+
+
+.brandcontainer {
+  display: inline-block;
+  max-width: 100vw;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.brandcontainer img {
+  width: 100%;
+  object-fit: cover;
+  overflow-x: hidden;
+  height: 400px !important;
+  max-width: 100vw;
+}
+
+.brandText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 35px;
+  text-align: center;
+  width: 100%;
+  color: white;
+}
+
+.brandkitButton {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: transparent !important;
+  border-radius: 50%;
+  font-size: 20px !important;
+  opacity: 0.5;
+  width: 35px;
+  height: 35px;
+}
+
+@media screen and (min-width: 280px) and (max-width: 604px) {
+  .brandkitContainer {
+    width: 100vw;
+    height: 100vw;
+    position: relative;
+    margin-top: -350px;
+
+  }
+
+}

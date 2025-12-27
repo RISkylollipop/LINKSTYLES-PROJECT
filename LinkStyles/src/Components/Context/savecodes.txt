@@ -1,0 +1,28 @@
+  if (isAlreadyInCart) {
+            
+
+            toast.info(`${product.name} Already in Cart`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            return;
+        }
+
+        setCart(c => {
+            const updatedCart = [...c, product];
+            localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save immediately
+            return updatedCart;
+        });
+
+        toast.success(`${product.name} Added To Cart`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
+
+.greeting {
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px;
+    margin-right: 40px;
+    margin-top: 5px;
+    font-family: 'montserrat', sans-serif;
+    color: white;
+    background-color: hsl(0, 0%, 50%, 0.5);
+    
+}
+.clock{
+    text-shadow: 0 0 10px hsl(0, 0%, 50%, 0.5);
+    font-family: monospace;
+    
+    
+}
+
+
+.digitalClockContainer{
+    font-size: 20px;
+    z-index: 3000;
+    color: gray;
+    display: flex;
+    position: absolute;
+    top: 17px;
+    right: 10px;
+}

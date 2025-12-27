@@ -1,0 +1,102 @@
+
+
+// import React from 'react'
+// import './BrandKit.css'
+// import {Swiper, SwiperSlide} from 'swiper/react';
+// import {Navigation, Pagination, Scrollbar} from 'swiper/modules';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+// import 'swiper/css/scrollbar';
+
+
+// const Brands = [
+//     {id: 1, name: "Brand1", images: "https://cdn.pixabay.com/photo/2018/08/16/19/56/wedding-rings-3611277_640.jpg"},
+//     {id: 2, name: "Brand2", images: "https://cdn.pixabay.com/photo/2016/01/23/15/11/girl-1157579_640.jpg"},
+//     {id: 3, name: "Brand3", images: "https://cdn.pixabay.com/photo/2018/08/16/19/56/wedding-rings-3611277_640.jpg"},
+//     {id: 4, name: "Brand4", images: "https://cdn.pixabay.com/photo/2016/01/23/15/11/girl-1157579_640.jpg"},
+//     {id: 5, name: "Brand5", images: "https://cdn.pixabay.com/photo/2018/08/16/19/56/wedding-rings-3611277_640.jpg"},
+// ]
+
+// const BrandKit = () => {
+
+//     return(
+
+   
+//     <Swiper
+//     modules={[Navigation, Pagination, Scrollbar]}
+//     spaceBetween={50}
+//     slidesPerView={3}
+//     navigation
+//     pagination={{clickable: true}}
+//     scrollbar={{draggable: true}}
+    
+    
+//     >
+
+
+// {Brands.map((brand, index)=> (
+//     <SwiperSlide key={brand.id}>
+//         <div>
+//             <h2>Brand Kit</h2>
+//             <img src={brand.images} alt={brand.name} className='w-48 h-48 object-contain' />
+//             <h3 className='className="text-xl font-semibold mt-4"'>{brand.name}</h3>
+//         </div>
+  
+//     </SwiperSlide>
+// ))}
+
+//     </Swiper>
+
+// )
+// }
+
+// export default BrandKit;
+
+
+
+
+
+// import './BrandKit.css'
+// import brandA1 from '../assets/BrandKitImages/brandA1.png'
+// function BrandKit() {
+//     return (
+//         <>
+//             <div className="brandcontainer">
+
+//                 <div className="brandkit1">
+//                 <img src={brandA1} alt="" />
+//                     <span className="headtext">
+//                         <h3>Assessories</h3>
+//                         <p>Find the perfect accessory to
+//                             complete your look</p>
+//                     </span>
+//                 </div>
+
+
+//                 <div className="brandkit2">
+//                 <img src={brandA1} alt="" />
+//                     <span className="headtext">
+//                         <h3>Assessories</h3>
+//                         <p>Find the perfect accessory to
+//                             complete your look</p>
+//                     </span>
+//                 </div>
+
+//                 <div className="brandkit3">
+//                     <img src={brandA1} alt="" />
+//                     <span className="headtext">
+//                         <h3>Assessories</h3>
+//                         <p>Find the perfect accessory to
+//                             complete your look</p>
+//                     </span>
+//                 </div>
+
+
+//             </div>
+//         </>
+//     )
+
+// }
+
+// export default BrandKit;
