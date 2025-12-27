@@ -74,7 +74,7 @@ const Payment = () => {
       return;
     }
 
-    fetch('http://localhost:3005/api/v1/deliverydetails', {
+    fetch('http://localhost:3002/api/v1/deliverydetails', {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -114,7 +114,7 @@ const Payment = () => {
       return;
     }
 
-    fetch('http://localhost:3005/api/v1/deliverydetails', {
+    fetch('http://localhost:3002/api/v1/deliverydetails', {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -137,7 +137,7 @@ const Payment = () => {
     setCheckoutloading(true);
 
     try {
-      const response = await fetch(`http://localhost:3005/api/v1/init-transaction`, {
+      const response = await fetch(`http://localhost:3002/api/v1/init-transaction`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -167,7 +167,7 @@ const Payment = () => {
           transactionReference: transactionRef,
         };
 
-        const genAccountRes = await fetch(`http://localhost:3005/api/generate-account`, {
+        const genAccountRes = await fetch(`http://localhost:3002/api/generate-account`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payloadCartRef)
@@ -204,7 +204,7 @@ const Payment = () => {
     const startTime = Date.now();
 
     const interval = setInterval(() => {
-      fetch(`http://localhost:3005/payment/status/${transactionReference}`)
+      fetch(`http://localhost:3002/payment/status/${transactionReference}`)
         .then(res => res.json())
         .then(data => {
           console.log("Payment status:", data);

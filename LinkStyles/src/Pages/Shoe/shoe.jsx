@@ -17,7 +17,7 @@ function Shoes() {
     const [searchQuery, setSearchQuery] = useState("");
     const [value, setValue] = useState(2000);
 
-    const URL = "http://localhost:3005";
+    const URL = "http://localhost:3002";
 
     useEffect(() => {
         fetch(`${URL}/api/v1/shoes`)

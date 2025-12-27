@@ -25,7 +25,7 @@ function Phones() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3005/api/v1/phones")
+    fetch("http://localhost:3002/api/v1/phones")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {

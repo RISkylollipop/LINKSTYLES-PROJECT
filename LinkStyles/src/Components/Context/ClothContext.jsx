@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const ClothContext = createContext();
 
 export default function ClothContextProvider({ children }) {
-  const URL = "http://localhost:3005";
+  const URL = "http://localhost:3002";
 
   // Load Cart
   const [cart, setCart] = useState(() => {

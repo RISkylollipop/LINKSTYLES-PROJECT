@@ -5,7 +5,7 @@ const db = require(`../database`)
 router.get(`/shoes`, (req, res)=> {
     console.log(req.body);
 
-    const query = `select * from products where productName like "%shoe%";`
+    const query = `select * from products where description like "%shoe%";`
     
     db.query(query, (err, data)=> {
         if (err) {
@@ -13,7 +13,7 @@ router.get(`/shoes`, (req, res)=> {
             
         }
 
-        res.json({message: `Fetch request Sent`, data})
+        res.status(200).json(data)
 
     })
 

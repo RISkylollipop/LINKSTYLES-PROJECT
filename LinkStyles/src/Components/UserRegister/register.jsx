@@ -127,7 +127,7 @@ export const UserRegister = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:3005/register", {
+      const response = await fetch("http://localhost:3002/register", {
         method: "POST",
         body: dataForm,
       });

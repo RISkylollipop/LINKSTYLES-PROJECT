@@ -21,7 +21,7 @@ function ProductDetails() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const navigate = useNavigate();
 
-  const URL = `http://localhost:3005`;
+  const URL = `http://localhost:3002`;
 
   useEffect(() => {
     let isMounted = true;

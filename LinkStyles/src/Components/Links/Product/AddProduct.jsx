@@ -63,7 +63,7 @@ const AddProduct = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3005/api/v1/addproduct",
+        "http://localhost:3002/api/v1/addproduct",
         {
           method: "POST",
           body: data,
@@ -103,7 +103,7 @@ const AddProduct = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3005/api/v1/addoldproduct",
+        "http://localhost:3002/api/v1/addoldproduct",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
