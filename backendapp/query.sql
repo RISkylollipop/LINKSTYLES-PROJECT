@@ -81,6 +81,7 @@
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
 
+-- drop table products;
 -- create table products (
 -- product_id int primary key auto_increment,
 --  productName varchar (250) not null,
@@ -94,3 +95,12 @@
 -- created_time datetime default current_timestamp 
 -- );
 
+
+
+-- DROP TABLE CART;
+-- create table cart(
+--  monnify_ref varchar (200),
+--  reference_id varchar (150),
+--  amount int,
+--  status varchar (200) default "PENDING"
+-- );
