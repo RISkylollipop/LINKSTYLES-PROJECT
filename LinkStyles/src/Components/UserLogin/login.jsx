@@ -6,9 +6,6 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import styles from "./login.module.css";
 import { toast } from "react-toastify";
-
-
-
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext";
 
@@ -16,7 +13,8 @@ import backgroundImage from "../LatestTrend/LatestTrendImages/trend1.png";
 
 // 3. Login Component
 export function Login() {
-  const { user, setUser, mainData, setMainData } = useContext(LoginContext);
+  const { user, setUser, mainData, setMainData, productlenght,
+    setProductlenght } = useContext(LoginContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     first_name: "",
@@ -24,10 +22,11 @@ export function Login() {
     password: "",
   });
 
+  const URL = `http://localhost:3005`
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3002/api/v1/login", {
+    fetch(`${URL}/api/v1/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -38,32 +37,49 @@ export function Login() {
         return data;
       })
       .then((data) => {
-        if (data.status === 200 && data.message && data.newData && data.token) {
-          setUser(data.newData);
+
+        if (data.status === 200 && data.token) {
+
+          setUser(data.MainData);
           setMainData(data.MainData);
-          localStorage.setItem('token', data.token)
-          toast.success(data.message);
-          setTimeout(() => navigate("/clothes"), 5000);
+
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("data", JSON.stringify(data.MainData));
+          localStorage.setItem("productlength", data.productLenght)
+
+
+          if (data.message === "Admin Login successfully") {
+            toast.success(data.Admingreeting)
+            setTimeout(() => {
+              navigate("/link/admin")
+              const productlenght = localStorage.getItem("productlength")
+              setProductlenght(productlenght);
+
+
+
+
+            }, 5000);
+          } else {
+            toast.success(data.message);
+            setTimeout(() => navigate("/clothes"), 3500);
+          }
+
         }
-        else if (data.status === 200 && data.message && data.MainData && data.token) {
-          setUser("Special Visiting User")
-          localStorage.setItem('token', data.token)
-          toast.warning("Please Add Your Delivery Address upon CheckOut")
-          setTimeout(() => {
-            navigate('/adddelivery')
-          }, 5000);
-        }
+
         else if (data.status === 404) {
           toast.info(data.message || "Email not found, please register first.");
           setTimeout(() => navigate("/register"), 2500);
         }
+
         else if (data.status === 401) {
           toast.error(data.message || "Incorrect password.");
         }
+
         else {
           toast.warn("Something went wrong. Please try again.");
         }
       })
+
       .catch((err) => {
         console.error("Error:", err);
         toast.error("Server error, please try again later.");

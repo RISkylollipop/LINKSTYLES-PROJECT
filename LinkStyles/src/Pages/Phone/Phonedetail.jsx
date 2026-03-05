@@ -26,7 +26,7 @@ function Phonedetail() {
   const { phoneID } = useParams();
   const [phonedata, setPhonedata] = useState(null);
 
-  const URL = `http://localhost:3002`;
+  const URL = `http://localhost:3005`;
 
   useEffect(() => {
     let isMounted = true;
@@ -250,3 +250,41 @@ function Phonedetail() {
 }
 
 export default Phonedetail;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

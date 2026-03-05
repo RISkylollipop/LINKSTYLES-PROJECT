@@ -15,9 +15,9 @@ function Productlunch() {
   const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [value, setValue] = useState(2000);
+  const [value, setValue] = useState(10);
 
-  const URL = "http://localhost:3002";
+  const URL = "http://localhost:3005";
 
   useEffect(() => {
     fetch(`${URL}/api/v1/clothes`)
@@ -68,7 +68,7 @@ function Productlunch() {
           <br />
           <input
             type="range"
-            min="100"
+            min="0"
             name="priceRange"
             id="range"
             max="15000"

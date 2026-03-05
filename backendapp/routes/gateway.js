@@ -22,9 +22,7 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
     try {
         const secretKey = process.env.API_SECRET;
 
-        // -----------------------------
-        // ✅ SIGNATURE VERIFICATION (PRODUCTION ONLY)
-        // Uncomment this block when going live to verify Monnify webhook authenticity.
+        
 
         const signatureHeader = req.headers['monnify-signature'];
         const bodyString = JSON.stringify(req.body);
@@ -44,6 +42,10 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
 
         // For testing with curl, eventType might be undefined
         if ((eventType === 'SUCCESSFUL_TRANSACTION' || !eventType) && eventData.paymentStatus === 'PAID') {
+           
+            console.log("EVENT TYPE :",  eventType);
+            console.log("EVENT DATA :",  eventData);
+            
             const {
                 transactionReference,
                 paymentReference,
@@ -53,7 +55,7 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
                 metaData
             } = eventData;
 
-            console.log('✅ PAYMENT CONFIRMED for', transactionReference);
+            console.log('PAYMENT CONFIRMED for', transactionReference);
 
             // Store payment in memory (optional)
 
@@ -100,7 +102,7 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
                         async (err, result) => {
                             if (err) {
                                 console.log(err);
-                                return res.status(500).json(`Payment update Paid`)
+                                return res.status(500).json(`Payment Cound Not be Completed`)
                             } else {
                                 console.log(`cart payment updated successfully`);
                                 
@@ -171,12 +173,12 @@ router.get('/payment/status/:reference?', (req, res) => {
                     return res.status(500).json({ error: 'Database query error' });
                 }
                 // If no record found, return PENDING
-                if (!data.length) {
+                if (!data[0]) {
                     return res.json({ status: 'PENDING' });
                 }
 
                 console.log(data);
-                return res.json(data[0] || {message : "PAYMENT CONFIRMED"});
+                return res.json({message : "PAYMENT CONFIRMED"});
             }
         );
     } else {

@@ -26,43 +26,68 @@ router.post("/v1/login", (req, res) => {
 
       const secretKey = process.env.JWT_SECRET_TOKEN;
 
-      // ✅ Use data[0] instead of users
+      
       const token = jwt.sign(
         {
-          Id: data[0].Id,
+          Id: data[0].id,
           name: data[0].first_name,
           tokenVersion: data[0].jwt_version,
+          jti: Date.now().toString()
         },
         secretKey,
         {
-          expiresIn: "15m",
+          expiresIn: "1h",
           issuer: "MedicsHealth",
         }
       );
 
-      const selectUserQuery = "SELECT * FROM delivery_details WHERE email = ?";
+      const selectUserQuery = `SELECT user_id, profilepicture, first_name, lastname, middle_name, 
+                            users.email, is_verified, user_roles.role_id, user_roles.role_name FROM users 
+                            left join user_roles on users.id = user_roles.id WHERE users.email = ?;`
+
       db.query(selectUserQuery, [data[0].email], (err, result) => {
         if (err) {
           console.log("Error loading user details:", err);
           return res.status(500).json({ message: "Error loading user details" });
         }
+        // console.log(result);
+        if (result[0].role_name === "admin" && result[0].role_id === 1) {
 
-        if (result.length === 0) {
+
+
+          const role = result[0].role_name;
+          const name = result[0].first_name;
+          const Admingreeting = `Welcome ${role} ${name}`
+
+          db.query(`select * from products`, (err, productLenght) => {
+            if (err) {
+              console.log(err);
+              return res.status(500).json({ message: "Failed to load admin data" });
+
+            }
+
+            return res.status(200).json({
+              message: "Admin Login successfully",
+              token,
+              MainData: result[0],
+              Admingreeting,
+              productLenght: productLenght.length,
+            });
+          });
+
+        } else {
+
+          console.log(result[0].first_name);
+
           return res.status(200).json({
-            message: "Login successful, but no delivery details found.",
+            message: "Login successful",
             token, // ✅ To be return to the client, so client can use it
-            MainData: data[0],
+            MainData: result[0],
           });
         }
+      }
 
-        console.log(result[0]);
-        return res.status(200).json({
-          message: "Login successful",
-          token, // ✅ To be included in response sent and to be save in localStorage
-          newData: result[0].full_name,
-          // MainData: result[0],
-        });
-      });
+      );
     }
   });
 });

@@ -8,7 +8,9 @@ const cloudinary = require(`cloudinary`).v2
 // Configure Multer storage
 const upload = multer({ dest: "public/images" });
 
-router.post("/v1/addoldproduct", (req, res) => {
+const {adminAuth} = require(`../Controllers/usersAuth`) 
+
+router.post("/v1/addoldproduct", adminAuth(), (req, res) => {
   const {productName,description,price,category,
     stock,
     imageUrl,
@@ -54,7 +56,7 @@ router.post("/v1/addoldproduct", (req, res) => {
 });
 
 router.post(
-  "/addproduct",
+  "/addproduct", adminAuth(),
   upload.array("images", 3), // limit to 3 images
   async (req, res) => {
     try {
@@ -75,9 +77,6 @@ router.post(
         });
       }
 
-      /* =============================
-          Upload images to Cloudinary
-      ============================== */
       const imageUrls = [];
 
       for (const file of req.files) {
@@ -93,9 +92,6 @@ router.post(
         imageUrls.push(null);
       }
 
-      /* =============================
-          Prepare DB Insert Data
-      ============================== */
       const insertData = {
         productName,
         category,
@@ -105,9 +101,6 @@ router.post(
         image1: imageUrls[0],
         image2: imageUrls[1],
         image3: imageUrls[2],
-
-        // created_time → DB default timestamp
-        // product_id → AUTO_INCREMENT
       };
 
       const sql = `INSERT INTO products SET ?`;

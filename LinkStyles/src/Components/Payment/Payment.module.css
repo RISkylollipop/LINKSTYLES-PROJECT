@@ -1,103 +1,141 @@
-.selectBox {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 16px;
-}
-
 .paymentContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
-  justify-content: center;
-  padding: 40px 20px;
+  padding: 0;
   background-color: #f2f4f8;
+  justify-content: space-around;
+  font-family: "Times New Roman", Times, serif;
 }
 
-.paymentMessage {
-  max-width: 450px;
-  color: #28a745;
-  font-size: 18px;
-  text-align: center;
-  margin-top: 30px;
+.PaymentCargo1 {
+  max-width: 350px;
+  padding: 10px;
 }
+
+.PaymentCargo1 .selectBox {
+  width: fit-content;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+.PaymentCargo1 .selectBox:focus {
+  border: 1px solid #ccc;
+}
+
+.paymentMessage p {
+  max-width: 300px;
+  color: #28a745;
+  font-size: 15px;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
 
 .PaymentForm {
-  flex: 1;
-  min-width: 340px;
-  max-width: 500px;
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .PaymentForm input,
 .PaymentForm textarea,
-.selectBox {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #ccc;
+.PaymentForm select {
+  max-width: 90%;
+  margin: 10px auto;
+  padding: 5px;
   border-radius: 10px;
-  background-color: #fafafa;
-  font-size: 16px;
-}
-
-.PaymentForm button {
-  padding: 14px;
-  background: #0066ff;
   border: none;
-  border-radius: 10px;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  outline: none;
+  transition: 0.3s ease-in-out;
 }
 
-.PaymentForm button:hover {
-  background-color: #0044cc;
+.PaymentForm input:focus {
+  border: 5px solid lightblue;
 }
 
-.cardSummary {
-  flex: 1;
-  min-width: 340px;
-  max-width: 500px;
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-.cardSummary h4 {
-  font-size: 22px;
+.PaymentForm select {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+}
+
+.PaymentForm button,
+.proceedButton button {
+  width: fit-content;
+  margin: 10px auto;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: gray;
+  color: black;
+  text-align: center;
+  transition: color 0.5s ease-in-out;
+}
+
+.PaymentForm button:hover,
+.proceedButton button:hover {
+  color: white;
+  outline: 5px solid white;
+}
+
+.PaymentForm h3 {
+  font-size: 20px;
+  white-space: normal;
+  word-wrap: break-word;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.proceedButton {
+  background-color: #f8f2f2;
+  width: fit-content;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.PaymentCargo3 {
+  height: 100dvh;
+  overflow-y: scroll;
 }
 
 .cartItemsTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.cartItemsTable th,
-.cartItemsTable td {
-  border: 1px solid #eee;
-  padding: 14px;
-  text-align: center;
-  font-size: 16px;
+.cardTable {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  color: gray;
+  margin: 10px auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgb(247, 242, 242),
+    -2px -2px 2px rgb(247, 242, 242);
 }
 
-.cartItemsTable th {
-  background-color: #f7f9fc;
-  color: #555;
+.cardTableBody {
+  margin: 20px;
+}
+
+.sections {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.sections h3 {
+  max-width: 200px;
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: normal;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .total {
@@ -115,24 +153,147 @@
   font-style: italic;
 }
 
-.paymentCard{
+.paymentAnime {
+  position: relative;
+  margin: 20px auto;
+  background-color: white;
+  width: 500px;
+  height: 500px;
+  z-index: 1;
+}
+
+.paymentAnime img {
+  width: 100%;
+}
+
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 50px;
+  padding: 0;
+  z-index: 1000;
+}
+
+.paymentCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1px auto;
+  padding: 0;
   text-align: center;
+  white-space: normal;
+
 }
 
-.backbutton{
-  display: block;
+.section1 {
+  display: flex;
+  background-color: whitesmoke;
+  padding: 0;
+  margin: 0;
+  color: gray;
+  margin-bottom: 30px;
+}
+
+.section1 h4 {
+  font-size: 17px;
+  line-height: 1.5rem;
+  text-transform: capitalize;
+}
+
+.section2 {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1rem;
+  margin-bottom: 50px;
+}
+
+.section2 img {
+  margin-left: 50px;
+  border-radius: 40%;
+}
+
+.section2 p {
+  margin: 2px;
+  font-size: 18px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.paymentDetailsCard h4 {
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.paymentCardBody {
+  background-color: whitesmoke;
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: left;
+  border-radius: 10px;
+  color: gray;
+}
+
+.paymentCardBody small {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.paymentCardBody h4 {
+  font-size: 17px;
+}
+
+.accountNumber,
+.amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.buttonSection {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.buttonSection button {
+  border: none;
+  border-radius: 7px;
+  padding: 0 10px;
   width: fit-content;
-  padding: 10px;
-  margin: 10px auto;
+  text-transform: capitalize;
 }
-@media (max-width: 768px) {
-  .paymentContainer {
-      flex-direction: column;
-      align-items: center;
-  }
 
-  .PaymentForm,
-  .cardSummary {
-      max-width: 90%;
-  }
+.cancelPayment {
+  max-width: 400px;
+  max-height: fit-content;
+  font-size: 15px;
+  white-space: normal;
+  background-color: #777;
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1rem;
+  box-shadow: 3px 3px 3px rgb(239, 224, 224),
+    -3px -3px 3px rgb(239, 224, 224);
 }
+
+.cancelPayment h3 {
+  font-size: 15px;
+}
+
+.cancelPayBtn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cancelPayBtn button {
+  padding: 2px;
+  width: fit-content;
+}
+
+/* Mobile view */
+@media (max-width: 604px) {}

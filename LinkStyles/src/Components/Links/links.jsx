@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ClothContext } from '../Context/ClothContext';
+import { LoginContext } from "../UserLogin/LoginContext";
 
 
 import styles from './links.module.css'
@@ -18,6 +20,25 @@ import arrowIcon2 from './public/up-arrow.png'
 
 
 function Links() {
+    const navigate = useNavigate()
+    const { user, setUser, isVerify } = useContext(LoginContext);
+    const [menu, setMenu] = useState(true)
+    const [catalogMenu, setCatalogMenu] = useState(false)
+    const [customerMenu, setCustomerMenu] = useState(false)
+    const [orderMenu, setOrderMenu] = useState(false)
+    const [inboxMenu, setInboxMenu] = useState(false)
+    const [filemanagerMenu, setFilemanagerMenu] = useState(false)
+
+
+
+    const [adminMail, setAdminMail] = useState("");
+    const [produceProductCount, setProduceProductCount] = useState(null);
+    const [userCount, setUserCount] = useState(null);
+
+    const URL = `http://localhost:3005`
+
+    isVerify()
+
 
     const states = [
         { name: "Lagos", image: image1, salesUnit: Math.floor(Math.random() * (999 - 210 + 1)) + 210 },
@@ -57,6 +78,7 @@ function Links() {
         // { name: "Ebonyi", image: image2, salesUnit: Math.floor(Math.random() * (999 - 210 + 1)) + 210 },
         // { name: "Abia", image: image3, salesUnit: Math.floor(Math.random() * (999 - 210 + 1)) + 210 },
     ];
+
 
     const Countries = [
         { name: "Qatar", image: image4, salesUnit: Math.floor(Math.random() * (19999 - 7999 + 1)) + 7999 },
@@ -111,23 +133,42 @@ function Links() {
         // { name: "Pakistan", image: image5, salesUnit: Math.floor(Math.random() * (19999 - 7999 + 1)) + 7999 },
         // { name: "Bangladesh", image: image6, salesUnit: Math.floor(Math.random() * (19999 - 7999 + 1)) + 7999 },
     ];
-    const navigate = useNavigate()
-    const [menu, setMenu] = useState(true)
-    const [catalogMenu, setCatalogMenu] = useState(false)
-    const [customerMenu, setCustomerMenu] = useState(false)
-    const [orderMenu, setOrderMenu] = useState(false)
-    const [inboxMenu, setInboxMenu] = useState(false)
-    const [filemanagerMenu, setFilemanagerMenu] = useState(false)
 
 
 
-    const [adminMail, setAdminMail] = useState(("Branch Manager").toWellFormed())
+    useEffect(() => {
+        fetch(`${URL}/api/v1/getusers`)
+            .then((res) => res.json())
+            .then((data) => {
+                localStorage.setItem("usercounts", JSON.stringify(data));
+                setUserCount(data.length);
+            })
+            .catch((err) => console.error(err));
+
+        const productLength = localStorage.getItem("productlength");
+        setProduceProductCount(productLength);
+
+        const userDetail = localStorage.getItem("data");
+        if (userDetail) {
+            setUser(JSON.parse(userDetail));
+        }
+    }, [setUser]);
+
+    useEffect(() => {
+        if (user?.role_name) {
+            setAdminMail(user.role_name.toUpperCase());
+        }
+    }, [user]);
+
+
 
     const now = new Date();
     const currentYear = now.getFullYear();
     const currentDay = now.getDate();
     const currentMonth = now.toLocaleString("default", { month: "long" });
     const weekday = now.toLocaleString("default", { weekday: "long" });
+
+
     return (
 
         <>
@@ -177,11 +218,14 @@ function Links() {
                                         Customers {customerMenu ? "✖️" : "➡️"}
                                         <ul className={`${customerMenu ? styles.catopen : styles.catclose} ${styles.listNav}`}>
                                             <li>Customer List
-                                                &nbsp;  <small style={{ color: "green" }}>432</small></li>
+                                                &nbsp;  <small style={{ color: "green" }}>{produceProductCount}</small> {/*TO be Adjusted later*/}
+                                            </li>
                                             <li>Customers
 
                                             </li>
-                                            <li>Partners</li>
+                                            <li>Partners
+                                                &nbsp;  <small style={{ color: "green" }}>{userCount}</small> {/*TO be Adjusted later*/}
+                                            </li>
 
                                         </ul>
                                     </li>
@@ -247,7 +291,7 @@ function Links() {
                                     }>
                                         File Manager {filemanagerMenu ? "✖️" : "➡️"}
                                         <ul className={`${filemanagerMenu ? styles.catopen : styles.catclose} ${styles.listNav}`}>
-                                            <li onClick={()=> navigate(`/link/admin/addproduct`)}>Add Product</li>
+                                            <li onClick={() => navigate(`/link/admin/addproduct`)}>Add Product</li>
                                             <li>Remove Product</li>
                                             <li>Edit Product</li>
                                             <li>Create New Category</li>
@@ -284,25 +328,49 @@ function Links() {
                                 <img src={image1} width="100%" height="100%" alt="" />
                             </div>
 
+                            {user ?
 
-                            <div className={styles.profileClockContainer}>
+                                <div className={styles.profileClockContainer}>
 
 
-                                <h5 >
-                                    🗓️ {currentDay} {weekday} {currentMonth}, {currentYear}
-                                </h5>
-                                &nbsp; <img src={profile} width="100px" height="auto"
-                                    style={{ borderRadius: "50%" }}
-                                    alt="" />
+                                    <h5 >
+                                        🗓️ {currentDay} {weekday} {currentMonth}, {currentYear}
+                                    </h5>
+                                    &nbsp; <img src={user.profilepicture} width="100px" height="auto"
+                                        style={{ borderRadius: "50%" }}
+                                        alt="" />
 
-                                <div className={styles.admindetail}>
-                                    <h5>Yunus Oluwadamilare</h5>
-                                    <h5 >{adminMail}</h5>
+                                    <div className={styles.admindetail}>
+                                        <h5>{user ? <>{user.first_name}.{user.middle_name}</> : "Yunus Oluwadamilare"}</h5>
+                                        <h5 >{adminMail}</h5>
+
+                                    </div>
+
 
                                 </div>
 
+                                :
 
-                            </div>
+                                <div className={styles.profileClockContainer}>
+
+
+                                    <h5 >
+                                        🗓️ {currentDay} {weekday} {currentMonth}, {currentYear}
+                                    </h5>
+                                    &nbsp; <img src={profile} width="100px" height="auto"
+                                        style={{ borderRadius: "50%" }}
+                                        alt="" />
+
+                                    <div className={styles.admindetail}>
+                                        <h5>Yunus Oluwadamilare</h5>
+                                        <h5>Acting Manager</h5>
+
+                                    </div>
+
+
+                                </div>
+                            }
+
                         </div>
 
 
@@ -343,7 +411,7 @@ function Links() {
 
                                 <div className={styles.cardDetail}>
                                     <div>
-                                        <h3>3.4k</h3> <p>Total</p>
+                                        <h3>{produceProductCount}k</h3> <p>Total</p>
                                     </div>
                                     <div>
                                         <h3>1654</h3> <p>Sold Out</p>
@@ -436,13 +504,13 @@ function Links() {
                                     {Countries && Countries.map((country, i) =>
 
                                     (
-                                    <div key={i} className={styles.card}>
-                                        <div className={styles.cardbody}>
-                                            <img src={country.image} alt="" />
-                                            <h5>{country.name}</h5>
-                                            <h5>{country.salesUnit} &nbsp; <small>Products</small></h5>
+                                        <div key={i} className={styles.card}>
+                                            <div className={styles.cardbody}>
+                                                <img src={country.image} alt="" />
+                                                <h5>{country.name}</h5>
+                                                <h5>{country.salesUnit} &nbsp; <small>Products</small></h5>
+                                            </div>
                                         </div>
-                                    </div>
                                     ))}
 
                                 </div>

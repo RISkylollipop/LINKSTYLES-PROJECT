@@ -81,7 +81,7 @@ function Footer() {
 
         setErrors({});
 
-        fetch(`http://localhost:3002/api/v1/subscribe`, {
+        fetch(`http://localhost:3005/api/v1/subscribe`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

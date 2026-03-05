@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 import LatestTrendImage1 from "../LatestTrend/LatestTrendImages/trend1.png";
 import LatestTrendImage2 from "../LatestTrend/LatestTrendImages/trend2.png";
@@ -27,6 +28,7 @@ const bgImage = [
 export const UserRegister = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -127,7 +129,7 @@ export const UserRegister = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:3002/register", {
+      const response = await fetch("http://localhost:3005/register", {
         method: "POST",
         body: dataForm,
       });
@@ -300,9 +302,17 @@ export const UserRegister = () => {
                 </select>
               )}
 
-              <button type="submit" disabled={loading}>
+              <div className={styles.buttonDivStyles}>
+                <button type="submit" disabled={loading}>
                 Register
+              </button> 
+              <p>Already have an account</p>
+              <button type="submit" disabled={loading}
+              onClick={() => navigate(`/login`)}
+              >
+                Login
               </button>
+              </div>
             </div>
           </form>
         </div>

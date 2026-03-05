@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
 
+import logo from '../../assets/mainlogo.png'
+
 
 
 
@@ -14,12 +16,16 @@ import { LoginContext } from '../UserLogin/LoginContext';
 import DigitalClock from '../DigitalClock/DigitalClock'
 
 import styles from './Header.module.css';
+import { toast } from 'react-toastify';
 
 function Header() {
     const navigate = useNavigate();
     const { cartCount } = useContext(ClothContext)
     const { user } = useContext(LoginContext);
     const [scrollY, setScrollY] = useState(0);
+    const [profileMenu, setProfileMenu] = useState(false)
+    const URL = `http://localhost:3005`
+
 
     function handleScrollY() {
         setScrollY(window.scrollY)
@@ -27,6 +33,26 @@ function Header() {
 
     function HandleRegister(user) {
         user === undefined ? navigate(`/register`) : navigate(`/login`)
+    }
+
+
+    const logout = async (user) => {
+        const res = await fetch(`${URL}/logout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+
+        const logoutData = await res.json()
+        toast.success(`Logout Successfully See You Soon 🤗` || logoutData.message)
+        setTimeout(() => {
+            localStorage.removeItem(`user`)
+            localStorage.removeItem(`data`)
+            localStorage.removeItem(`token`)
+            window.location.href = '/login'
+        }, 5000);
     }
 
     function HandleCountStyle() {
@@ -66,8 +92,8 @@ function Header() {
                     <Navbar.Brand href="" onClick={() => navigate(`/`)}>
                         <h3
                             style={{ cursor: 'pointer' }}
-                            className={`${styles.logo} ${styles.navLinks}`}>Link Styles
-                            <DigitalClock name={user} />
+                            className={`${styles.logo} ${styles.navLinks}`}> LinkStyles
+                            <DigitalClock name={user.first_name} />
                         </h3>
                     </Navbar.Brand>
 
@@ -93,32 +119,58 @@ function Header() {
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/clothes`)} className={styles.a}>Premium Collection</a>
+                                <a href="" onClick={() => navigate(`/premium`)} className={styles.a}>Premium Collection</a>
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/clothes`)} className={styles.a}>Summer Essential</a>
+                                <a href="" onClick={() => navigate(`/summers`)} className={styles.a}>Summer Essential</a>
                             </li>
 
-                            <li onClick={() => HandleRegister(user)}
+
+                            <li
+                                onMouseEnter={() => setProfileMenu(true)}
+                                onMouseLeave={() => setProfileMenu(false)}
+                                onClick={() => setProfileMenu(p => !p)}
+
                                 className={`${styles.headerlink} ${styles.navLinks} ${styles.profile} ${styles.li}`}>
-                                
-                                   <FaUser size={24} color="gray" 
-                                   title='Profile'/>
-                                    
-                                
+
+                                {user?.profilepicture ? <img
+                                    onClick={() => HandleRegister(user)}
+                                    src={user.profilepicture} alt="" width={20} height={20} /> : <FaUser onClick={() => HandleRegister(user)} size={24} color="gray"
+                                        title='Profile' />}
+
+                                {profileMenu &&
+
+                                    <ul style={
+                                        {
+                                            listStyle: "none",
+                                            padding: 0,
+                                            margin: 0,
+                                            textAlign: 'left'
+
+                                        }
+                                    }>
+                                        <li title='Edit Profile'>Profile</li>
+                                        <li title='settings'>Setting</li>
+                                        <li 
+                                        onClick={()=> logout( user )}
+                                        title='LogOut'>Logout</li>
+                                    </ul>
+                                }
 
 
-                               
+
                             </li>
+
+
 
 
                             <li className={`${styles.headerlink} ${styles.navLinks} ${styles.cart} ${styles.li}`}>
-                                <FaShoppingCart size={24} 
-                                onClick={() => navigate("product/cart")}
-                                color="gray" 
-                                title='My Cart'/>
-                                
+                                <FaShoppingCart size={24}
+                                    onClick={() => navigate("product/cart")}
+                                    color="gray"
+                                    title='My Cart' />
+
                                 <span
 
                                     style={HandleCountStyle()}>{cartCount}</span>

@@ -147,10 +147,10 @@
     font-weight: 500;
     color: #333;
     margin: 0 0 8px;
-    line-height: 1.4;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.4rem;
+    white-space: normal;
+    font-family: c;
+    
 }
 
 .cardBody p,

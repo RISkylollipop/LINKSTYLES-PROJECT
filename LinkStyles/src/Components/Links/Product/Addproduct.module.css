@@ -1,52 +1,151 @@
-.addProductContainer{
-    width: 100vw;
-    margin: 0;
-    padding: 20px;
-    background-image: repeating-radial-gradient(
-  circle,
-  green 10%,
-  blue 15%,
-  yellow 10%
-);
-text-align: center;
+.mainAddProductContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+
 }
 
-.addProductContainer label, .addProductContainer h1{
+
+.addProductContainer {
+    width: 50%;
+    box-sizing: border-box;
+    margin: 10px auto;
+    text-align: center;
+    box-shadow: 4px 4px 2px rgb(239, 230, 230),
+        -4px -4px 2px rgb(239, 230, 230);
+    overflow: hidden;
+}
+
+.addProductContainer form {
+    min-width: 100%;
+    margin: 10px auto;
+    justify-items: center;
+    align-items: center;
+}
+
+.formGroup {
+    min-width: 90%;
+    margin: 15px auto;
+}
+
+.formGroup input {
+    min-width: 90%;
+    margin-left: 20px;
+
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+    outline: none;
+    border: 5px solid skyblue;
+}
+
+.addProductContainer button {
+    background-color: rgb(5, 188, 5);
+    transition: 1s all ease-in-out;
+    border-radius: 8px;
     color: white;
+    padding: 5px;
+}
+.addProductContainer button:hover {
+    background-color: rgb(3, 98, 3);
+    transition: 1s all ease;
+}
+
+/* Add Old Data special styles */
+
+.imageUrlPreviews{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.imageUrlPreviews input{
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .mainAddProductContainer {
+        flex-direction: column;
+        background-color: transparent;
+    }
+
+    .addProductContainer {
+        width: 90%;
+        margin: 10px auto;
+
+    }
+
+    .addProductContainer form {
+        min-width: 90%;
+        margin: 10px auto;
+
+    }
+
+    .formGroup {
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .formGroup input {
+        max-width: 80%;
+        margin: 10px auto;
+
+    }
+
+    .addProductContainer label {
+        margin-bottom: 10px;
+        text-align: left;
+        margin-left: -30px;
+    }
+
+}
+
+/* .addProductContainer label,
+.addProductContainer h1 {
+    
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style: oblique;
-}
-.addProductContainer form{
+} */
+
+/* .addProductContainer form {
     width: 70%;
     margin: 10px auto;
     overflow: hidden;
     height: fit-content;
-    
-}
-.addProductContainer label{
+
+} */
+
+/* .addProductContainer label {
     font-size: 25px;
     margin: 0;
     padding: 0;
     font-weight: 1000;
     text-align: left;
     margin-left: 20%;
-    color: white;
-}
-.addProductContainer input, .addProductContainer textarea{
+} */
+
+/* .addProductContainer input,
+.addProductContainer textarea {
     max-width: 60%;
-}
-.addProductContainer button{
+} */
+
+/* .addProductContainer button {
     margin-top: 20px;
     width: 20%;
     padding: 5px;
     font-size: 25px;
     border-style: dotted;
     border-radius: 10px;
-}
-.addProductContainer select, .addProductContainer option{
+} */
+
+/* .addProductContainer select,
+.addProductContainer option {
     width: 30%;
     text-align: center;
     padding: 5px;
     border-radius: 10px;
     font-size: 25px;
-}
+} */

@@ -21,3 +21,8 @@ body{
 .Footer{
   font-family: 'Montserrat', sans-serif;
 }
+.ToastContainer{
+  word-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+}

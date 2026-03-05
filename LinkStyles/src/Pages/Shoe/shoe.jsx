@@ -17,12 +17,11 @@ function Shoes() {
     const [searchQuery, setSearchQuery] = useState("");
     const [value, setValue] = useState(2000);
 
-    const URL = "http://localhost:3002";
+    const URL = "http://localhost:3005";
 
     useEffect(() => {
         fetch(`${URL}/api/v1/shoes`)
-            .then((response) => response.json())
-            
+            .then((res) => res.json())
             .then((data) => {
                 if (Array.isArray(data)) {
                     console.log(`the data`,typeof data);
@@ -31,8 +30,15 @@ function Shoes() {
                     console.error("Invalid data format", typeof data);
                 }
             })
-            .catch((error) => console.error("Error fetching products:", error));
+            .catch((error) => console.error(error));
     }, []);
+
+    useEffect(() => {
+        if (product.length > 0) {
+            console.log("✅ Products loaded:", product);
+        }
+    }, [product]);
+
 
     function handleSearchQuery(e) {
         setSearchQuery(e.target.value);
@@ -55,8 +61,6 @@ function Shoes() {
 
                 <h3 className={styles.headings}>Call to order 070000000000</h3>
 
-                {/* <ToastContainer /> */}
-
                 <div className={styles.seachdiv}>
                     <input
                         type="text"
@@ -67,7 +71,9 @@ function Shoes() {
                         onChange={handleSearchQuery}
                         style={{ borderRadius: "10px", width: "100%", padding: "10px" }}
                     />
+
                     <br />
+
                     <input
                         type="range"
                         min="100"
@@ -79,12 +85,17 @@ function Shoes() {
                         onChange={handleValueChange}
                         style={{ width: "100%", marginTop: "10px" }}
                     />
+
                     <br />
+
                     <span>
                         <label htmlFor="range">Filter With Price: {value}</label>
                         <p>
                             Reset{" "}
-                            <i className="bi bi-arrow-clockwise" onClick={refreshValue}></i>
+                            <i
+                                className="bi bi-arrow-clockwise"
+                                onClick={refreshValue}
+                            ></i>
                         </p>
                     </span>
                 </div>
@@ -92,19 +103,22 @@ function Shoes() {
                 <div className={styles.cardContainer}>
                     {product.length > 0 ? (
                         product
-                            .filter(
-                                (prod) =>
-                                    Number(prod.price) >= value &&
-                                    searchQuery
-                                        .toLowerCase()
-                                        .split(" ")
-                                        .some(
-                                            (word) =>
-                                                prod.productName.toLowerCase().includes(word) ||
-                                                prod.description.toLowerCase().includes(word) ||
-                                                prod.category.toLowerCase().includes(word)
-                                        )
-                            )
+                            .filter((prod) => {
+                                const matchesPrice = Number(prod.price) >= value;
+
+                                if (!searchQuery.trim()) return matchesPrice;
+
+                                const words = searchQuery.toLowerCase().split(" ");
+
+                                const matchesSearch = words.some(
+                                    (word) =>
+                                        prod.productName.toLowerCase().includes(word) ||
+                                        prod.description.toLowerCase().includes(word) ||
+                                        prod.category.toLowerCase().includes(word)
+                                );
+
+                                return matchesPrice && matchesSearch;
+                            })
                             .map((prod) => {
                                 let newPrice = Number(prod.price);
                                 let originalPrice = 0;
@@ -117,9 +131,7 @@ function Shoes() {
 
                                 originalPrice = Number(originalPrice.toFixed(2));
                                 let discount = originalPrice - newPrice;
-                                let percentDiscount = ((discount / originalPrice) * 100).toFixed(
-                                    0
-                                );
+                                let percentDiscount = ((discount / originalPrice) * 100).toFixed(0);
                                 let Pdiscount = `-${percentDiscount}%`;
 
                                 return (
@@ -131,7 +143,7 @@ function Shoes() {
                                                     src={prod.image1}
                                                     alt={prod.productName}
                                                     onClick={() =>
-                                                        navigate(`/clothes/${prod.product_id}`)
+                                                        navigate(`/shoes/${prod.product_id}`)
                                                     }
                                                 />
                                             </div>
@@ -146,18 +158,20 @@ function Shoes() {
 
                                             <p className={styles.priceWrapper}>
                                                 <span className={styles.newPrice}>
-                                                    {symbol} {newPrice}
+                                                    {symbol}{" "}
+                                                    {new Intl.NumberFormat("en-US").format(newPrice)}
                                                 </span>
                                                 <br />
                                                 <span className={styles.originalPrice}>
-                                                    {symbol} {originalPrice}
+                                                    {symbol}{" "}
+                                                    {new Intl.NumberFormat("en-US").format(originalPrice)}
                                                 </span>
                                             </p>
 
                                             <div className={styles.btnGroup}>
                                                 <button
                                                     onClick={() =>
-                                                        navigate(`/clothes/${prod.product_id}`)
+                                                        navigate(`/shoes/${prod.product_id}`)
                                                     }
                                                     className={styles.detailbtn}
                                                 >

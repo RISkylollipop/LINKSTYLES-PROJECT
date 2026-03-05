@@ -1,5 +1,5 @@
 import { useState, useEffect, } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,7 +28,7 @@ import { Faqs } from "./Components/FAQS/Faqs";
 import Checkout from "./Components/Checkout/Checkout";
 import UserRegister from "./Components/UserRegister/register";
 import { Login } from "./Components/UserLogin/login";
-import Contact from "./Pages/contact";
+import Contact from "./Pages/contact/contact.jsx";
 
 // Global Context Page
 // Contexts
@@ -36,7 +36,9 @@ import LoginContextProvider from "./Components/UserLogin/LoginContext.jsx";
 import CountryContextProvider from "./Components/Context/countryApi.jsx";
 import ClothContextProvider from "./Components/Context/ClothContext";
 
+import NotFound from "./Components/NOTFound/notFound.jsx";
 
+import './index.css'
 
 function App() {
   const [isLoading, setIsloading] = useState(true);
@@ -58,53 +60,70 @@ function App() {
 
   return (
     <>
-      {isAdminRoute ? (<Routes>
-
-        <Route path="/link/admin" element={<Links />} />
-        <Route path="/link/admin/addproduct" element={<AddProduct/>}/>
-
-      </Routes>) : (
+      {isAdminRoute ?
+        <LoginContextProvider>
+          <ClothContextProvider>
+            <CountryContextProvider>
 
 
-        <>
-          <LoginContextProvider>
-            <ClothContextProvider>
-              <CountryContextProvider>
-                {isLoading ? (
-                  <PageLoading name="Links Style" />
-                ) : (
-                  <>
-                    <Header />
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/clothes" element={<Productlunch />} />
-                      <Route path="/phones" element={<Phones />} />
-                      <Route
-                        path="/clothes/:productID"
-                        element={<ProductDetails />}
-                      />
-                      <Route path="/phone/:phoneID" element={<Phonedetail />} />
+
+              (
+              <Routes>
+                <Route path="/link/admin" element={<Links />} />
+                <Route path="/link/admin/addproduct" element={<AddProduct />} />
+
+              </Routes>
+              )
+            </CountryContextProvider>
+          </ClothContextProvider>
+        </LoginContextProvider>
+
+        : (
 
 
-                      <Route path="/shoes" element={<Shoes/>}/>
-                      <Route path="/shoes/:productID" element={<ShoeDetails/>}/>
-                      <Route path="/product/cart" element={<Cart />} />
-                      <Route path="/payment" element={<Payment />} />
-                      <Route path="/faqs" element={<Faqs />} />
-                      <Route path="/register" element={<UserRegister />} />
-                      <Route path="/login" element={<Login />} />
-                      <Route path="/contact" element={<Contact />} />
-                      <Route path="/checkout" element={<Checkout />} />
-                    </Routes>
-                  </>
-                )}
-                <ToastContainer position="top-center" autoClose={3000} />
-              </CountryContextProvider>
-            </ClothContextProvider>
-          </LoginContextProvider>
+          <>
+            <LoginContextProvider>
+              <ClothContextProvider>
+                <CountryContextProvider>
+                  {isLoading ? (
+                    <PageLoading name="Links Style" />
+                  ) : (
+                    <>
+                      <Header />
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/clothes" element={<Productlunch />} />
+                        <Route path="/phones" element={<Phones />} />
+                        <Route
+                          path="/clothes/:productID"
+                          element={<ProductDetails />}
+                        />
+                        <Route path="/phone/:phoneID" element={<Phonedetail />} />
 
 
-        </>)}
+                        <Route path="/shoes" element={<Shoes />} />
+                        <Route path="/shoes/:productID" element={<ShoeDetails />} />
+                        <Route path="/product/cart" element={<Cart />} />
+                        <Route path="/payment" element={<Payment />} />
+                        <Route path="/faqs" element={<Faqs />} />
+                        <Route path="/register" element={<UserRegister />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/checkout" element={<Checkout />} />
+                        {/* <Route path="*" element={<Navigate to="/404" />} /> */}
+                        <Route path="*" element={<NotFound/>}/>
+                      </Routes>
+                    </>
+                  )}
+                  <ToastContainer 
+                  className="ToastContainer"
+                  position="top-center" autoClose={3000} />
+                </CountryContextProvider>
+              </ClothContextProvider>
+            </LoginContextProvider>
+
+
+          </>)}
 
 
 

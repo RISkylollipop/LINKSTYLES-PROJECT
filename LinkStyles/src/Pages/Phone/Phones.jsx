@@ -25,7 +25,7 @@ function Phones() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3002/api/v1/phones")
+    fetch("http://localhost:3005/api/v1/phones")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -105,8 +105,8 @@ function Phones() {
                     {/* 🔥 SWIPER SLIDER HERE */}
                     <Swiper
                       modules={[Navigation, Pagination, Autoplay]}
-                      navigation
-                      pagination={{ clickable: true }}
+                      // navigation = {{clickable : true}}
+                      // pagination={{ clickable: true }}
                       autoplay={{ delay: 2500 }}
                       loop={true}
                       className={styles.slider}

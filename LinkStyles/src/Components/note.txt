@@ -574,3 +574,34 @@ fetch((``), {
           </div>
         </form>
       </div>
+
+
+
+
+
+CONTACT US STARTS HERE
+
+
+
+
+     <tbody>
+                    {cart.map((item) => (
+                      <tr key={item.product_id}>
+                        <td data-label="Item">{item.productName}</td>
+
+                        <td data-label="Image">
+                          <img src={item.image1} alt={item.productName} width={80} />
+                        </td>
+
+                        <td data-label="Unit / Price">
+                          <b>Qty:</b> {item.quantity}
+                          <br />
+                          {symbol} {item.price}
+                        </td>
+
+                        <td data-label="Total">
+                          {symbol} {(item.price * item.quantity).toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>

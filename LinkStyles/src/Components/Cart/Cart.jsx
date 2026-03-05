@@ -9,94 +9,119 @@ import styles from './Cart.module.css'
 
 function Cart() {
 
+    
     const navigate = useNavigate();
     const { cart, cartCount, removeFromCart, addQuantity, removeQuantity, symbol, totalCartPrice } = useContext(ClothContext);
 
 
 
     function handlePayment() {
+        
         navigate(`/payment`)
     }
 
     return (
         <div className={styles.cartContainer}>
             {/* <ToastContainer position="top-center"/> */}
-            <h2 className={styles.h2}>Your Cart</h2>
-            <h3 className={styles.h2} >You have <p
-                style={{
-                    backgroundColor: "grey",
-                    color: "white",
-                    padding: "5px 10px",
-                    borderRadius: "50%",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    minWidth: "24px",
-                    textAlign: "center",
-                    display: "inline-block"
-                }}
-            >{cartCount}</p>{cartCount > 1 ? " Items in your Cart" : " Item in your Cart"} </h3>
+            <div className={styles.cardHead}>
 
+                <h2 >Your Cart</h2>
+                <h3 >You have <p>{cartCount}</p>{cartCount > 1 ? " Items in your Cart" : " Item in your Cart"} </h3>
 
+            </div>
+            <hr />
             {cart.length === 0 ? (
-                <p className={styles.p}>Your cart is empty.</p>
+                <p className={styles.cardHead}>Your cart is empty.</p>
             ) : (
                 <ul className={styles.list}>
-                    {cart.map((item, index) => (
+                    {cart.map((item) => {
+                        const totalPrice = item.price * item.quantity;
 
-                        <>
-                            <li key={item.product_id ?? `cart-item-${index + 1}`} className={styles.cartItem}>
-
-                                <div style={{ display: "flex", flexDirection: "column" }}>
-                                    <img
-                                        style={{ marginRight: "10px", marginBottom: "20px" }}
-                                        src={item.image1} alt={item.productName} width="250" />
-                                </div>
-
+                        return (
+                            <li
+                                key={item.product_id}
+                                className={styles.cartItem}
+                            >
+                                {/* Image */}
                                 <div
-                                    style={{ whiteSpace: "normal", wordBreak: "break-word" }}
-                                >
-                                    <h4 className={styles.h4}>{item.productName || item.productName}</h4>
-                                    <p className={styles.p}>Price:{symbol} {new Intl.NumberFormat("en-US").format(item.price)}</p>
-
-                                    <h5 style={{ fontSize: "20px", fontWeight: "800" }}>
-                                        Total Price : {item.price * item.quantity}
-                                    </h5>
+                                    className={styles.cartCard}>
+                                    <img
+                                        src={item.image1}
+                                        alt={item.productName}
+                                    />
                                 </div>
-                                &nbsp;
+
+
+                                <div className={styles.cartCardBody}>
+
+                                    <h4>{item.productName}</h4>
+
+                                    <p>
+                                        Price: {symbol}{""}
+                                        {new Intl.NumberFormat("en-US").format(item.price)}
+                                    </p>
+
+                                    <p>
+                                        Total Price: {symbol}{""}
+                                        {new Intl.NumberFormat("en-US").format(totalPrice)}
+                                    </p>
+                                </div>
+
+
                                 <div className={styles.quantityControls}>
-                                    <button className={styles.quantityBtn} onClick={() => removeQuantity(item.product_id)}>-</button>
-                                    <span className={styles.quantityDisplay}>{item.quantity}</span>
-                                    <button className={styles.quantityBtn} onClick={() => addQuantity(item.product_id)}>+</button>
-                                    <br />
+                                    <button
+                                        className={styles.quantityBtn}
+                                        onClick={() => removeQuantity(item.product_id)}
+                                    >
+                                        -
+                                    </button>
 
+                                    <span className={styles.quantityDisplay}>
+                                        {item.quantity}
+                                    </span>
+
+                                    <button
+                                        className={styles.quantityBtn}
+                                        onClick={() => addQuantity(item.product_id)}
+                                    >
+                                        +
+                                    </button>
                                 </div>
 
-                                <button className={styles.cartBtn} onClick={() => removeFromCart(item.product_id)}>Remove</button>
 
-
+                                <button
+                                    className={styles.cartBtn}
+                                    onClick={() => removeFromCart(item.product_id)}
+                                >
+                                    Remove
+                                </button>
                             </li>
-                        </>
-
-                    ))}
+                        );
+                    })}
                 </ul>
             )}
 
-            <h3 className={styles.h3}
+            <div className={styles.cardPaySec}>
 
-                style={cart.length > 0 ? { display: "block", } : { display: "none" }}
-
-            >Total: {symbol} {new Intl.NumberFormat("en-US").format((totalCartPrice).toFixed(2))}</h3>
-
-
-
-            <button
-                style={cart.length > 0 ? {
-                    display: "block", position: "absolute", color: "white", backgroundColor: "green", right: "20px"
-                }
-
+                <h3 style={cart.length > 0
+                    ? { display: "block", }
                     : { display: "none" }}
 
-                onClick={handlePayment}>Proceed to Pay</button>
+                >Total: {symbol}{new Intl.NumberFormat("en-US").format((totalCartPrice).toFixed(2))}
+                </h3>
+
+                <button
+                    style={cart.length > 0
+                        ? { display: "block" }
+                        : { display: "none" }}
+                    onClick={handlePayment}>Proceed To Checkout
+                </button>
+            </div>
+
+
+
+
+
         </div>
     );
 }

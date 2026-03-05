@@ -7,14 +7,33 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.h2, .h3 {
+.cardHead{
+    background-color: rgba(248, 244, 244, 0.45);
+    margin-top: 0;
+    border-radius: 10px;
+    
+}
+.cardHead h2, .cardHead h3{
     text-align: center;
-    color: #333;
+    color: gray;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.cardHead p {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 20px;
+    min-width: 24px;
+    text-align: center;
+    display: inline-block;
 }
 
 .list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .cartItem {
@@ -28,23 +47,6 @@
     padding-bottom: 30px;
 }
 
-.cartItem img {
-    width: 200px;
-    height: 200px;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-.cartItem .h4 {
-    margin: 0;
-    font-size: 18px;
-    color: #444;
-}
-
-.cartItem .p {
-    margin: 5px 0;
-    color: #666;
-}
 
 .cartBtn {
     background: #ff4d4d;
@@ -61,12 +63,6 @@
     background: #e60000;
 }
 
-/* Centering total price */
-.h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 20px;
-}
 
 /* Add and Remove Button style */
 
@@ -97,8 +93,53 @@
     color: #333;
 }
 
+/* New Styling starts Here */
+.cartCard {
+    display: flex;
+    flex-direction: column;
+}
 
-@media screen and (max-width: 768px) {
+.cartCard img {
+    width: 200px;
+    mix-blend-mode: multiply;
+}
+
+.cartCardBody {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.cartCardBody h4 {
+    font-weight: 700;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cartCardBody p {
+    text-align: left;
+    font-weight: 800;
+    font-weight: 30px;
+    font-size: 15px;
+}
+.cardPaySec{
+    display: flex;
+    padding-top: 20px;
+    justify-content: space-around;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cardPaySec button{
+    background-color: rgb(94, 179, 94);
+    color: whitesmoke;
+    border-radius: 10px;
+    border: none;
+    text-transform: capitalize;
+    transition: 0.5s ease-in-out;
+}
+.cardPaySec button:hover{
+    background-color: green;
+}
+
+@media screen and (min-width: 280px) and (max-width: 604px) {
     .cartContainer {
         max-width: 90%;
         padding: 15px;
@@ -121,7 +162,8 @@
     }
 
     .cartItem .p {
-        font-size: 14px;
+        font-size: 10px;
+        font-weight: 900;
     }
 
     .quantityControls {
@@ -148,7 +190,7 @@
     }
 
     button {
-        width: 100%;
+        width: fit-content !important;
         padding: 10px;
     }
 }

@@ -3,6 +3,7 @@ const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
 const db = require(`../database`)
+const crypto = require("crypto");
 
 // Monnify Configuration
 const MONNIFY_BASE_URL = 'https://api.monnify.com';
@@ -49,9 +50,15 @@ router.get('/v1/get-opay-account', (req, res) => {
 });
 
 // 🧾 Step 1: Initialize Transaction
-const paymentReference = `ref_${7852749 * Date.now()}`;
+
+const paymentRef = async () => {
+  const paymentRef = `ref_${crypto.randomUUID()}`;
+  return paymentRef
+
+}
 
 router.post('/v1/init-transaction', async (req, res) => {
+
   const { amount, customerEmail, customerName, cart } = req.body;
   console.log(req.body, `Req body from Initialize Transaction`);
 
@@ -61,6 +68,7 @@ router.post('/v1/init-transaction', async (req, res) => {
 
   try {
     const accessToken = await getAccessToken();
+    const paymentReference = await paymentRef()
 
     // db.query(insertTranscDetail) for later
 
@@ -118,14 +126,15 @@ router.post('/generate-account', async (req, res) => {
     const Totalamount = req.body.amount;
     const cartGoods = JSON.stringify(req.body.CartItem)
     const accessToken = await getAccessToken();
+    const paymentReference = await paymentRef()
     console.log(paymentReference);
     console.log(transactionReference);
-    
-    
+
+
 
     // db can go here
     // console.log(`Db data that will be sent out`, customerEmail, customerName, cartGoods, transactionReference, paymentReference, Totalamount);
-    
+
     const status = `PENDING`
     const SqlQueryData = {
       reference_id: paymentReference,
@@ -134,16 +143,17 @@ router.post('/generate-account', async (req, res) => {
       monnify_ref: transactionReference,
       email: customerEmail,
       full_name: customerName,
-      status: status
+      status: status,
+      payment_mode : "Transfer"
     }
     db.query(`insert into cart set ?`, SqlQueryData, (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(`Cart data sent and saved to database successfully`);
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(`Cart data sent and saved to database successfully`);
 
-        }
-      })
+      }
+    })
 
     const response = await axios.post(
       `${MONNIFY_BASE_URL}/api/v1/merchant/bank-transfer/init-payment`,
@@ -161,10 +171,12 @@ router.post('/generate-account', async (req, res) => {
     return res.status(200).json({
       status: 'success',
       accountNumber: response.data.responseBody.accountNumber,
-      bankName: response.data.responseBody.bankName,
-      amount: response.data.responseBody.amount,
-      paymentReference: response.data.responseBody.paymentReference,
-      accountName: `LinkStyle`
+      mainData: response.data.responseBody,
+      // bankName: response.data.responseBody.bankName,
+      // amount: response.data.responseBody.amount,
+      // paymentReference: response.data.responseBody.paymentReference,
+      accountName: "LinkStyles Nigeria LTD",
+      customerEmail: customerEmail
     });
 
   } catch (error) {
@@ -173,5 +185,25 @@ router.post('/generate-account', async (req, res) => {
   }
 });
 
+router.post(`/v1/paymentDelayUpdate/:reference?`, (req, res) => {
+  console.log(req.body);
+  const { reference } = req.params;
+  if (req.body.status === "PENDING") {
+    const FailedQuery = `update cart 
+set status = "FAILED" where monnify_ref = ?;`
+
+
+    db.query(FailedQuery, [reference], (err, FailedQueryData) => {
+      if (err) {
+        console.log(`Cart update with Referencing Error`, err);
+
+      } else {
+        return res.status(200).json({ message: `Transaction Failed Please initiate a new Transaction` })
+      }
+    })
+  } else {
+    return res.status(401).json({ error: `No Status Request receive` })
+  }
+})
 
 module.exports = router;
