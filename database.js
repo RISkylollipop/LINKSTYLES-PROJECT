@@ -6,14 +6,14 @@ const db = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DATABASE,
-    port: process.env.PORT
+    port: process.env.MYSQLPORT
 })
 
 
 db.connect((err, result) => {
 
     if (err) {
-        console.error(err `Error Connecting`)
+        console.error(err , `Error Connecting`)
     }else{
 
         console.log(`Database Started on railway server`);
