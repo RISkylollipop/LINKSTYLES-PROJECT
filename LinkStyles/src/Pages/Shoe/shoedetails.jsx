@@ -34,7 +34,7 @@ function ShoeDetails() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const navigate = useNavigate();
 
-  const URL = "http://localhost:3005";
+  const URL = "http://linkstyles-project-production.up.railway.app";
 
   useEffect(() => {
     const controller = new AbortController();

@@ -26,7 +26,7 @@ function Phonedetail() {
   const { phoneID } = useParams();
   const [phonedata, setPhonedata] = useState(null);
 
-  const URL = `http://localhost:3005`;
+  const URL = `http://linkstyles-project-production.up.railway.app`;
 
   useEffect(() => {
     let isMounted = true;

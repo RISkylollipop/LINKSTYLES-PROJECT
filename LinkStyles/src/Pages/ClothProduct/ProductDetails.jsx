@@ -20,7 +20,7 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 
 function ProductDetails() {
-  const URL = `http://localhost:3005`;
+  const URL = `http://linkstyles-project-production.up.railway.app`;
 
   // useEffect(() => {
   //   const interval = setInterval(async () => {

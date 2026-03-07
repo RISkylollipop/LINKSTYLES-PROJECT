@@ -7,7 +7,7 @@ function Connect() {
 
 
     useEffect(() => {
-        fetch(`http://localhost:3005/api/v1/products`)
+        fetch(`http://linkstyles-project-production.up.railway.app/api/v1/products`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)

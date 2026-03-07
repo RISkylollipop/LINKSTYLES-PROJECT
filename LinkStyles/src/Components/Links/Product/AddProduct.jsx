@@ -11,7 +11,7 @@ const AddProduct = () => {
   const {isVerify} = useContext(LoginContext)
    
 
-    const URL = `http://localhost:3005`
+    const URL = `http://linkstyles-project-production.up.railway.app`
     isVerify()
 
 
@@ -81,7 +81,7 @@ const AddProduct = () => {
     try {
       const token = localStorage.getItem(`token`)
       const response = await fetch(
-        "http://localhost:3005/api/v1/addproduct",
+        "http://linkstyles-project-production.up.railway.app/api/v1/addproduct",
         {
           method: "POST",
           body: data,
@@ -132,7 +132,7 @@ const AddProduct = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3005/api/v1/addoldproduct",
+        "http://linkstyles-project-production.up.railway.app/api/v1/addoldproduct",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

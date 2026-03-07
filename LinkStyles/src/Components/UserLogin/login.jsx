@@ -22,7 +22,7 @@ export function Login() {
     password: "",
   });
 
-  const URL = `http://localhost:3005`
+  const URL = `http://linkstyles-project-production.up.railway.app`
   const handleSubmit = (e) => {
     e.preventDefault();
 

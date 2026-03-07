@@ -81,7 +81,7 @@ function Footer() {
 
         setErrors({});
 
-        fetch(`http://localhost:3005/api/v1/subscribe`, {
+        fetch(`http://linkstyles-project-production.up.railway.app/api/v1/subscribe`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -30,7 +30,7 @@ function Contact() {
       setErrors(validateErrors);
     } else {
       setErrors({});
-      fetch("http://localhost:3005/api/v1/submit", {
+      fetch("http://linkstyles-project-production.up.railway.app/api/v1/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
