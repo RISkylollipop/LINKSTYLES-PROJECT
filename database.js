@@ -5,7 +5,8 @@ const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DATABASE
+    database: process.env.DATABASE,
+    port: process.env.PORT
 })
 
 
@@ -15,7 +16,7 @@ db.connect((err, result) => {
         console.error(err `Error Connecting`)
     }else{
 
-        console.log(`Database Started`);
+        console.log(`Database Started on railway server`);
     }
     
 })
