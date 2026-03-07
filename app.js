@@ -30,7 +30,7 @@ const port = process.env.PORT || 3005;
 // // Supplied origin must tally with frontend server
 // //alternative for not supplying Origin of Frontend is:
 
-const allowedOrigins = ["https://linkstyles-project-1fnd.vercel.app/"]; 
+const allowedOrigins = ["https://linkstyles-project-1fnd.vercel.app"]; 
 
 app.use(
   cors({
@@ -41,9 +41,25 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    //   credentials: true, // Allow cookies & authentication (if needed)
+      credentials: true, // Allow cookies & authentication (if needed)
   })
 );
+
+// const allowedOrigins = ["https://linkstyles-project-1fnd.vercel.app"];
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true, // Allow cookies & authentication (if needed)
+//   })
+// );
+
 
 app.use(express.json());
 app.use("/api", paymentRoute);
