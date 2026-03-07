@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
-import styles from './payment.module.css';
+import styles from './Payment.module.css';
 import { ClothContext } from '../Context/ClothContext';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
