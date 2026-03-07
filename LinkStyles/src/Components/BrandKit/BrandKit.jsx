@@ -29,7 +29,7 @@ import womenBags from './BrandKitImages/womenBags.png';
 
 
 const brands = [
-    { id: 1, name: "Accessories", image: BrandA1, Category: "Accessories" },
+    // { id: 1, name: "Accessories", image: BrandA1, Category: "Accessories" },
     { id: 2, name: "Winter Clothes", image: BrandA2, Category: "Winter Clothes" },
     { id: 3, name: "Gold Ring", image: BrandA3, Category: "Gold Ring" },
     { id: 4, name: "Women's Accessories", image: BrandA4, Category: "Women's Accessories" },
@@ -42,7 +42,7 @@ const brands = [
     { id: 11, name: "Mens Watch", image: mensWatch, Category: "Mens Watch" },
     { id: 12, name: "Shoes", image: Shoes, Category: "Shoes" },
     { id: 13, name: "Women Bags", image: womenBags, Category: "Women Bags" },
-    { id: 14, name: "Accessories", image: BrandA1, Category: "Accessories" },
+    // { id: 14, name: "Accessories", image: BrandA1, Category: "Accessories" },
     { id: 15, name: "Winter Clothes", image: BrandA2, Category: "Winter Clothes" },
     { id: 16, name: "Gold Ring", image: BrandA3, Category: "Gold Ring" },
     { id: 17, name: "Women's Accessories", image: BrandA4, Category: "Women's Accessories" },
