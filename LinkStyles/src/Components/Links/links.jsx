@@ -35,7 +35,7 @@ function Links() {
     const [produceProductCount, setProduceProductCount] = useState(null);
     const [userCount, setUserCount] = useState(null);
 
-    const URL = `http://localhost:3005`
+    const URL = `https://linkstyles-project-production.up.railway.app`;
 
     isVerify()
 

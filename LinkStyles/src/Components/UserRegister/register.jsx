@@ -129,7 +129,7 @@ export const UserRegister = () => {
     });
 
     try {
-      const response = await fetch("http://linkstyles-project-production.up.railway.app/register", {
+      const response = await fetch("https://linkstyles-project-production.up.railway.app/register", {
         method: "POST",
         body: dataForm,
       });

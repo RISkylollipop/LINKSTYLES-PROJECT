@@ -132,7 +132,7 @@ const AddProduct = () => {
 
     try {
       const response = await fetch(
-        "http://linkstyles-project-production.up.railway.app/api/v1/addoldproduct",
+        "https://linkstyles-project-production.up.railway.app/api/v1/addoldproduct",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

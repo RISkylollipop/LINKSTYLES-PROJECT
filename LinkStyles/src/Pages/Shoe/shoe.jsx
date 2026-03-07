@@ -17,7 +17,7 @@ function Shoes() {
     const [searchQuery, setSearchQuery] = useState("");
     const [value, setValue] = useState(2000);
 
-    const URL = "http://linkstyles-project-production.up.railway.app";
+    const URL = "https://linkstyles-project-production.up.railway.app";
 
     useEffect(() => {
         fetch(`${URL}/api/v1/shoes`)

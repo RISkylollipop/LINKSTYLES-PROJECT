@@ -25,7 +25,7 @@ function Phones() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://linkstyles-project-production.up.railway.app/api/v1/phones")
+    fetch("https://linkstyles-project-production.up.railway.app/api/v1/phones")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {

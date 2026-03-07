@@ -5,7 +5,7 @@ const Checkout = () => {
 
     function checkout() {
         useEffect(() => {
-            fetch(`linkstyles-project-production.up.railway.app/api/v1/generate-account`,
+            fetch(`https://linkstyles-project-production.up.railway.app/api/v1/generate-account`,
                 {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },

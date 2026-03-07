@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const ClothContext = createContext();
 
 export default function ClothContextProvider({ children }) {
-  const URL = "http://linkstyles-project-production.up.railway.app";
+  const URL = "https://linkstyles-project-production.up.railway.app";
 
   // Load Cart
   const [cart, setCart] = useState(() => {

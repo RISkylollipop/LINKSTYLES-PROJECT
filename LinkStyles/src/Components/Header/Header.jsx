@@ -24,7 +24,7 @@ function Header() {
     const { user } = useContext(LoginContext);
     const [scrollY, setScrollY] = useState(0);
     const [profileMenu, setProfileMenu] = useState(false)
-    const URL = `http://linkstyles-project-production.up.railway.app`
+    const URL = `https://linkstyles-project-production.up.railway.app`
 
 
     function handleScrollY() {

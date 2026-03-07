@@ -49,7 +49,7 @@ const Payment = () => {
 
 
 
-  const URL = `http://linkstyles-project-production.up.railway.app`
+  const URL = `https://linkstyles-project-production.up.railway.app`
   const navigate = useNavigate();
   const { cart, cartCount, symbol, totalCartPrice } = useContext(ClothContext);
   const [paymenttype, setPaymenttype] = useState('Card Payment');
