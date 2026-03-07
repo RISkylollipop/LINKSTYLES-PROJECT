@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useNavigate} from 'react-router-dom'
-// Import Swiper styles
+// Import Swiper style
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
