@@ -12,7 +12,7 @@ import styles from  './BrandKit.module.css';
 
 
 
-import BrandA1 from './BrandKitImages/BrandA1.png';
+// import BrandA1 from './BrandKitImages/BrandA1.png';
 import BrandA2 from './BrandKitImages/BrandA2.png';
 import BrandA3 from './BrandKitImages/BrandA3.png';
 import BrandA4 from './BrandKitImages/BrandA6.png';
