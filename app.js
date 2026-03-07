@@ -23,7 +23,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDAPIS,
 });
 const app = express();
-const port = 3005;
+const port = process.env.PORT || 3005;
 
 // // middlewares
 // // app.use(cors({origin: 'http://localhost:5174'}))
