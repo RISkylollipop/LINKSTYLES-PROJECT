@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
-import styles from "./AddProduct.module.css";
+import styles from "./Addproduct.module.css";
 import {useLocation, useNavigate } from "react-router-dom";
 
 import { LoginContext } from "../../UserLogin/LoginContext";
