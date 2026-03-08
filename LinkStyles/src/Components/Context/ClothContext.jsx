@@ -106,7 +106,7 @@ export default function ClothContextProvider({ children }) {
     addQuantity,
     removeQuantity,
     totalCartPrice,
-    symbol : new Intl.NumberFormat(en-NG).format(symbol),
+    symbol : new Intl.NumberFormat("en-NG").format(symbol),
   };
 
   return (
