@@ -46,7 +46,7 @@ function Header() {
         })
 
         const logoutData = await res.json()
-        toast.success(`Logout Successfully See You Soon 🤗` || logoutData.message)
+        toast.success(`Logout Successfully See You Soon` || logoutData.message)
         setTimeout(() => {
             localStorage.removeItem(`user`)
             localStorage.removeItem(`data`)
@@ -89,7 +89,7 @@ function Header() {
 
                 <Container className={styles.navContainer}>
 
-                    <Navbar.Brand href="" onClick={() => navigate(`/`)}>
+                    <Navbar.Brand  onClick={() => navigate(`/`)}>
                         <h3
                             style={{ cursor: 'pointer' }}
                             className={`${styles.logo} ${styles.navLinks}`}> LinkStyles
@@ -103,27 +103,27 @@ function Header() {
                         <Nav className="me-auto">
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/clothes`)} className={styles.a}>Clothing</a>
+                                <a  onClick={() => navigate(`/clothes`)} className={styles.a}>Clothing</a>
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/phones`)} className={styles.a}>Phones</a>
+                                <a onClick={() => navigate(`/phones`)} className={styles.a}>Phones</a>
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/shoes`)} className={styles.a}>Shoes</a>
+                                <a onClick={() => navigate(`/shoes`)} className={styles.a}>Shoes</a>
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/clothes`)} className={styles.a}>EveryDay Style</a>
+                                <a onClick={() => navigate(`/householditem`)} className={styles.a}>Everyday Style</a>
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/premium`)} className={styles.a}>Premium Collection</a>
+                                <a onClick={() => navigate(`/premium`)} className={styles.a}>Premium Collection</a>
                             </li>
 
                             <li className={styles.li}>
-                                <a href="" onClick={() => navigate(`/summers`)} className={styles.a}>Summer Essential</a>
+                                <a onClick={() => navigate(`/summers`)} className={styles.a}>Summer Essential</a>
                             </li>
 
 

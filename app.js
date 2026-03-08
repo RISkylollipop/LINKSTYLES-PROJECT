@@ -45,21 +45,6 @@ app.use(
   })
 );
 
-// const allowedOrigins = ["https://linkstyles-project-1fnd.vercel.app"];
-
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     credentials: true, // Allow cookies & authentication (if needed)
-//   })
-// );
-
 
 app.use(express.json());
 app.use("/api", paymentRoute);
@@ -234,7 +219,7 @@ app.post(`/logout`, (req, res)=> {
       return res.status(500).json({error : `Internal Error`})
     }
     else{
-      res.status(200).json({message: `Logout Successfully See You Soon 👋👋`})
+      res.status(200).json({message: `Logout Successfully, See You Soon`})
     }
   })
   

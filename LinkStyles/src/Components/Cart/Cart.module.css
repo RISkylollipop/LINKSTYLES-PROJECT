@@ -18,6 +18,10 @@
     color: gray;
     font-size: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    white-space: normal;
+    word-wrap: break-word;
+    word-spacing: normal;
+    word-break: break-all;
 }
 .cardHead p {
     background-color: gray;
