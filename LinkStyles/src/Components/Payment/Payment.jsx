@@ -81,10 +81,10 @@ const Payment = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
 
-  const CartTotal = new Intl.NumberFormat("en-NG").format(totalCartPrice.toFixed(2));
+  const CartTotal = new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(totalCartPrice.toFixed(2));
   const TotalCart = totalCartPrice.toFixed(2);
 
-  const amount = new Intl.NumberFormat("en-NG").format(cart.totalCartPrice)
+  const amount = new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(cart.totalCartPrice)
   const accountNumber = 9090124745
 
   // Country Api Calling
@@ -375,7 +375,7 @@ const Payment = () => {
                 email: accountData.customerEmail,
                 mainaccountName: accountData.mainData.accountName,
                 status: accountData.mainData.status,
-                amount: new Intl.NumberFormat("en-NG").format(accountData.mainData.totalPayable)
+                amount: new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(accountData.mainData.totalPayable)
 
               });
 

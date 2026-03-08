@@ -27,7 +27,7 @@ export default function ClothContextProvider({ children }) {
       .then(res => res.json())
       .then(data => {
         if (mounted) {
-          setSymbol(data.currency_symbol || "₦");
+          setSymbol( data.currency_symbol ?? "₦");
         }
       })
       .catch(err => console.log("Location error:", err));
@@ -106,7 +106,7 @@ export default function ClothContextProvider({ children }) {
     addQuantity,
     removeQuantity,
     totalCartPrice,
-    symbol : new Intl.NumberFormat("en-NG").format(symbol),
+    symbol
   };
 
   return (
