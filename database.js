@@ -7,6 +7,9 @@ const db = mysql.createConnection({
     password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQLDATABASE,
     port: process.env.MYSQLPORT,
+    ssl: {
+    rejectUnauthorized: false // required for Aiven
+  }
     
 })
 
@@ -27,6 +30,18 @@ db.connect((err, result) => {
     }else{
 
         console.log(`Database Started on railway server internally`);
+        setInterval(() => {
+            db.query(`select 1`, (err, data)=> {
+                if(err){
+                    console.log('DB keep-alive failed:', err);
+                    
+                }
+                else{
+                    console.log('DB keep-alive ping sent');
+                    
+                }
+            })
+        }, 5 * 60 * 1000);
     }
     
 })
