@@ -17,7 +17,7 @@ function Shoes() {
     const [searchQuery, setSearchQuery] = useState("");
     const [value, setValue] = useState(2000);
 
-    const URL = "https://linkstyles-project-production.up.railway.app";
+    const URL = import.meta.env.VITE_APP_URL;
 
     useEffect(() => {
         fetch(`${URL}/api/v1/shoes`)

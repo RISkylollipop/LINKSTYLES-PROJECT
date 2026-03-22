@@ -30,23 +30,32 @@ const port = process.env.PORT;
 // // Supplied origin must tally with frontend server
 // //alternative for not supplying Origin of Frontend is:
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://linkstyles-project-1fnd.vercel.app"
+];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+    origin: function (origin, callback) {
+      // allow requests with no origin (Postman, mobile apps)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
     },
-      credentials: true, // Allow cookies & authentication (if needed)
+    credentials: true
   })
 );
-app.use(helmet())
 
+
+app.use(helmet())
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
 app.use("/api", paymentRoute);
 app.use(`/`, gatewayRoute);
 app.use(`/api`, loginRoute);
@@ -55,7 +64,6 @@ app.use(`/api/v1`, addProductRoute)
 app.use(`/api/v1`, shoeProductRoute)
 app.use(`/`, detailsPageRoute)
 app.use(`/api/v1`, contactus)
-app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "../LinkStyles")));
 

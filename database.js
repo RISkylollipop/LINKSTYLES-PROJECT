@@ -29,7 +29,7 @@ db.connect((err, result) => {
         console.error(err , `Error Connecting`)
     }else{
 
-        console.log(`Database Started on railway server internally`);
+        console.log(`Database Started on Aiven server internally`);
         setInterval(() => {
             db.query(`select 1`, (err, data)=> {
                 if(err){

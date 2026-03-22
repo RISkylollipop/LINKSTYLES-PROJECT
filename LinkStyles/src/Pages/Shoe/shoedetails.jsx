@@ -34,7 +34,7 @@ function ShoeDetails() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const navigate = useNavigate();
 
-  const URL = "https://linkstyles-project-production.up.railway.app";
+  const URL = import.meta.env.VITE_APP_URL;
 
   useEffect(() => {
     const controller = new AbortController();
