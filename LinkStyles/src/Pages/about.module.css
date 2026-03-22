@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+    --primary: #ff4d00;
+    --dark: #0d0d0d;
+    --light: #f5f0eb;
+    --muted: #888;
+    --card-bg: #161616;
+    --border: #2a2a2a;
+}
+
+.page {
+    background-color: var(--dark);
+    color: var(--light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+    position: relative;
+    padding: clamp(60px, 10vw, 120px) clamp(16px, 6vw, 80px) clamp(40px, 6vw, 80px);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.heroLabel {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.heroTitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 7vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    margin: 0 0 clamp(20px, 4vw, 40px);
+    color: var(--light);
+}
+
+.heroTitle span {
+    color: var(--primary);
+    display: block;
+}
+
+.heroSub {
+    max-width: 520px;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    line-height: 1.7;
+    color: #aaa;
+    font-weight: 300;
+}
+
+.heroBg {
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: clamp(200px, 40vw, 600px);
+    height: clamp(200px, 40vw, 600px);
+    background: radial-gradient(circle, rgba(255, 77, 0, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.heroBadge {
+    position: absolute;
+    right: 6vw;
+    bottom: 40px;
+    width: clamp(80px, 10vw, 130px);
+    height: clamp(80px, 10vw, 130px);
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.55rem, 1vw, 0.7rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+    animation: rotateBadge 18s linear infinite;
+}
+
+@keyframes rotateBadge {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── STATS ── */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--border);
+}
+
+.statItem {
+    padding: clamp(24px, 4vw, 48px) clamp(16px, 6vw, 48px);
+    border-right: 1px solid var(--border);
+    animation: fadeUp 0.6s ease both;
+}
+
+.statItem:last-child {
+    border-right: none;
+}
+
+.statNumber {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 4rem);
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.statLabel {
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+}
+
+/* ── MISSION ── */
+.mission {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.missionLeft {
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 6vw, 60px);
+    border-right: 1px solid var(--border);
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.missionRight {
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 6vw, 60px);
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.sectionLabel {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.7rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.missionTitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.1rem, 2.2vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    white-space: normal;
+
+}
+
+.missionText {
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    line-height: 1.8;
+    color: #aaa;
+    font-weight: 300;
+    white-space: normal;
+
+}
+
+.missionText+.missionText {
+    margin-top: 15px;
+}
+
+/* ── VALUES ── */
+.values {
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 6vw, 60px);
+    border-bottom: 1px solid var(--border);
+}
+
+.valuesTitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: clamp(24px, 4vw, 48px);
+}
+
+.valuesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+}
+
+.valueCard {
+    background: var(--card-bg);
+    padding: clamp(20px, 3vw, 40px) clamp(16px, 2.5vw, 32px);
+    transition: background 0.25s ease;
+}
+
+.valueCard:hover {
+    background: #1e1e1e;
+}
+
+.valueIcon {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.valueName {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.valueDesc {
+    font-size: clamp(0.8rem, 1.4vw, 0.9rem);
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+}
+
+/* ── TEAM ── */
+.team {
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 6vw, 60px);
+    border-bottom: 1px solid var(--border);
+}
+
+.teamTitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: clamp(24px, 4vw, 48px);
+}
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: clamp(12px, 2vw, 24px);
+}
+
+.teamCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: clamp(20px, 3vw, 32px) clamp(12px, 2vw, 24px);
+    text-align: center;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.teamCard:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+}
+
+.teamAvatar {
+    width: clamp(48px, 8vw, 72px);
+    height: clamp(48px, 8vw, 72px);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #ff8c42);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 800;
+    color: #fff;
+}
+
+.teamName {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    font-weight: 700;
+    margin-bottom: 4px;
+    white-space: normal;
+   
+    word-break: break-word;
+    
+
+}
+
+.teamRole {
+    font-size: clamp(0.7rem, 1.4vw, 0.8rem);
+    color: var(--primary);
+    letter-spacing: 0.06em;
+    white-space: normal;
+
+    word-break: break-word;
+}
+
+/* ── CTA ── */
+.cta {
+    padding: clamp(60px, 8vw, 100px) clamp(16px, 6vw, 60px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ctaBg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255, 77, 0, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ctaTitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+.ctaSub {
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    color: var(--muted);
+    margin-bottom: clamp(24px, 4vw, 40px);
+    position: relative;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: clamp(10px, 2vw, 16px);
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.btnPrimary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 36px);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.btnPrimary:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.btnOutline {
+    background: transparent;
+    color: var(--light);
+    border: 1px solid var(--border);
+    padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 36px);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.btnOutline:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero {
+    animation: fadeUp 0.7s ease both;
+}
+
+.mission {
+    animation: fadeUp 0.7s ease 0.1s both;
+}
+
+.values {
+    animation: fadeUp 0.7s ease 0.15s both;
+}
+
+.team {
+    animation: fadeUp 0.7s ease 0.2s both;
+}
+
+/* ── TABLET (≤ 1024px) ── */
+@media (max-width: 1024px) {
+    .mission {
+        grid-template-columns: 1fr;
+    }
+
+    .missionLeft {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+/* ── MOBILE (≤ 768px) ── */
+@media (max-width: 768px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .statItem {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 28px 20px;
+    }
+
+    .heroBadge {
+        display: none;
+    }
+
+    .valuesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .teamGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ctaButtons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btnPrimary,
+    .btnOutline {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+}
+
+/* ── SMALL MOBILE (≤ 480px) ── */
+@media (max-width: 480px) {
+    .teamGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .heroTitle {
+        line-height: 1.05;
+    }
+}

@@ -11,14 +11,10 @@ const AddProduct = () => {
   const {isVerify} = useContext(LoginContext)
    
 
-    const URL = `http://linkstyles-project-production.up.railway.app`
+    const URL = import.meta.env.VITE_APP_URL;
+
     isVerify()
-
-
-
-
   
-
 
   const [formData, setFormData] = useState({
     productName: "",
@@ -132,7 +128,7 @@ const AddProduct = () => {
 
     try {
       const response = await fetch(
-        "https://linkstyles-project-production.up.railway.app/api/v1/addoldproduct",
+        `${URL}/api/v1/addoldproduct`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

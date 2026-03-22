@@ -26,6 +26,12 @@ const bgImage = [
 ];
 
 export const UserRegister = () => {
+
+
+const URL = import.meta.env.VITE_APP_URL;
+
+
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate()
@@ -129,7 +135,7 @@ export const UserRegister = () => {
     });
 
     try {
-      const response = await fetch("https://linkstyles-project-production.up.railway.app/register", {
+      const response = await fetch(`${URL}/register`, {
         method: "POST",
         body: dataForm,
       });
@@ -173,13 +179,9 @@ export const UserRegister = () => {
     }
   };
 
-  //---------------------------------------------------------
-  // JSX
-  //---------------------------------------------------------
   return (
     <main>
-      {/* <ToastContainer position="top-center" autoClose={toastDelay} /> */}
-
+      
       {/* BG Swiper */}
       <Swiper
         spaceBetween={0}
@@ -204,7 +206,7 @@ export const UserRegister = () => {
         ))}
       </Swiper>
 
-      {/* SHOW LOADING OR SUCCESS */}
+     
       {loading || success ? (
         <div style={{ textAlign: "center", marginTop: "40px" }}>
           {loading && <img src={loadingMark} alt="Loading..." width="200" />}
@@ -216,9 +218,9 @@ export const UserRegister = () => {
           )}
         </div>
       ) : (
-        //---------------------------------------------------------
-        // SHOW FORM
-        //---------------------------------------------------------
+    
+
+        
         <div
           className={styles.registerContainer}
           style={{

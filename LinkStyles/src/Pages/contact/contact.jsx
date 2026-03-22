@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './contact.module.css';
+import styles from './Contact.module.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +24,8 @@ function Contact() {
     return newErrors;
   }
 
+  const URL = import.meta.env.VITE_APP_URL
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -32,7 +34,7 @@ function Contact() {
       setErrors(validateErrors);
     } else {
       setErrors({});
-      fetch("http://linkstyles-project-production.up.railway.app/api/v1/submit", {
+      fetch(`${URL}/api/v1/contactus`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -44,12 +46,12 @@ function Contact() {
           if (data.error) {
             toast.error(data.error);
           } else {
-            toast.success("Message submitted successfully!");
-            setFormData({
-              name: '',
-              email: '',
-              message: ''
-            });
+            toast.success(data.message);
+            // setFormData({
+            //   name: '',
+            //   email: '',
+            //   message: ''
+            // });
           }
         })
         .catch((error) => {
@@ -107,7 +109,7 @@ function Contact() {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               required
-              placeholder="Enter your message"
+              placeholder="Please give a full detail of your feedback "
               rows="4"
             />
             {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
@@ -117,8 +119,7 @@ function Contact() {
         </form>
       </div>
 
-      {/* Toast Container to render notifications */}
-      {/* <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} /> */}
+    
 
     </div>
   );

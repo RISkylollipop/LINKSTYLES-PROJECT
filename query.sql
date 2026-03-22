@@ -1,3 +1,13 @@
+
+-- Backup database
+--  mysqldump -u root -p ecommerce_new > backup.sql
+-- Enter password: ************
+
+-- copy backedup database
+-- mysql -h mysql-20708e10-dhammylahree-db0b.c.aivencloud.com -P 15490 -u avnadmin -p defaultdb < backup.sql
+-- Enter password: ************************
+
+
 -- create database ecommerce_new;
 -- use ecommerce_new;
 
@@ -232,3 +242,10 @@
 -- select * from products;
 
 
+-- create table feedbacks (
+-- id int auto_increment primary key,
+-- fullname varchar(150),
+-- email varchar(200),
+-- feedback text,
+-- status varchar(20) default "unread"
+-- );

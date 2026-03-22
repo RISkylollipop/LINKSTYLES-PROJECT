@@ -1,7 +1,7 @@
 const express = require(`express`);
 const path = require(`path`);
-const bcrypt = require(`bcrypt`);
 const cors = require("cors");
+const helmet = require(`helmet`)
 require(`dotenv`).config();
 const db = require(`./database`);
 const paymentRoute = require(`./routes/payment`);
@@ -11,26 +11,26 @@ const registerRoute = require(`./routes/register`)
 const addProductRoute = require(`./pages/AddProduct`)
 const shoeProductRoute = require(`./pages/shoesProducts`)
 const detailsPageRoute = require(`./pages/detailsPages`)
-
-const cloudinary = require(`cloudinary`).v2;
-const {RegistrationMail} = require(`./utilitis/sendMails`);
-const {userAuth, adminAuth} = require(`./Controllers/usersAuth`)
+const contactus = require(`./pages/contactus`)
 
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDNAME,
-  api_key: process.env.CLOUDAPI,
-  api_secret: process.env.CLOUDAPIS,
-});
+const { userAuth, adminAuth } = require(`./Controllers/usersAuth`)
+
+
+
+
 const app = express();
-const port = process.env.PORT || 3005;
+const port = process.env.PORT;
+
+
+
 
 // // middlewares
 // // app.use(cors({origin: 'http://localhost:5174'}))
 // // Supplied origin must tally with frontend server
 // //alternative for not supplying Origin of Frontend is:
 
-const allowedOrigins = ["https://linkstyles-project-1fnd.vercel.app"]; 
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
 
 app.use(
   cors({
@@ -44,26 +44,34 @@ app.use(
       credentials: true, // Allow cookies & authentication (if needed)
   })
 );
-
+app.use(helmet())
 
 app.use(express.json());
 app.use("/api", paymentRoute);
 app.use(`/`, gatewayRoute);
 app.use(`/api`, loginRoute);
-app.use(`/api`, registerRoute);
+app.use(`/api/v1`, registerRoute);
 app.use(`/api/v1`, addProductRoute)
 app.use(`/api/v1`, shoeProductRoute)
 app.use(`/`, detailsPageRoute)
+app.use(`/api/v1`, contactus)
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "../LinkStyles")));
 
-app.get(`/api/products`, (req, res) => {
-  res.json(data);
+
+
+
+
+
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Server is alive" });
 });
 
+
 app.get(`/api/v1/clothes`, (req, res) => {
-  
+
   const query = `select * from products where category = "clothing" 
   or category = "other" order by rand();`
   db.query(query, (err, result) => {
@@ -77,10 +85,13 @@ app.get(`/api/v1/clothes`, (req, res) => {
 
 
 
-async function getLocationData() {
+async function getLocationData(ip) {
   try {
-    // Try first API (ipwhois.app)
-    let response = await fetch("https://ipwhois.app/json/");
+
+    const ipdataToken = process.env.ipdataToken
+
+    let response = await fetch(`https://api.ipdata.co/${ip}?api-key=${ipdataToken}`);
+
     let data = await response.json();
 
     // console.log(data.ip);
@@ -88,14 +99,20 @@ async function getLocationData() {
     if (!data || data.error) {
       throw new Error("First API failed");
     }
+
     return data; // Return if successful
   } catch (error) {
     console.error("First API failed, trying backup...");
 
     // Try second API (ipinfo.io)
     try {
-      let response = await fetch("https://ipinfo.io/json");
+      let response = await fetch(`https://ipinfo.io/${ip}/json/`);
       let data = await response.json();
+
+      if (!data || data.error) {
+        throw new Error("Second API failed");
+      }
+      
       return data;
     } catch (error) {
       console.error("Both APIs failed!");
@@ -105,13 +122,23 @@ async function getLocationData() {
 }
 
 app.get("/api/location", async (req, res) => {
-  const locationData = await getLocationData();
+
+  const UserIP = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.headers['x-real-ip'] || req.socket.remoteAddress;
+  
+  // const IP = `212.58.224.20`;
+
+  console.log(`User IP : `, UserIP);
+  
+
+  const locationData = await getLocationData(UserIP);
+  // console.log(locationData);
+  
   res.json(locationData);
 });
 
 app.get("/api/v1/clothes/:id", (req, res) => {
   const productId = req.params.id;
-  
+
   db.query(
     `select * from products where product_id = ? and category = "clothing" order by rand()`,
     [productId],
@@ -143,47 +170,19 @@ app.get(`/phone/:id`, (req, res) => {
 });
 
 app.get(`/api/v1/phones`, (req, res) => {
-    console.log(req.body);
-    
+  console.log(req.body);
+
   const query = `select * from products where productName LIKE "%phone%"`;
 
   db.query(query, (err, data) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(data);
+      // console.log(data);
       res.json(data);
     }
   });
 });
-
-// app.post(`/api/v1/submit`, (req, res) => {
-  //   const { name, email, message } = req.body;
-  
-  //   console.log(req.body);
-//   if (!email || !name || !message) {
-//     
-
-//  return res.status(404).json({ error: "Detail Submitted Not Completed" });
-//   }
-//   db.query(
-//     `INSERT INTO messages SET ?`,
-//     { name, email, message, priority: "Medium" },
-//     (err, result) => {
-//       if (err) {
-//         return res.json({ error: "Error Uploading Detail" });
-//       }
-//       res.json({ message: "FORM SUBMITTED TO BACKEND" });
-//       transporter.sendMail(mailoption, (error, info) => {
-  //         if (error) {
-    //           console.log(`Error: Unable to send mail to ${email}`);
-//         } else {
-  //           console.log(`Email Sent to ${email} ${info.response}`);
-//         }
-//       });
-//     }
-//   );
-// });
 
 
 
@@ -199,30 +198,30 @@ app.get(`/api/v1/getusers`, (req, res) => {
   });
 });
 
-app.get('/refreshpage', userAuth(), (req, res)=> {
-  return res.status(200).json({message: `OK`})
+app.get('/refreshpage', userAuth(), (req, res) => {
+  return res.status(200).json({ message: `OK` })
 })
-app.get('/verifyadmin', adminAuth(), (req, res)=> {
-  return res.status(200).json({message: `OK`})
+app.get('/verifyadmin', adminAuth(), (req, res) => {
+  return res.status(200).json({ message: `OK` })
 })
 
 
 
-app.post(`/logout`, (req, res)=> {
+app.post(`/logout`, (req, res) => {
   // console.log(req.body);
-  const  email = req.body.email
+  const email = req.body.email
   const LogoutQuery = `update users set jwt_version = jwt_version + 1 where email = ?`
-  db.query(LogoutQuery, [email], (err, data)=>{
-    if(err){ 
-      
+  db.query(LogoutQuery, [email], (err, data) => {
+    if (err) {
+
       console.log(`Database Query Error`);
-      return res.status(500).json({error : `Internal Error`})
+      return res.status(500).json({ error: `Internal Error` })
     }
-    else{
-      res.status(200).json({message: `Logout Successfully, See You Soon`})
+    else {
+      res.status(200).json({ message: `Logout Successfully See You Soon 👋👋` })
     }
   })
-  
+
 })
 
 

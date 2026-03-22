@@ -10,7 +10,7 @@ const LoginContextProvider = ({ children }) => {
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const URL = `https://linkstyles-project-production.up.railway.app`
+  const URL = import.meta.env.VITE_APP_URL
   const [user, setUser] = useState(() => {
     // Load user from localStorage when app starts
     const savedUser = localStorage.getItem("user");

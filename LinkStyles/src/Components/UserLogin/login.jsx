@@ -22,7 +22,7 @@ export function Login() {
     password: "",
   });
 
-  const URL = `https://linkstyles-project-production.up.railway.app`
+  const URL = import.meta.env.VITE_APP_URL;
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -73,6 +73,13 @@ export function Login() {
 
         else if (data.status === 401) {
           toast.error(data.message || "Incorrect password.");
+        }
+
+        else if (data.status === 429) {
+
+          toast.error(`${data.statusmsg.toUpperCase()}!!! 
+          ${data.msg}, Remaining attempts: ${data.remainingAttempt}`)
+          
         }
 
         else {

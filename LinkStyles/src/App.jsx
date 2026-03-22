@@ -25,6 +25,7 @@ import ShoeDetails from "./Pages/Shoe/shoedetails.jsx";
 import Cart from "./Components/Cart/Cart";
 import Payment from "./Components/Payment/Payment";
 import { Faqs } from "./Components/FAQS/Faqs";
+import AboutUs from "./Pages/About.jsx"
 import Checkout from "./Components/Checkout/Checkout";
 import UserRegister from "./Components/UserRegister/register";
 import { Login } from "./Components/UserLogin/login";
@@ -58,6 +59,20 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const ping = () => {
+      fetch(`${URL}/`)
+        .then(() => console.log("Server pinged"))
+        .catch((err) => console.error("Ping failed:", err));
+    };
+
+    ping(); // ping immediately on mount
+    const interval = setInterval(ping, 60000); // every 60 seconds ping to keep my site alive because of renderhost
+
+    return () => clearInterval(interval); // cleanup on unmount
+  }, []);
+
+  
   return (
     <>
       {isAdminRoute ?
@@ -110,14 +125,15 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/aboutus" element={<AboutUs />} />
                         {/* <Route path="*" element={<Navigate to="/404" />} /> */}
-                        <Route path="*" element={<NotFound/>}/>
+                        <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>
                   )}
-                  <ToastContainer 
-                  className="ToastContainer"
-                  position="top-center" autoClose={3000} />
+                  <ToastContainer
+                    className="ToastContainer"
+                    position="top-center" autoClose={3000} />
                 </CountryContextProvider>
               </ClothContextProvider>
             </LoginContextProvider>

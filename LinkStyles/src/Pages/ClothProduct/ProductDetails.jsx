@@ -20,40 +20,7 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 
 function ProductDetails() {
-  const URL = `https://linkstyles-project-production.up.railway.app`;
-
-  // useEffect(() => {
-  //   const interval = setInterval(async () => {
-  //     const token = localStorage.getItem(`token`)
-  //     if (!token) return;
-
-  //     try {
-  //       const res = await fetch(`${URL}/refreshpage`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`
-  //         }
-  //       });
-
-  //       const data = await res.json();
-
-  //       if (data?.error && data.error.toLowerCase().includes(`expired`)) {
-
-  //         localStorage.removeItem(`user`);
-  //         localStorage.removeItem(`data`);
-  //         localStorage.removeItem(`token`);
-  //         window.location.href = `/login`
-
-  //       }
-
-
-
-  //     } catch (error) {
-  //       console.error("Session check failed:", error);
-  //     }
-  //   }, 10000);
-
-  //   return () => clearInterval(interval)
-  // }, [])
+  const URL = import.meta.env.VITE_APP_URL;
 
 
   const { addToCart, cart, symbol } = useContext(ClothContext);

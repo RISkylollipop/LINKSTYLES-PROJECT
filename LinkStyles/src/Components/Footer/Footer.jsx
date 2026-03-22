@@ -54,6 +54,8 @@ import "swiper/css/autoplay";
 
 function Footer() {
 
+    const URL = import.meta.env.VITE_APP_URL;
+
     const navigate = useNavigate()
     const [newsletter, setNewsletter] = useState({ email: "" });
     const [errors, setErrors] = useState({});
@@ -229,6 +231,11 @@ function Footer() {
                         <li
                             className={styles.footerLi}
                         ><a onClick={() => navigate(`/faqs`)}> FAQs</a>
+                        </li>
+
+                        <li
+                            className={styles.footerLi}
+                        ><a onClick={() => navigate(`/aboutus`)}> About Us</a>
                         </li>
 
                     </ul>

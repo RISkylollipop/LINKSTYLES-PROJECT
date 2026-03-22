@@ -35,7 +35,7 @@ function Links() {
     const [produceProductCount, setProduceProductCount] = useState(null);
     const [userCount, setUserCount] = useState(null);
 
-    const URL = `https://linkstyles-project-production.up.railway.app`;
+    const URL = import.meta.env.VITE_APP_URL;
 
     isVerify()
 

@@ -18,6 +18,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 function Phones() {
+
+
+  const URL = import.meta.env.VITE_APP_URL;
   const { user, setUser, mainData, setMaindata } = useContext(LoginContext);
   const { addToCart, symbol } = useContext(ClothContext);
   const [phones, setPhones] = useState([]);
@@ -25,7 +28,7 @@ function Phones() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://linkstyles-project-production.up.railway.app/api/v1/phones")
+    fetch(`${URL}/api/v1/phones`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {

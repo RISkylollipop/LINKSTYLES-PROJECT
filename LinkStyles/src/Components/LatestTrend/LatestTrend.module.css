@@ -59,13 +59,13 @@
     border-radius: 10px;
     box-shadow: 2px 3px 0 lightgrey,
                 -2px -3px 0 lightgrey;
-    transform-style: preserve-3d; /* allows 3D transforms */
+    /* transform-style: preserve-3d; */
     transition: box-shadow 0.3s ease;
-    animation: floatSpin 10s linear infinite; /* continuous animation */
+    /* animation: floatSpin 10s linear infinite;  */
     
 }
 
-@keyframes floatSpin {
+/* @keyframes floatSpin {
     0% {
         transform: rotateY(0deg) scale(1);
     }
@@ -75,7 +75,7 @@
     100% {
         transform: rotateY(360deg) scale(1);
     }
-}
+} */
 
 .trendCard:hover {
     box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.2); /* subtle hover pop */

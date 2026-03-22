@@ -1,8 +1,27 @@
 const express = require(`express`)
 const router = express.Router()
+const bcrypt = require(`bcrypt`)
 const db = require(`../database`)
 const multer = require(`multer`);
-const upload = multer({ dest: `/upload/images` });
+
+const { RegistrationMail } = require(`../utilitis/sendMails`)
+
+import fs from 'fs'
+
+if (!fs.existsSync('upload/images')) {
+  fs.mkdirSync('upload/images', { recursive: true })
+}
+
+const upload = multer({ dest: 'upload/images' });
+
+const cloudinary = require(`cloudinary`).v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.CLOUDAPI,
+  api_secret: process.env.CLOUDAPIS,
+});
+
+
 
 router.post("/register", upload.single("profilePicture"), async (req, res) => {
   const {

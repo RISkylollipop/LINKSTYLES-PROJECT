@@ -26,7 +26,7 @@ function Phonedetail() {
   const { phoneID } = useParams();
   const [phonedata, setPhonedata] = useState(null);
 
-  const URL = `https://linkstyles-project-production.up.railway.app`;
+  const URL = import.meta.env.VITE_APP_URL;
 
   useEffect(() => {
     let isMounted = true;
