@@ -6,7 +6,7 @@ const multer = require(`multer`);
 
 const { RegistrationMail } = require(`../utilitis/sendMails`)
 
-import fs from 'fs'
+const fs = require(`fs`)
 
 if (!fs.existsSync('upload/images')) {
   fs.mkdirSync('upload/images', { recursive: true })
