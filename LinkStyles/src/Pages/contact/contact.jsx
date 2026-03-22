@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Contact.module.css';
+import styles from './contact.module.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
