@@ -4,22 +4,22 @@ const db = require(`../database`)
 const { userAuth } = require(`../Controllers/usersAuth`)
 
 
-router.post("/subscribe", (req, res) => {
+router.post('/subscribe', (req, res) => {
   const { email } = req.body;
 
   if (!email || !/\S+@\S+\.\S+/.test(email)) {
     return res
       .status(400)
-      .json({ error: "Please provide a valid email address" });
+      .json({ error: 'Please provide a valid email address' });
   }
 
   db.query(
-    "SELECT email FROM subscribers WHERE email = ?",
+    'SELECT email FROM subscribers WHERE email = ?',
     [email],
     (err, result) => {
       if (err) {
-        console.error("Database select error:", err);
-        return res.status(500).json({ error: "Server error" });
+        console.error('Database select error:', err);
+        return res.status(500).json({ error: 'Server error' });
       }
 
       if (result.length > 0) {
@@ -28,17 +28,17 @@ router.post("/subscribe", (req, res) => {
           .json({ error: `${email} is already a subscriber` });
       }
 
-      db.query("INSERT INTO subscribers SET ?", { email }, (err, msg) => {
+      db.query('INSERT INTO subscribers SET ?', { email }, (err, msg) => {
         if (err) {
-          console.error("Database insert error:", err);
+          console.error('Database insert error:', err);
           return res
             .status(500)
-            .json({ error: "Could not subscribe, try again later" });
+            .json({ error: 'Could not subscribe, try again later' });
         }
 
         res
           .status(200)
-          .json({ message: "Thanks for subscribing to our newsletter!" });
+          .json({ message: 'Thanks for subscribing to our newsletter!' });
       });
     }
   );
@@ -50,14 +50,14 @@ router.post("/subscribe", (req, res) => {
 //   db.query(getUser, (err, data) => {
 //     if (err) {
 //       console.log(err);
-//       res.status(500).json({ error: "Database error" });
+//       res.status(500).json({ error: 'Database error' });
 //     } else {
 //       return res.status(200).json(data);
 //     }
 //   });
 // });
 
-router.post("/deliverydetails", userAuth(), (req, res) => {
+router.post('/deliverydetails', userAuth(), (req, res) => {
   const { filterCartAndPayload } = req.body;
   console.log(req.body);
 
@@ -83,7 +83,7 @@ router.post("/deliverydetails", userAuth(), (req, res) => {
     !state ||
     !country) {
 
-    return res.status(400).json({ message: "Missing required fields" });
+    return res.status(400).json({ message: 'Missing required fields' });
   }
 
   cartItem = JSON.stringify(req.body.Items)
@@ -91,7 +91,7 @@ router.post("/deliverydetails", userAuth(), (req, res) => {
   const checkEmailQuery = `select * from users where email = ? or phone_number = ?`;
   db.query(checkEmailQuery, [email, phoneNumber], (err, usersResult) => {
     if (err) {
-      return res.status(500).json({ error: "Error checking email" });
+      return res.status(500).json({ error: 'Error checking email' });
     }
 
     else if (!usersResult[0]) {
@@ -138,12 +138,12 @@ router.post("/deliverydetails", userAuth(), (req, res) => {
       db.query(insertQuery, deliveryData, (err, insertResult) => {
         if (err) {
           console.error(err);
-          return res.status(500).json({ message: "Error while saving data" });
+          return res.status(500).json({ message: 'Error while saving data' });
         }
 
-        console.log("Delivery detail sent to company");
+        console.log('Delivery detail sent to company');
         
-        return res.json({ message: "Delivery detail sent to company" });
+        return res.json({ message: 'Delivery detail sent to company' });
       });
 
 

@@ -28,7 +28,7 @@ router.post(`/contactus`, (req, res) => {
 
 router.get(`/feedbacks`, (req, res)=>{
 
-    const query = `select id, fullname, email, feedback from feedbacks where status = "unread"`
+    const query = `select id, fullname, email, feedback from feedbacks where status = 'unread'`
     db.query(query, (err, data)=> {
         if(err){
             console.log(`Database Error`,err);
@@ -46,7 +46,7 @@ router.post(`/readfeedback`, (req, res)=>{
     const id = req.body.id
     // console.log(id);
     
-    const query = `update feedbacks set status = "read" where id = ?`
+    const query = `update feedbacks set status = 'read' where id = ?`
 
     db.query(query, [id], (err, data)=> {
         if(err){

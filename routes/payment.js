@@ -3,7 +3,7 @@ const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
 const db = require(`../database`)
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 // Monnify Configuration
 const MONNIFY_BASE_URL = 'https://api.monnify.com';
@@ -43,9 +43,9 @@ const getAccessToken = async () => {
 // 👕 Just a static test route
 router.get('/v1/get-opay-account', (req, res) => {
   return res.status(200).json({
-    bank: "Opay",
-    account: "9090124745",
-    name: "Kelani Yunus Oluwadamilare"
+    bank: 'Opay',
+    account: '9090124745',
+    name: 'Kelani Yunus Oluwadamilare'
   });
 });
 
@@ -77,9 +77,9 @@ router.post('/v1/init-transaction', async (req, res) => {
 
     const transactionRequest = {
       amount,
-      currencyCode: "NGN",
+      currencyCode: 'NGN',
       paymentReference,
-      paymentDescription: "Purchase from LinkStyle",
+      paymentDescription: 'Purchase from LinkStyle',
       customerEmail,
       contractCode: CONTRACT_CODE,
       customerName,
@@ -144,7 +144,7 @@ router.post('/generate-account', async (req, res) => {
       email: customerEmail,
       full_name: customerName,
       status: status,
-      payment_mode : "Transfer"
+      payment_mode : 'Transfer'
     }
     db.query(`insert into cart set ?`, SqlQueryData, (err, result) => {
       if (err) {
@@ -175,7 +175,7 @@ router.post('/generate-account', async (req, res) => {
       // bankName: response.data.responseBody.bankName,
       // amount: response.data.responseBody.amount,
       // paymentReference: response.data.responseBody.paymentReference,
-      accountName: "LinkStyles Nigeria LTD",
+      accountName: 'LinkStyles Nigeria LTD',
       customerEmail: customerEmail
     });
 
@@ -188,9 +188,9 @@ router.post('/generate-account', async (req, res) => {
 router.post(`/v1/paymentDelayUpdate/:reference?`, (req, res) => {
   console.log(req.body);
   const { reference } = req.params;
-  if (req.body.status === "PENDING") {
+  if (req.body.status === 'PENDING') {
     const FailedQuery = `update cart 
-set status = "FAILED" where monnify_ref = ?;`
+set status = 'FAILED' where monnify_ref = ?;`
 
 
     db.query(FailedQuery, [reference], (err, FailedQueryData) => {

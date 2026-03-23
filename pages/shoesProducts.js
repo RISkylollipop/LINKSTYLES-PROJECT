@@ -4,7 +4,7 @@ const db = require(`../database`)
 
 router.get(`/shoes`, (req, res)=> {
    
-    const query = `select * from products where description like "%shoe%" order by rand();`
+    const query = `select * from products where description like '%shoe%' order by rand();`
     
     db.query(query, (err, data)=> {
         if (err) {

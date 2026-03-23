@@ -23,7 +23,7 @@ cloudinary.config({
 
 
 
-router.post("/register", upload.single("profilePicture"), async (req, res) => {
+router.post('/register', upload.single('profilePicture'), async (req, res) => {
   const {
     first_name,
     lastname,
@@ -44,7 +44,7 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
     if (!req.file) {
       return res
         .status(400)
-        .json({ message: "Please upload a profile picture" });
+        .json({ message: 'Please upload a profile picture' });
     }
 
     const hashedpassword = await bcrypt.hash(password, 15);
@@ -53,26 +53,26 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
     // To Check if email already exists
     db.query(`SELECT * FROM users WHERE email = ?`, [email], (err, result) => {
       if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ message: "Database error" });
+        console.error('Database error:', err);
+        return res.status(500).json({ message: 'Database error' });
       }
 
       if (result.length > 0) {
-        console.log("Registration failed — email already exists");
+        console.log('Registration failed — email already exists');
 
         return res
-          .status(409) // 409 for "Conflict"
-          .json({ message: "Registration failed — email already exists" });
+          .status(409) // 409 for 'Conflict'
+          .json({ message: 'Registration failed — email already exists' });
       }
 
       // Upload image to Cloudinary here
       cloudinary.uploader.upload(
         filePath,
-        { folder: "UploadLearn" },
+        { folder: 'UploadLearn' },
         (err, uploadResult) => {
           if (err) {
-            console.error("Cloudinary error:", err);
-            return res.status(500).json({ message: "Cloud upload failed" });
+            console.error('Cloudinary error:', err);
+            return res.status(500).json({ message: 'Cloud upload failed' });
           }
           // get the url from cloudinary here
           const secureUrl = uploadResult.secure_url;
@@ -98,13 +98,13 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
           // insert the data coming from the frontend req.body
           db.query(sql, userData, async (err, data) => {
             if (err) {
-              console.error("DB error:", err);
+              console.error('DB error:', err);
               return res
                 .status(500)
-                .json({ message: "Database insertion failed" });
+                .json({ message: 'Database insertion failed' });
             }
 
-            console.log("Registration completed");
+            console.log('Registration completed');
 
             await RegistrationMail({
               first_name,
@@ -120,7 +120,7 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
             });
 
             return res.status(201).json({
-              message: "Registration successfully processed",
+              message: 'Registration successfully processed',
               userId: data.insertId,
             });
           });
@@ -128,8 +128,8 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
       );
     });
   } catch (err) {
-    console.error("Server error:", err);
-    return res.status(500).json({ message: "Internal server error" });
+    console.error('Server error:', err);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 });
 

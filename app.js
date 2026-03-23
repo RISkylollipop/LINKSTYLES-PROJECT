@@ -118,7 +118,9 @@ async function getLocationData(ip) {
       let data = await response.json();
 
       if (!data || data.error) {
+        console.log(error);
         throw new Error("Second API failed");
+        
       }
       
       return data;

@@ -43,8 +43,8 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
         // For testing with curl, eventType might be undefined
         if ((eventType === 'SUCCESSFUL_TRANSACTION' || !eventType) && eventData.paymentStatus === 'PAID') {
            
-            console.log("EVENT TYPE :",  eventType);
-            console.log("EVENT DATA :",  eventData);
+            console.log('EVENT TYPE :',  eventType);
+            console.log('EVENT DATA :',  eventData);
             
             const {
                 transactionReference,
@@ -95,9 +95,9 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
                     }
                     let cartItem = result[0].items
 
-                    // console.log("DB items value:", result[0].items);
+                    // console.log('DB items value:', result[0].items);
 
-                    db.query(`update cart set status = "PAID" where monnify_ref = ? AND reference_id = ? AND amount = ?`,
+                    db.query(`update cart set status = 'PAID' where monnify_ref = ? AND reference_id = ? AND amount = ?`,
                         [transactionReference, paymentReference, amountPaid],
                         async (err, result) => {
                             if (err) {
@@ -165,7 +165,7 @@ router.get('/payment/status/:reference?', (req, res) => {
 
     if (reference) {
         db.query(
-            `SELECT status FROM cart WHERE monnify_ref = ? AND status = "PAID"`,
+            `SELECT status FROM cart WHERE monnify_ref = ? AND status = 'PAID'`,
             [reference],
             (err, data) => {
                 if (err) {
@@ -178,7 +178,7 @@ router.get('/payment/status/:reference?', (req, res) => {
                 }
 
                 console.log(data);
-                return res.json({message : "PAYMENT CONFIRMED"});
+                return res.json({message : 'PAYMENT CONFIRMED'});
             }
         );
     } else {

@@ -32,7 +32,7 @@ const adminAuth = () => (req, res, next) => {
                             else {
                                 const datarole = roleData[0].role_name.toLowerCase();
 
-                                if (datarole !== "admin") {
+                                if (datarole !== 'admin') {
                                     console.log(`Invalid Login as an Admin`);
                                     return res.status(403).json({ error: `No access, Invalid Login as an Admin` })
 
@@ -52,7 +52,7 @@ const adminAuth = () => (req, res, next) => {
 
 
     } catch (error) {
-        if (error.name === "TokenExpiredError") {
+        if (error.name === 'TokenExpiredError') {
 
 
             return res.status(403).json({ error: `Session Expired, Please login` })
@@ -77,7 +77,7 @@ const userAuth = () => (req, res, next) => {
             // console.log(req.user);
             next();
         } catch (error) {
-            if (error.name === "TokenExpiredError") {
+            if (error.name === 'TokenExpiredError') {
                 console.log(error.name, error.message);
                 return res.status(403).json({ error: `Session Expired, Please login` })
             } else {
