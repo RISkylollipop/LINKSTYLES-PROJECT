@@ -17,19 +17,20 @@ function Productlunch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [value, setValue] = useState(10);
 
-  const URL = import.meta.env.VITE_APP_URL;
+const URL = import.meta.env.VITE_APP_URL;
 
   useEffect(() => {
     fetch(`${URL}/api/v1/clothes`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setProduct(data);
-        } else {
-          console.error("Invalid data format", data);
-        }
-      })
-      .catch((error) => console.error("Error fetching products:", error));
+      .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    console.log(`the data`,typeof data);
+                    setProduct(data);
+                } else {
+                    console.error("Invalid data format", typeof data);
+                }
+            })
+            .catch((error) => console.error(error));
   }, []);
 
   function handleSearchQuery(e) {

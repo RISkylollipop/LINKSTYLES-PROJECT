@@ -1,6 +1,6 @@
 const express = require(`express`);
 const path = require(`path`);
-const cors = require("cors");
+const cors = require('cors');
 const helmet = require(`helmet`)
 require(`dotenv`).config();
 const db = require(`./database`);
@@ -9,6 +9,7 @@ const gatewayRoute = require(`./routes/gateway`);
 const loginRoute = require(`./routes/login`);
 const registerRoute = require(`./routes/register`)
 const addProductRoute = require(`./pages/AddProduct`)
+const clothproduct = require(`./pages/clothproduct`)
 const shoeProductRoute = require(`./pages/shoesProducts`)
 const detailsPageRoute = require(`./pages/detailsPages`)
 const contactus = require(`./pages/contactus`)
@@ -30,66 +31,39 @@ const port = process.env.PORT;
 // // Supplied origin must tally with frontend server
 // //alternative for not supplying Origin of Frontend is:
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://linkstyles-project-1fnd.vercel.app"
-];
 
+const allowedOrigins = ['http://localhost:5173/']
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (Postman, mobile apps)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error('Not allowed by CORS'));
       }
     },
-    credentials: true
+      credentials: true, // Allow cookies & authentication (if needed)
   })
 );
 
-
-app.use(helmet())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/api", paymentRoute);
+app.use('/api', paymentRoute);
 app.use(`/`, gatewayRoute);
 app.use(`/api`, loginRoute);
 app.use(`/api/v1`, registerRoute);
 app.use(`/api/v1`, addProductRoute)
 app.use(`/api/v1`, shoeProductRoute)
+app.use(`/api/v1`, clothproduct)
 app.use(`/`, detailsPageRoute)
 app.use(`/api/v1`, contactus)
 
-app.use(express.static(path.join(__dirname, "../LinkStyles")));
+app.use(express.static(path.join(__dirname, '../LinkStyles')));
 
 
 
 
-
-
-
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Server is alive" });
-});
-
-
-app.get(`/api/v1/clothes`, (req, res) => {
-
-  const query = `select * from products where category = "clothing" 
-  or category = "other" order by rand();`
-  db.query(query, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(result);
-    }
-  });
-});
 
 
 
@@ -105,12 +79,12 @@ async function getLocationData(ip) {
     // console.log(data.ip);
 
     if (!data || data.error) {
-      throw new Error("First API failed");
+      throw new Error('First API failed');
     }
 
     return data; // Return if successful
   } catch (error) {
-    console.error("First API failed, trying backup...");
+    console.error('First API failed, trying backup...');
 
     // Try second API (ipinfo.io)
     try {
@@ -119,20 +93,20 @@ async function getLocationData(ip) {
 
       if (!data || data.error) {
         console.log(error);
-        throw new Error("Second API failed");
-        
+        throw new Error('Second API failed');
+
       }
-      
+
       return data;
     } catch (error) {
-      console.error("Both APIs failed!");
-      return { error: true, message: "Failed to get location data" };
+      console.error('Both APIs failed!');
+      return { error: true, message: 'Failed to get location data' };
     }
   }
 }
 
-app.get("/api/location", async (req, res) => {
-
+app.get('/api/location', async (req, res) => {
+  
   const UserIP = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.headers['x-real-ip'] || req.socket.remoteAddress;
   
   // const IP = `212.58.224.20`;
@@ -142,15 +116,15 @@ app.get("/api/location", async (req, res) => {
 
   const locationData = await getLocationData(UserIP);
   // console.log(locationData);
-  
+
   res.json(locationData);
 });
 
-app.get("/api/v1/clothes/:id", (req, res) => {
+app.get('/api/v1/clothes/:id', (req, res) => {
   const productId = req.params.id;
-
+  
   db.query(
-    `select * from products where product_id = ? and category = "clothing" order by rand()`,
+    `select * from products where product_id = ? and category = 'clothing' order by rand()`,
     [productId],
     (err, result) => {
       if (err) {
@@ -166,7 +140,7 @@ app.get(`/phone/:id`, (req, res) => {
   const phoneID = req.params.id;
 
   db.query(
-    `select * from products where category = "electronics" and product_id = ?`,
+    `select * from products where category = 'electronics' and product_id = ?`,
     [phoneID],
     (err, data) => {
       if (err) {
@@ -182,7 +156,7 @@ app.get(`/phone/:id`, (req, res) => {
 app.get(`/api/v1/phones`, (req, res) => {
   console.log(req.body);
 
-  const query = `select * from products where productName LIKE "%phone%"`;
+  const query = `select * from products where productName LIKE '%phone%'`;
 
   db.query(query, (err, data) => {
     if (err) {
@@ -201,7 +175,7 @@ app.get(`/api/v1/getusers`, (req, res) => {
   db.query(getUser, (err, data) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ error: "Database error" });
+      res.status(500).json({ error: 'Database error' });
     } else {
       return res.status(200).json(data);
     }
@@ -234,6 +208,9 @@ app.post(`/logout`, (req, res) => {
 
 })
 
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Server is alive' });
+});
 
 app.listen(port, () => {
   console.log(`App Listening on ${port}`);
