@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 export const ClothContext = createContext();
 
 export default function ClothContextProvider({ children }) {
-  const URL = import.meta.VITE_APP_URL;
+
+  const URL = import.meta.env.VITE_APP_URL;
 
   // Load Cart
   const [cart, setCart] = useState(() => {
@@ -28,6 +29,8 @@ export default function ClothContextProvider({ children }) {
       .then(data => {
         if (mounted) {
           setSymbol(data.currency?.symbol ?? "₦");
+          console.log(data.currency?.symbol);
+          
         }
       })
       .catch(err => console.log("Location error:", err));

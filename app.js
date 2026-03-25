@@ -32,7 +32,7 @@ const port = process.env.PORT;
 // //alternative for not supplying Origin of Frontend is:
 
 
-const allowedOrigins = ['https://linkstyles-project-1fnd.vercel.app']
+const allowedOrigins = process.env.ALLOWED_ORIGINS
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -109,7 +109,7 @@ app.get('/api/location', async (req, res) => {
   
   const UserIP = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.headers['x-real-ip'] || req.socket.remoteAddress;
   
-  // const IP = `212.58.224.20`;
+  const IP = `212.58.224.20`;
 
   console.log(`User IP : `, UserIP);
   
