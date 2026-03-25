@@ -32,7 +32,7 @@ const port = process.env.PORT;
 // //alternative for not supplying Origin of Frontend is:
 
 
-const allowedOrigins = ['http://localhost:5173/']
+const allowedOrigins = ['https://linkstyles-project-1fnd.vercel.app']
 app.use(
   cors({
     origin: (origin, callback) => {
