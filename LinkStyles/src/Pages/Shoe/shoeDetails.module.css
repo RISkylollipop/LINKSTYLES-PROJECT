@@ -167,6 +167,7 @@
   padding: 5px 8px;
   border-radius: 7px;
   font-size: 12px;
+  z-index: 1000;
 }
 
 .detailsSection {
@@ -498,6 +499,7 @@
     padding: 5px 8px;
     border-radius: 4px;
     font-size: 0.9rem;
+    z-index: 1000;
   }
 
   .detailsSection {

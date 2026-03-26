@@ -62,7 +62,7 @@ function ProductDetails() {
         .then((res) => res.json())
         .then((data) => {
           const limitedData = data.slice(0, 40);
-          console.log(`limited Data`, limitedData);
+          // console.log(`limited Data`, limitedData);
 
           setRelatedProducts(limitedData);
         })
