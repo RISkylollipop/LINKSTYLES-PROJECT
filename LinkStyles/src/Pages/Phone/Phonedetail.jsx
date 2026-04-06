@@ -36,7 +36,8 @@ function Phonedetail() {
         const res = await fetch(`${URL}/api/v1/phone/${phoneID}`)
         const data = await res.json()
         if (isMounted) {
-          setPhonedata(data)
+          setPhonedata(data[0])
+          
         }
 
       } catch (error) {
@@ -62,7 +63,7 @@ function Phonedetail() {
   }
 
   // PRICE CALC
-  const newPrice = Number(phonedata.price);
+  const newPrice = Number(phonedata?.price);
   let originalPrice;
 
   if (newPrice < 1600000) {
