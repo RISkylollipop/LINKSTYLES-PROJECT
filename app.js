@@ -12,6 +12,7 @@ const addProductRoute = require(`./pages/AddProduct`)
 const clothproduct = require(`./pages/clothproduct`)
 const shoeProductRoute = require(`./pages/shoesProducts`)
 const detailsPageRoute = require(`./pages/detailsPages`)
+const phoneProductRoute = require(`./pages/phone`) 
 const contactus = require(`./pages/contactus`)
 
 
@@ -32,7 +33,8 @@ const port = process.env.PORT;
 // //alternative for not supplying Origin of Frontend is:
 
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
+// const allowedOrigins = process.env.ALLOWED_ORIGINS
+const allowedOrigins = process.env.ALLOWED_ORIGINS_DEV
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -46,6 +48,7 @@ app.use(
   })
 );
 
+app.use(helmet())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -57,6 +60,7 @@ app.use(`/api/v1`, addProductRoute)
 app.use(`/api/v1`, shoeProductRoute)
 app.use(`/api/v1`, clothproduct)
 app.use(`/`, detailsPageRoute)
+app.use(`/`, phoneProductRoute)
 app.use(`/api/v1`, contactus)
 
 app.use(express.static(path.join(__dirname, '../LinkStyles')));

@@ -18,14 +18,13 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 function Phones() {
-
-
-  const URL = import.meta.env.VITE_APP_URL;
   const { user, setUser, mainData, setMaindata } = useContext(LoginContext);
   const { addToCart, symbol } = useContext(ClothContext);
   const [phones, setPhones] = useState([]);
 
   const navigate = useNavigate();
+
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetch(`${URL}/api/v1/phones`)
@@ -40,48 +39,63 @@ function Phones() {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
+  const handlescroll = () => {
+    if (window.scrollY > 300) {
+      window.scrollTo({
+        top: 50,
+        behavior: "auto"
+      })
+    }
+  }
   return (
     <>
       <main className={styles.main}>
         <h2 className={styles.headings}>Phones & Tablets</h2>
-        <h3 className={styles.callToOrder}>CALL TO ORDER 07000000000</h3>
+        <h3 className={styles.callToOrder}>CALL TO ORDER 08140470626</h3>
 
         {/* HEADER SECTION */}
         <header className={styles.header}>
+          {/* Left */}
           <div className={styles.headerSection}>
-            <h3 style={{ cursor: "pointer" }} className={styles.logo}>
-              Link Styles
-            </h3>
-            <h1>Brand Festival</h1>
-            <h3 className={styles.festiveTime}>1ST - 14th NOV</h3>
+            <span className={styles.logo}>Link Styles</span>
+            <div className={styles.festivalBadge}>
+              <span className={styles.festivalLabel}>Brand Festival</span>
+            </div>
+            <div className={styles.datePill}>1ST — 14TH NOV</div>
           </div>
 
-          <div className={styles.headerSection}>
-            <h1 style={{ fontSize: "30px" }}>Phone Deal</h1>
-            <h3 style={{ fontSize: "35px" }}>
-              <small style={{ fontSize: "10px" }}>UP TO</small>&nbsp;10% OFF
-            </h3>
-            <h3 style={{ fontSize: "20px" }}>Correct phones for you</h3>
+          {/* Center */}
+          <div className={`${styles.headerSection} ${styles.centerSection}`}>
+            <p className={styles.dealTag}>🔥 Limited Time</p>
+            <h1 className={styles.dealTitle}>PHONE<br />DEAL</h1>
+            <div className={styles.discountRow}>
+              <span className={styles.upTo}>UP TO</span>
+              <span className={styles.percent}>10%</span>
+              <span className={styles.off}>OFF</span>
+            </div>
+            <p className={styles.dealSub}>Correct phones for you</p>
           </div>
 
-          <div className={styles.headerSection}>
-            <img src={image1} alt="advert image" />
+          {/* Right */}
+          <div className={`${styles.headerSection} ${styles.imageSection}`}>
+            <img src={image1} alt="advert image" className={styles.bannerImg} />
           </div>
         </header>
 
-        <h1>Limited Stock Available</h1>
+        <h1 style={{fontFamily: "c"}}>Limited Stock Available</h1>
 
         {phones && phones.length > 0 ? (
           <div className={styles.cardContainers}>
             {phones.map((phone) => {
-              // BUILD IMAGE ARRAY
-              const phoneImages = [];
-              if (phone.image1) phoneImages.push(phone.image1);
-              if (phone.image2) phoneImages.push(phone.image2);
-              if (phone.image3) phoneImages.push(phone.image3);
+              // BUILD IMAGE ARRAY FIRst to make Slide Easy
+              const phoneImages = [phone?.image1, phone?.image2 , phone?.image3];
+              if (phoneImages > 1 && phoneImages <= 3){
+                phoneImages.push(...phoneImages)
+              }
 
+              let starRating = phone?.rating
               // PRICE CALC LOGIC
-              const newPrice = Number(phone.price);
+              const newPrice = Number(phone?.price);
               let originalPrice;
 
               if (newPrice < 1600000) {
@@ -105,7 +119,7 @@ function Phones() {
                   <div className={styles.cardBody}>
                     <span className={styles.discount}>{PdiscountPercent}</span>
 
-                    {/* 🔥 SWIPER SLIDER HERE */}
+                    
                     <Swiper
                       modules={[Navigation, Pagination, Autoplay]}
                       // navigation = {{clickable : true}}
@@ -117,8 +131,12 @@ function Phones() {
                       {phoneImages.map((img, index) => (
                         <SwiperSlide key={index}>
                           <img
-                            onClick={() =>
-                              navigate(`/phone/${phone.product_id}`)
+                            onClick={() => {
+
+                              navigate(`/phone/${phone.product_id}`),
+                                handlescroll()
+                            }
+
                             }
                             src={img}
                             alt={phone.productName}
@@ -133,21 +151,24 @@ function Phones() {
                     <div className={styles.priceSection}>
                       <span className={styles.price}>
                         {symbol || "₦"}
-                        {phone.price}
+                        {new Intl.NumberFormat("en-US").format(newPrice)}
+                        
                       </span>
                       <br />
                       <span className={styles.oldPrice}>
                         {symbol || "₦"}
-                        {originalPrice}
+                        {new Intl.NumberFormat("en-US").format(originalPrice)}
                       </span>
                     </div>
-
-                    <StarRating rating={phone.rating} />
+                    <StarRating rating={starRating} />
 
                     <div className={styles.btnGroup}>
                       <button
-                        onClick={() =>
-                          navigate(`/phone/${phone.product_id}`)
+                        onClick={() => {
+
+                          navigate(`/phone/${phone.product_id}`),
+                            handlescroll()
+                        }
                         }
                         className={styles.detailbtn}
                       >

@@ -20,8 +20,7 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 
 function ProductDetails() {
-  const URL = import.meta.env.VITE_APP_URL;
-
+  const URL = import.meta.env.VITE_API_URL;
 
   const { addToCart, cart, symbol } = useContext(ClothContext);
   const { mainData } = useContext(LoginContext);
@@ -43,6 +42,8 @@ function ProductDetails() {
       .then((data) => {
         if (isMounted && Array.isArray(data)) {
           setProduct(data[0]);
+          // console.log(data);
+          
         }
       })
       .catch((error) => console.error("Error fetching product:", error));
@@ -76,24 +77,13 @@ function ProductDetails() {
 
 
 
-  const shoeImages = [];
-  if (product?.image1) shoeImages.push(product.image1)
-  if (product?.image2) shoeImages.push(product.image2)
-  if (product?.image3) shoeImages.push(product.image3)
-  if (product?.image2) shoeImages.push(product.image2)
-  if (product?.image3) shoeImages.push(product.image3)
-  if (product?.image1) shoeImages.push(product.image1)
-  if (product?.image3) shoeImages.push(product.image3)
-  if (product?.image1) shoeImages.push(product.image1)
-  if (product?.image2) shoeImages.push(product.image2)
+  const productImages = [product?.image1, product?.image2, product?.image3];
 
-
-
-
-  const newPrice = Number(product?.price);
-  let originalPrice;
-
-  if (newPrice >= 15000) originalPrice = newPrice * 1.5;
+    
+    const newPrice = Number(product?.price);
+    let originalPrice;
+    
+    if (newPrice >= 15000) originalPrice = newPrice * 1.5;
   else if (newPrice > 12000) originalPrice = newPrice * 1.4;
   else if (newPrice > 7000) originalPrice = newPrice * 1.3;
   else if (newPrice > 3000) originalPrice = newPrice * 1.2;
@@ -103,11 +93,22 @@ function ProductDetails() {
   let discount = originalPrice - newPrice;
   let percentDiscount = ((discount / originalPrice) * 100).toFixed(0);
   let Pdiscount = `-${percentDiscount}%`;
+  
+  
+  const handlescroll = () => {
 
+    if (window.scrollY > 300) {
+      window.scrollTo({
+        top: 50,
+        behavior: "auto"
+      })
+    }
 
-
-
-
+    return
+    
+  }
+  
+  
   /* Delivery date specification */
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -123,7 +124,7 @@ function ProductDetails() {
   const pickupStart = new Date(today);
   const pickupEnd = new Date(today);
   pickupEnd.setDate(today.getDate() + 4);
-
+  
   /* ---------------- DOOR DELIVERY (10 days) ---------------- */
   const deliveryStart = new Date(today);
   const deliveryEnd = new Date(today);
@@ -152,8 +153,9 @@ function ProductDetails() {
     endMonth: format(deliveryEnd, { month: "long" }),
     endYear: deliveryEnd.getFullYear(),
   };
-
-
+  
+  
+  const stockCount = Number(product?.stock)
 
   return (
     <>
@@ -162,14 +164,14 @@ function ProductDetails() {
           {/* IMAGE SECTION */}
           <div className={styles.imageSection}>
             <Swiper
-              spaceBetween={10}
+              spaceBetween={5}
               slidesPerView={1}
-              autoplay={{ delay: 3000 }}
-              loop={true}
-              modules={[Autoplay]}
               slidesPerGroup={1}
+              autoplay={{ delay: 2000 }}
+              loop={productImages.length > 1}
+              modules={[Autoplay]}
             >
-              {shoeImages?.map((img, idx) => (
+              {productImages?.map((img, idx) => (
                 <SwiperSlide key={idx}>
                   <img src={img} alt={product?.productName} />
                 </SwiperSlide>
@@ -203,7 +205,8 @@ function ProductDetails() {
                 <span className={styles.discountText}>{Pdiscount}</span>
               </div>
 
-              {/* <small>⚠️ {product.stock} Unit left</small> */}
+              <small style={stockCount <= 20 ? {color: "red"}: {color: "green"}}> ⚠️ {stockCount} Unit left</small>
+              
             </div>
 
             <StarRating rating={4.5} />
@@ -219,7 +222,7 @@ function ProductDetails() {
             <div className={styles.promoCard}>
               <h3>Promotion</h3>
               <p>
-                <FaStar color="gold" /> Call <strong>07070000000</strong> to
+                <FaStar color="gold" /> Call <strong>08140470626</strong> to
                 place order
               </p>
               <p>
@@ -302,7 +305,7 @@ function ProductDetails() {
 
                 <div className={styles.deliveryOptionCard} style={{ marginTop: 10, padding: "10px" }}>
                   <small>
-                    Door Delivery — ₦1,710
+                    Door Delivery — ₦2,710
                     <br />
                     {delivery.startWeekday} {delivery.startDay} –{" "}
                     {delivery.endDay} {delivery.endWeekday}{" "}
@@ -342,7 +345,8 @@ function ProductDetails() {
         <Swiper
           spaceBetween={5}
           slidesPerView={2}
-          loop={true}
+          slidesPerGroup={2}
+          loop={relatedProducts.length > 1}
           autoplay={{ delay: 3000 }}
           navigation={true}
           modules={[Autoplay, Navigation]}
@@ -357,11 +361,13 @@ function ProductDetails() {
               <SwiperSlide key={related.product_id}>
                 <div
                   className={styles.card}
-                  onClick={() =>
-                    navigate(`/clothes/${related.product_id}`)
+                  onClick={() => {
+
+                    navigate(`/clothes/${related.product_id}`),
+                    handlescroll()
+                  }
                   }
                 >
-
                   <img
                     src={related.image1}
                     alt={related.productName}

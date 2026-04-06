@@ -14,7 +14,7 @@
     "multer": "^2.0.2",
     "mysql2": "^3.19.0",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^7.0.10"
+    "nodemailer": "^8.0.4"
   },
   "name": "backendapp",
   "version": "1.0.0",

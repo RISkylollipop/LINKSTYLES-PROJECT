@@ -26,19 +26,25 @@ function Phonedetail() {
   const { phoneID } = useParams();
   const [phonedata, setPhonedata] = useState(null);
 
-  const URL = import.meta.env.VITE_APP_URL;
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     let isMounted = true;
 
-    fetch(`${URL}/phone/${phoneID}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchPhone = async () => {
+      try {
+        const res = await fetch(`${URL}/api/v1/phone/${phoneID}`)
+        const data = await res.json()
         if (isMounted) {
-          setPhonedata(data[0]);
+          setPhonedata(data)
         }
-      })
-      .catch((err) => console.log(err));
+
+      } catch (error) {
+        console.error(`Unable to Fetch Phone Datails`)
+      }
+    }
+
+    fetchPhone()
 
     return () => {
       isMounted = false;
@@ -50,10 +56,10 @@ function Phonedetail() {
   }
 
   // IMAGES
-  const phoneimages = [];
-  if (phonedata.image1) phoneimages.push(phonedata.image1);
-  if (phonedata.image2) phoneimages.push(phonedata.image2);
-  if (phonedata.image3) phoneimages.push(phonedata.image3);
+  const phoneimages = [phonedata?.image1, phonedata?.image2, phonedata?.image3];
+  if (phoneimages.length > 1 && phoneimages.length < 3) {
+    phoneimages.push(...phoneimages)
+  }
 
   // PRICE CALC
   const newPrice = Number(phonedata.price);
@@ -83,7 +89,7 @@ function Phonedetail() {
   const weekDay = now.toLocaleString("default", { weekday: "long" })
   const newDate = new Date(now);
   newDate.setDate(now.getDate() + 4);
-  const forDaysLater = newDate.toLocaleString("default", {weekday: 'long'})
+  const forDaysLater = newDate.toLocaleString("default", { weekday: 'long' })
 
   return (
     <>
@@ -91,10 +97,11 @@ function Phonedetail() {
         {/* IMAGE SECTION */}
         <div className={styles.imageSection}>
           <Swiper
-            spaceBetween={10}
+            spaceBetween={5}
             slidesPerView={1}
-            autoplay={{ delay: 3000 }}
-            loop={true}
+            slidesPerGroup={1}
+            autoplay={{ delay: 2000 }}
+            loop={phoneimages.length > 1}
             navigation
             modules={[Navigation, Autoplay]}
           >
@@ -120,19 +127,19 @@ function Phonedetail() {
 
             <div className={styles.priceBox}>
               <span className={styles.newPrice}>
-                {symbol} {newPrice.toLocaleString()}
+                {symbol} {new Intl.NumberFormat("en-Us").format(newPrice)}
               </span>
               <span className={styles.oldPrice}>
                 {symbol}
-                {originalPrice.toLocaleString()}
+                {new Intl.NumberFormat("en-Us").format(originalPrice)}
               </span>
               <span className={styles.discountText}>{PdiscountPercent}</span>
             </div>
 
-            <small>⚠️ {phonedata.stock} Unit left</small>
+            <small style={phonedata?.stock < 15 ? { color: "red" } : { color: "green" }}>⚠️ {phonedata.stock} Unit left</small>
           </div>
 
-          <StarRating rating={4.5} />
+          <StarRating rating={phonedata.rating} />
           <hr />
 
           <button
@@ -145,7 +152,7 @@ function Phonedetail() {
           <div className={styles.promoCard}>
             <h3>Promotion</h3>
             <p>
-              <FaStar color="gold" /> Call <strong>07070000000</strong> to
+              <FaStar color="gold" /> Call <strong>08140470626</strong> to
               place order
             </p>
             <p>
@@ -224,7 +231,7 @@ function Phonedetail() {
 
               <div className="card" style={{ marginTop: 10 }}>
                 <small>
-                  Door Delivery — ₦1,710 <br /> Delivery between 
+                  Door Delivery — ₦1,710 <br /> Delivery between
                   <br />
                   {weekDay} {currentDay} – {currentDay + 4} {forDaysLater} {currentMonth} {currentYear}
                 </small>
@@ -250,41 +257,3 @@ function Phonedetail() {
 }
 
 export default Phonedetail;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  

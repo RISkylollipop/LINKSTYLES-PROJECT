@@ -4,58 +4,218 @@
     padding-bottom: 20px;
 }
 
-/* Banner/Header */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Alex+Brush&family=Montserrat:wght@400;600;800;900&display=swap');
+
+/* ── BANNER ── */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-    font-size: 1rem;
-    color: black;
-    background-color: rgb(241, 160, 7);
-    font-weight: 600;
-    padding: 15px 20px;
-    margin: 20px auto;
-    border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  background: linear-gradient(120deg, #e08b00 0%, #f5a800 40%, #ffc72c 100%);
+  border-radius: 16px;
+  padding: 0;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(241, 160, 7, 0.45), 0 2px 8px rgba(0,0,0,0.12);
+  animation: bannerIn 0.6s cubic-bezier(.22,1,.36,1) both;
 }
 
-.logo {
-    font-weight: 600;
-    color: white;
-    text-transform: capitalize;
-    font-family: 'Alex Brush', cursive;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
+/* diagonal shine overlay */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255,255,255,0.10) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
+/* faint circle bg decoration */
+.header::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes bannerIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTIONS ── */
 .headerSection {
-    flex: 1;
-    padding: 10px;
-    word-break: keep-all;
+  flex: 1;
+  padding: 20px 24px;
+  position: relative;
+  z-index: 2;
 }
 
-.headerSection h1 {
-    margin: 5px 0;
-    font-size: 1.5rem;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    text-transform: uppercase;
+.centerSection {
+  flex: 1.1;
+  border-left: 1px solid rgba(255,255,255,0.25);
+  border-right: 1px solid rgba(255,255,255,0.25);
+  text-align: center;
 }
 
-.headerSection h3 {
-    margin: 5px 0;
-    font-size: 1.2rem;
-    color: white;
-    font-weight: 500;
+.imageSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
-.headerSection img {
+/* ── LEFT CONTENT ── */
+.logo {
+  display: block;
+  font-family: 'Alex Brush', cursive;
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.festivalBadge {
+  display: inline-block;
+  background: rgba(0,0,0,0.18);
+  border-radius: 4px;
+  padding: 2px 10px;
+  margin-bottom: 10px;
+}
+
+.festivalLabel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.datePill {
+  display: inline-block;
+  background: #fff;
+  color: #c47a00;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-top: 2px;
+}
+
+/* ── CENTER CONTENT ── */
+.dealTag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.dealTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  color: #fff;
+  line-height: 0.9;
+  margin: 0 0 10px;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  letter-spacing: 2px;
+}
+
+.discountRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.upTo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.percent {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.off {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  color: rgba(255,255,255,0.85);
+  line-height: 1;
+}
+
+.dealSub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* ── IMAGE ── */
+.bannerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 16px 16px 0;
+  display: block;
+  max-height: 180px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    border-radius: 12px;
+  }
+
+  .centerSection {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
     width: 100%;
-    height: auto;
-    border-radius: 6px;
-}
+    text-align: center;
+  }
 
+  .imageSection {
+    width: 100%;
+  }
+
+  .bannerImg {
+    border-radius: 0 0 12px 12px;
+    max-height: 160px;
+  }
+}
 /* Main headings */
 .headings {
     width: 100%;
@@ -129,7 +289,7 @@
     font-size: 12px;
     font-weight: 600;
     color: #fff;
-    background: #ff4d00;
+    background: #f68b1e;
     padding: 2px 6px;
     border-radius: 3px;
     display: block;

@@ -17,20 +17,19 @@ function Productlunch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [value, setValue] = useState(10);
 
-const URL = import.meta.env.VITE_APP_URL;
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetch(`${URL}/api/v1/clothes`)
-      .then((res) => res.json())
-            .then((data) => {
-                if (Array.isArray(data)) {
-                    console.log(`the data`,typeof data);
-                    setProduct(data);
-                } else {
-                    console.error("Invalid data format", typeof data);
-                }
-            })
-            .catch((error) => console.error(error));
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setProduct(data);
+        } else {
+          console.error("Invalid data format", data);
+        }
+      })
+      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
   function handleSearchQuery(e) {
@@ -45,6 +44,20 @@ const URL = import.meta.env.VITE_APP_URL;
     setValue(100);
   }
 
+
+  const handlescroll = () => {
+
+    if (window.scrollY > 300) {
+      window.scrollTo({
+        top: 50,
+        behavior: "auto"
+      })
+    }
+
+    return
+
+  }
+
   return (
     <main className={styles.productContainer}>
       <div>
@@ -52,7 +65,7 @@ const URL = import.meta.env.VITE_APP_URL;
           Fashion Unleashed - Trendy Looks for Every Occasion!
         </h3>
 
-        <h3 className={styles.headings}>Call to order 070000000000</h3>
+        <h3 className={styles.headings}>Call to order 08140470626</h3>
 
         {/* <ToastContainer /> */}
 
@@ -129,8 +142,11 @@ const URL = import.meta.env.VITE_APP_URL;
                         <img
                           src={prod.image1}
                           alt={prod.productName}
-                          onClick={() =>
-                            navigate(`/clothes/${prod.product_id}`)
+                          onClick={() => {
+
+                            navigate(`/clothes/${prod.product_id}`),
+                              handlescroll()
+                          }
                           }
                         />
                       </div>
@@ -145,18 +161,21 @@ const URL = import.meta.env.VITE_APP_URL;
 
                       <p className={styles.priceWrapper}>
                         <span className={styles.newPrice}>
-                          {symbol} {newPrice}
+                          {symbol} {new Intl.NumberFormat("en-US").format(newPrice)}
                         </span>
                         <br />
                         <span className={styles.originalPrice}>
-                          {symbol} {originalPrice}
+                          {symbol} {new Intl.NumberFormat("en-US").format(originalPrice)}
                         </span>
                       </p>
 
                       <div className={styles.btnGroup}>
                         <button
-                          onClick={() =>
-                            navigate(`/clothes/${prod.product_id}`)
+                          onClick={() => {
+                            navigate(`/clothes/${prod.product_id}`),
+                              handlescroll()
+
+                          }
                           }
                           className={styles.detailbtn}
                         >
