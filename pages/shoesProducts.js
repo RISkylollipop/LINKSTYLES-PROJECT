@@ -12,7 +12,7 @@ router.get(`/shoes`, (req, res)=> {
             
         }
 
-        console.log(data);
+        // console.log(data);
         res.status(200).json(data)
 
     })
@@ -30,7 +30,7 @@ router.get(`/shoes/:id`, (req, res)=> {
             
         }
 
-        console.log(data);
+        // console.log(data);
        return res.status(200).json(data)
 
     })

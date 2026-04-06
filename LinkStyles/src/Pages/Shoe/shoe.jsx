@@ -20,6 +20,8 @@ function Shoes() {
     const URL = import.meta.env.VITE_APP_URL;
 
     useEffect(() => {
+        console.log(URL);
+        
         fetch(`${URL}/api/v1/shoes`)
             .then((res) => res.json())
             .then((data) => {

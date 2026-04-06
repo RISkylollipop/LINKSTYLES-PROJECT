@@ -24,7 +24,7 @@ function Phones() {
 
   const navigate = useNavigate();
 
-  const URL = import.meta.env.VITE_API_URL;
+  const URL = import.meta.env.VITE_APP_URL;
 
   useEffect(() => {
     fetch(`${URL}/api/v1/phones`)

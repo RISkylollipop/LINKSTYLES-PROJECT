@@ -17,9 +17,14 @@ function Productlunch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [value, setValue] = useState(10);
 
-  const URL = import.meta.env.VITE_API_URL;
+  
+  const URL = import.meta.env.VITE_APP_URL;
+  
+
 
   useEffect(() => {
+    
+    
     fetch(`${URL}/api/v1/clothes`)
       .then((response) => response.json())
       .then((data) => {

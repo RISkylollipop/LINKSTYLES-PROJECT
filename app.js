@@ -34,7 +34,7 @@ const port = process.env.PORT;
 
 
 // const allowedOrigins = process.env.ALLOWED_ORIGINS
-const allowedOrigins = process.env.ALLOWED_ORIGINS
+const allowedOrigins = process.env.ALLOWED_ORIGINS;
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -206,14 +206,26 @@ app.post(`/logout`, (req, res) => {
       return res.status(500).json({ error: `Internal Error` })
     }
     else {
-      res.status(200).json({ message: `Logout Successfully See You Soon 👋👋` })
+      res.status(200).json({ message: `Logout Successfully See You Soon` })
     }
   })
 
 })
 
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Server is alive' });
+  setInterval(() => {
+            db.query(`select 1`, (err, data)=> {
+                if(err){
+                    console.log('DB keep-alive failed:', err);
+                    
+                }
+                else{
+                    console.log('DB keep-alive ping sent out');
+                    res.status(200).json({ message: 'Server is alive' });
+                    
+                }
+            })
+        }, 5 * 60 * 1000);
 });
 
 app.listen(port, () => {

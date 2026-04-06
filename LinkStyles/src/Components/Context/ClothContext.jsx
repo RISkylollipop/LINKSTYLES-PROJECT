@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 export const ClothContext = createContext();
 
 export default function ClothContextProvider({ children }) {
-
   const URL = import.meta.env.VITE_APP_URL;
 
   // Load Cart
@@ -28,9 +27,7 @@ export default function ClothContextProvider({ children }) {
       .then(res => res.json())
       .then(data => {
         if (mounted) {
-          setSymbol(data.currency?.symbol ?? "₦");
-          console.log(data.currency?.symbol);
-          
+          setSymbol(data.currency_symbol || "₦");
         }
       })
       .catch(err => console.log("Location error:", err));
@@ -109,7 +106,7 @@ export default function ClothContextProvider({ children }) {
     addQuantity,
     removeQuantity,
     totalCartPrice,
-    symbol
+    symbol,
   };
 
   return (

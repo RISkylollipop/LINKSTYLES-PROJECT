@@ -15,7 +15,7 @@ router.get(`/clothes`, (req, res) => {
         console.log(err);
         
     }
-    console.log(data);
+    // console.log(data);
     res.status(200).json(data)
     
   })
