@@ -34,7 +34,7 @@ const port = process.env.PORT;
 
 
 // const allowedOrigins = process.env.ALLOWED_ORIGINS
-const allowedOrigins = process.env.ALLOWED_ORIGINS_DEV
+const allowedOrigins = process.env.ALLOWED_ORIGINS
 app.use(
   cors({
     origin: (origin, callback) => {
