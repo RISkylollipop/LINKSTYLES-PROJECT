@@ -20,7 +20,7 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 
 function ProductDetails() {
-  const URL = import.meta.env.VITE_API_URL;
+  const URL = import.meta.env.VITE_APP_URL;
 
   const { addToCart, cart, symbol } = useContext(ClothContext);
   const { mainData } = useContext(LoginContext);
