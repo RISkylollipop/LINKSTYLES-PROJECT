@@ -3,7 +3,7 @@ const path = require(`path`);
 const cors = require('cors');
 const helmet = require(`helmet`)
 require(`dotenv`).config();
-const db = require(`./database`);
+const { db, dbPool } = require(`./database`)
 const paymentRoute = require(`./routes/payment`);
 const gatewayRoute = require(`./routes/gateway`);
 const loginRoute = require(`./routes/login`);
@@ -12,7 +12,7 @@ const addProductRoute = require(`./pages/AddProduct`)
 const clothproduct = require(`./pages/clothproduct`)
 const shoeProductRoute = require(`./pages/shoesProducts`)
 const detailsPageRoute = require(`./pages/detailsPages`)
-const phoneProductRoute = require(`./pages/phone`) 
+const phoneProductRoute = require(`./pages/phone`)
 const contactus = require(`./pages/contactus`)
 
 
@@ -44,7 +44,7 @@ app.use(
         callback(new Error('Not allowed by CORS'));
       }
     },
-      credentials: true, // Allow cookies & authentication (if needed)
+    credentials: true, // Allow cookies & authentication (if needed)
   })
 );
 
@@ -110,13 +110,13 @@ async function getLocationData(ip) {
 }
 
 app.get('/api/location', async (req, res) => {
-  
+
   const UserIP = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.headers['x-real-ip'] || req.socket.remoteAddress;
-  
+
   const IP = `212.58.224.20`;
 
   console.log(`User IP : `, UserIP);
-  
+
 
   const locationData = await getLocationData(UserIP);
   // console.log(locationData);
@@ -126,7 +126,7 @@ app.get('/api/location', async (req, res) => {
 
 app.get('/api/v1/clothes/:id', (req, res) => {
   const productId = req.params.id;
-  
+
   db.query(
     `select * from products where product_id = ? and category = 'clothing' order by rand()`,
     [productId],
@@ -140,37 +140,6 @@ app.get('/api/v1/clothes/:id', (req, res) => {
   );
 });
 
-app.get(`/phone/:id`, (req, res) => {
-  const phoneID = req.params.id;
-
-  db.query(
-    `select * from products where category = 'electronics' and product_id = ?`,
-    [phoneID],
-    (err, data) => {
-      if (err) {
-        console.log(err, `Phone detail fetching Error`);
-      } else if (data) {
-        // console.log(`Data from Phone View Detail`,data);
-        res.json(data);
-      }
-    }
-  );
-});
-
-app.get(`/api/v1/phones`, (req, res) => {
-  console.log(req.body);
-
-  const query = `select * from products where productName LIKE '%phone%'`;
-
-  db.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      // console.log(data);
-      res.json(data);
-    }
-  });
-});
 
 
 
@@ -214,18 +183,18 @@ app.post(`/logout`, (req, res) => {
 
 app.get('/', (req, res) => {
   setInterval(() => {
-            db.query(`select 1`, (err, data)=> {
-                if(err){
-                    console.log('DB keep-alive failed:', err);
-                    
-                }
-                else{
-                    console.log('DB keep-alive ping sent out');
-                    res.status(200).json({ message: 'Server is alive' });
-                    
-                }
-            })
-        }, 5 * 60 * 1000);
+    db.query(`select 1`, (err, data) => {
+      if (err) {
+        console.log('DB keep-alive failed:', err);
+
+      }
+      else {
+        console.log('DB keep-alive ping sent out');
+        res.status(200).json({ message: 'Server is alive' });
+
+      }
+    })
+  }, 5 * 60 * 1000);
 });
 
 app.listen(port, () => {

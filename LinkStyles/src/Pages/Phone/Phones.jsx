@@ -120,7 +120,7 @@ function Phones() {
                     <span className={styles.discount}>{PdiscountPercent}</span>
 
                     
-                    <Swiper
+                    {/* <Swiper
                       modules={[Navigation, Pagination, Autoplay]}
                       // navigation = {{clickable : true}}
                       // pagination={{ clickable: true }}
@@ -144,7 +144,20 @@ function Phones() {
                           />
                         </SwiperSlide>
                       ))}
-                    </Swiper>
+                    </Swiper> */}
+
+                    <img
+                            onClick={() => {
+
+                              navigate(`/phone/${phone.product_id}`),
+                                handlescroll()
+                            }
+
+                            }
+                            src={phone.image2}
+                            alt={phone.productName}
+                            className={styles.cardImage}
+                          />
 
                     <h3>{phone.productName}</h3>
 

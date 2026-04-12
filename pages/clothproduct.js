@@ -1,24 +1,22 @@
 const express = require(`express`)
-const router = express()
-const db = require('../database')
+const router = express.Router()
+const {db, dbPool} = require('../database')
 
 
 
 
-router.get(`/clothes`, (req, res) => {
+router.get(`/clothes`, async (req, res) => {
+  try {
+    const query = `SELECT * FROM products WHERE category = 'clothing' 
+    OR category = 'other' ORDER BY RAND();`
 
-  const query = `select * from products where category = 'clothing' 
-  or category = 'other' order by rand();`
-
-  db.query(query, (err, data)=> {
-    if(err){
-        console.log(err);
-        
-    }
-    // console.log(data);
+    const [data] = await dbPool.query(query)
     res.status(200).json(data)
-    
-  })
+
+  } catch (err) {
+    console.error(err, 'Error fetching clothes')
+    res.status(500).json({ message: 'Internal server error' })
+  }
 });
 
 

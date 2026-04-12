@@ -135,7 +135,7 @@ const URL = import.meta.env.VITE_APP_URL;
     });
 
     try {
-      const response = await fetch(`${URL}/register`, {
+      const response = await fetch(`${URL}/api/v1/register`, {
         method: "POST",
         body: dataForm,
       });
@@ -248,16 +248,16 @@ const URL = import.meta.env.VITE_APP_URL;
             {/* Inputs */}
             <div className={styles.textDivContainer}>
               {[
-                ["Firstname:", "first_name", "text", "First Name"],
-                ["Lastname:", "lastname", "text", "Last Name"],
-                ["Middle Name:", "middle_name", "text", "Middle Name"],
+                ["Firstname:", "first_name", "text", "First Name", true],
+                ["Lastname:", "lastname", "text", "Last Name", true],
+                ["Middle Name:", "middle_name", "text", "Middle Name", false],
                 ["Email:", "email", "email", "Email Address"],
-                ["Phone Number:", "phone_number", "tel", "Phone Number"],
-                ["Password:", "password", "password", "Secure Password"],
-                ["City:", "city", "text", "City"],
-                ["Nearest Landmark:", "nearest_landmark", "text", "Nearest Landmark"],
-                ["Delivery Home Address:", "address", "text", "Home Address"],
-              ].map(([label, key, type, placeholder]) => (
+                ["Phone Number:", "phone_number", "tel", "Phone Number", true],
+                ["Password:", "password", "password", "Secure Password", true],
+                ["City:", "city", "text", "City", true],
+                ["Nearest Landmark:", "nearest_landmark", "text", "Nearest Landmark", true],
+                ["Delivery Home Address:", "address", "text", "Home Address", true],
+              ].map(([label, key, type, placeholder, config]) => (
                 <div key={key} className={styles.inputgroup}>
                   <label className={styles.labelling}>{label}</label>
                   <input
@@ -265,7 +265,7 @@ const URL = import.meta.env.VITE_APP_URL;
                     value={formData[key]}
                     onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
                     placeholder={placeholder}
-                    required
+                    required={config}
                   />
                 </div>
               ))}

@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
-const db = require(`../database`)
+const {db, dbPool} = require(`../database`)
 const crypto = require('crypto');
 
 // Monnify Configuration

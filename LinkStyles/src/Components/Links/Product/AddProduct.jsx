@@ -1,29 +1,35 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import styles from "./Addproduct.module.css";
-import {useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { LoginContext } from "../../UserLogin/LoginContext";
 
 
 const AddProduct = () => {
-  
+
   const navigate = useNavigate()
-  const {isVerify} = useContext(LoginContext)
-   
+  const { isVerify } = useContext(LoginContext)
 
-    const URL = import.meta.env.VITE_APP_URL;
 
-    isVerify()
-  
+  const BASE_URL = import.meta.env.VITE_APP_URL;
+
+  isVerify()
+
 
   const [formData, setFormData] = useState({
     productName: "",
     description: "",
     price: "",
+    discountPrice: "",
     category: "",
     stock: "",
     images: [],
   });
+
+  const [discount, setDiscount] = useState(0)
+
+  const discountedPrice = formData.price && (discount || !discount)
+    ? Number(formData.price) - (Number(formData.price) * (Number(discount) / 100)) : null;
 
   const [oldFormData, setOldFormData] = useState({
     productName: "",
@@ -40,6 +46,23 @@ const AddProduct = () => {
   const [addingOldProduct, setAddingOldProduct] = useState(false)
 
   const [imagePreview, setImagePreview] = useState([]);
+  const [error, setError] = useState(null)
+
+  const categoryOption = [
+    { value: "", name: "Select Category" },
+    { value: "electronics", name: "Electronics" },
+    { value: "clothing", name: "Clothing" },
+    { value: "furniture", name: "Furniture" },
+    { value: "other", name: "Other" }
+  ];
+  const discountOptions = [
+    { value: 0, name: "Select Discount" },
+    { value: 10, name: "10%" },
+    { value: 20, name: "20%" },
+    { value: 30, name: "30%" },
+    { value: 40, name: "40%" },
+    { value: 50, name: "50%" }
+  ];
 
 
 
@@ -55,9 +78,26 @@ const AddProduct = () => {
       alert("You can upload a maximum of 3 images");
       return;
     }
+    const validFiles = files.filter(file => {
+      const isImage = file.type.startsWith(`image/`);
+      const isSizeValid = file.size <= 5 * 1024 * 1024;
 
-    setFormData((prev) => ({ ...prev, images: files }));
-    setImagePreview(files.map((file) => URL.createObjectURL(file)));
+      if (!isImage) {
+        setError(`${file.name} is not an Image`)
+        return false
+      }
+
+      else if (!isSizeValid) {
+        setError(`${file.name} size is too large`)
+        return false
+      }
+      return true
+    });
+
+    const preview = validFiles.map((file) => URL.createObjectURL(file))
+    setFormData((prev) => ({ ...prev, images: validFiles }));
+    setImagePreview(preview);
+
   };
 
   const handleSubmit = async (e) => {
@@ -74,10 +114,12 @@ const AddProduct = () => {
       }
     });
 
+    data.append("discountedPrice", discountedPrice ?? "")
+
     try {
       const token = localStorage.getItem(`token`)
       const response = await fetch(
-        "http://linkstyles-project-production.up.railway.app/api/v1/addproduct",
+        `${BASE_URL}/api/v1/addproduct`,
         {
           method: "POST",
           body: data,
@@ -89,7 +131,8 @@ const AddProduct = () => {
 
       const result = await response.json();
 
-      const ErrorDatas = ["login as admin", "session expired, please login" ,"invalid"]
+      const ErrorDatas = ["login as admin", "session expired, please login", "invalid"]
+      const ValidationError = [`required`, 'missing']
 
       if (!response.ok && ErrorDatas.some(err => result.error?.toLowerCase().includes(err))) {
         setTimeout(() => {
@@ -98,8 +141,11 @@ const AddProduct = () => {
         }, 5000)
         return;
       }
+      else if (!response.ok && ValidationError.some(err => result.error?.toLowerCase().includes(err))) {
+        alert(result?.error)
+      }
       else {
-        alert("Product Added Successfully!");
+        alert(result?.message);
 
         setFormData({
           productName: "",
@@ -107,9 +153,11 @@ const AddProduct = () => {
           price: "",
           category: "",
           stock: "",
+          beforeDiscount: "",
           images: [],
         });
         setImagePreview([]);
+        URL.revokeObjectURL(file)
 
 
       }
@@ -128,7 +176,7 @@ const AddProduct = () => {
 
     try {
       const response = await fetch(
-        `${URL}/api/v1/addoldproduct`,
+        `${BASE_URL}/api/v1/addoldproduct`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -146,6 +194,8 @@ const AddProduct = () => {
       setAddingOldProduct(false);
     }
   };
+
+
 
 
   return (
@@ -186,9 +236,7 @@ const AddProduct = () => {
 
 
             <div className={styles.formGroup}>
-              <label>
-                Price <span style={{ color: "red" }}>*</span>
-              </label>
+              <label>Price <span style={{ color: "red" }}>*</span></label>
               <input
                 type="number"
                 name="price"
@@ -198,6 +246,34 @@ const AddProduct = () => {
                 required
               />
             </div>
+
+            <div className={styles.formGroup}>
+              <label>Discount</label> 
+              <select
+                name="discount"
+                value={discount}
+                onChange={(e) => setDiscount(e.target.value)}
+              >
+                {discountOptions && discountOptions?.map((options)=> (
+                  <option value={options.value}>{options.name}
+                  </option>))}
+                
+              </select>
+              <p>Discount set to {discount}%</p>
+             
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Sales Price</label>
+              <input
+                type="number"
+                name="discountPrice"
+                value={discountedPrice ?? ""}
+                placeholder="0.00"
+                readOnly
+              />
+            </div>
+
 
             <div className={styles.formGroup}>
               <label>
@@ -224,12 +300,12 @@ const AddProduct = () => {
                 onChange={handleInputChange}
 
                 required
-              >
-                <option value="">Select Category</option>
-                <option value="electronics">Electronics</option>
-                <option value="clothing">Clothing</option>
-                <option value="furniture">Furniture</option>
-                <option value="other">Other</option>
+              > {categoryOption.map((option) => (
+
+                <option value={option.value}>{option.name}</option>
+
+              ))}
+
               </select>
             </div>
 
@@ -238,6 +314,7 @@ const AddProduct = () => {
                 Product Images <span style={{ color: "red" }}>*</span>
               </label>
               <br />
+              <div>{imagePreview.length > 0 ? <small style={{ color: "green" }}>{imagePreview.length} image Uploaded</small> : <small style={{ color: "red" }}>No Image Uploaded</small>}</div>
 
               {imagePreview.map((src, index) => (
                 <img
@@ -252,6 +329,8 @@ const AddProduct = () => {
                   }}
                 />
               ))}
+
+              <small style={{ color: "red" }}>{error}</small>
 
               <br /><br />
               <input

@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../database');
+const { db, dbPool } = require('../database');
 const router = express.Router();
 const multer = require('multer');
 
@@ -8,10 +8,10 @@ const cloudinary = require(`cloudinary`).v2
 // Configure Multer storage
 const upload = multer({ dest: 'public/images' });
 
-const {adminAuth} = require(`../Controllers/usersAuth`) 
+const { adminAuth } = require(`../Controllers/usersAuth`)
 
 router.post('/v1/addoldproduct', adminAuth(), (req, res) => {
-  const {productName,description,price,category,
+  const { productName, description, price, category, discountPrice,
     stock,
     imageUrl,
     imageUrl2,
@@ -19,6 +19,7 @@ router.post('/v1/addoldproduct', adminAuth(), (req, res) => {
   } = req.body;
 
   console.log('Form Fields:', req.body);
+
 
   // Validate Mandatory Fields
   if (!productName || !description || !price || !category || !stock) {
@@ -40,20 +41,35 @@ router.post('/v1/addoldproduct', adminAuth(), (req, res) => {
   };
 
   const sql = 'INSERT INTO products SET ?';
-  db.query(sql, insertData, (err, result) => {
-    if (err) {
-      console.error('Database Insert Error:', err);
-      return res.status(500).json({ message: 'Database error' });
-    }
 
-    console.log('Product inserted successfully:', result);
-
+  try {
+    const result = dbPool('INSERT INTO products SET ?', insertData)
+    console.log(result.insertId);
     return res.json({
       message: 'Product added successfully',
       productId: result.insertId,
     });
-  });
+
+  } catch (error) {
+    console.log(error);
+    console.error(error)
+  }
+  // db.query(sql, insertData, (err, result) => {
+  //   if (err) {
+  //     console.error('Database Insert Error:', err);
+  //     return res.status(500).json({ message: 'Database error' });
+  //   }
+
+  //   else {
+  //     console.log('Product inserted successfully:', result);
+  //     console.log(result.insertId);
+  //     return res.json({
+  //       message: 'Product added successfully',
+  //       productId: result.insertId,
+  //     });
+
 });
+
 
 router.post(
   '/addproduct', adminAuth(),
@@ -62,18 +78,18 @@ router.post(
     try {
       console.log('Form fields:', req.body);
 
-      const { productName, description, price, category, stock } = req.body;
+      const { productName, description, price, category, stock, discountedPrice } = req.body;
 
       // Basic validation
       if (!productName || !price || !category || !stock) {
         return res.status(400).json({
-          message: 'Required fields missing',
+          error: 'Required fields missing',
         });
       }
 
       if (!req.files || req.files.length === 0) {
         return res.status(400).json({
-          message: 'At least one image is required',
+          error: 'At least one image is required',
         });
       }
 
@@ -96,7 +112,7 @@ router.post(
         productName,
         category,
         description,
-        price,
+        price: discountedPrice || price,
         stock,
         image1: imageUrls[0],
         image2: imageUrls[1],
@@ -112,11 +128,15 @@ router.post(
             message: 'Database insertion failed',
           });
         }
+        else {
+          console.log(result.insertId);
 
-        res.status(201).json({
-          message: 'Product successfully added',
-          product_id: result.insertId,
-        });
+          res.status(201).json({
+            message: 'Product successfully added',
+            product_id: result.insertId,
+          });
+        }
+
       });
     } catch (error) {
       console.error('Server Error:', error);
@@ -126,6 +146,22 @@ router.post(
     }
   }
 );
+
+
+router.get(`/products`, async (req, res) => {
+
+  try {
+    const query = `select * from products`;
+
+    const [data] = await dbPool.query(query)
+    
+    return res.status(200).json(data)
+  } catch (error) {
+    console.log(error);
+    console.error(error)
+  }
+
+});
 
 module.exports = router;
 

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 require('dotenv').config();
 const { rateLimit } = require(`express-rate-limit`)
-const db = require('../database');
+const {db, dbPool} = require(`../database`)
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 

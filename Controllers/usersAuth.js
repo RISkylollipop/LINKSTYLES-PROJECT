@@ -1,7 +1,7 @@
 const express = require(`express`)
 const jwt = require(`jsonwebtoken`)
 require(`dotenv`).config()
-const db = require(`../database`)
+const {db, dbPool} = require(`../database`)
 
 const adminAuth = () => (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
@@ -14,8 +14,7 @@ const adminAuth = () => (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
         req.user = decoded;
        
-        db.query(`select * from users where id = ?`, [decoded.Id]
-            , (err, data) => {
+        db.query(`select * from users where id = ?`, [decoded.Id],(err, data) => {
               
                 if (decoded.tokenVersion !== data[0].jwt_version) {
                     console.log(`Token Not Match`);

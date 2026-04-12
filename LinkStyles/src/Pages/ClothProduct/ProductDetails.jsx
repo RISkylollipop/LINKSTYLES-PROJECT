@@ -43,7 +43,7 @@ function ProductDetails() {
         if (isMounted && Array.isArray(data)) {
           setProduct(data[0]);
           // console.log(data);
-          
+
         }
       })
       .catch((error) => console.error("Error fetching product:", error));
@@ -52,6 +52,9 @@ function ProductDetails() {
       isMounted = false;
     };
   }, [productID]);
+  if (!product) {
+    return <PageLoading name="Loading Clothes Details..." />;
+  }
 
   useEffect(() => {
     if (product?.category) {
@@ -77,13 +80,14 @@ function ProductDetails() {
 
 
 
+
   const productImages = [product?.image1, product?.image2, product?.image3];
 
-    
-    const newPrice = Number(product?.price);
-    let originalPrice;
-    
-    if (newPrice >= 15000) originalPrice = newPrice * 1.5;
+
+  const newPrice = Number(product?.price);
+  let originalPrice;
+
+  if (newPrice >= 15000) originalPrice = newPrice * 1.5;
   else if (newPrice > 12000) originalPrice = newPrice * 1.4;
   else if (newPrice > 7000) originalPrice = newPrice * 1.3;
   else if (newPrice > 3000) originalPrice = newPrice * 1.2;
@@ -93,8 +97,8 @@ function ProductDetails() {
   let discount = originalPrice - newPrice;
   let percentDiscount = ((discount / originalPrice) * 100).toFixed(0);
   let Pdiscount = `-${percentDiscount}%`;
-  
-  
+
+
   const handlescroll = () => {
 
     if (window.scrollY > 300) {
@@ -105,10 +109,10 @@ function ProductDetails() {
     }
 
     return
-    
+
   }
-  
-  
+
+
   /* Delivery date specification */
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -124,7 +128,7 @@ function ProductDetails() {
   const pickupStart = new Date(today);
   const pickupEnd = new Date(today);
   pickupEnd.setDate(today.getDate() + 4);
-  
+
   /* ---------------- DOOR DELIVERY (10 days) ---------------- */
   const deliveryStart = new Date(today);
   const deliveryEnd = new Date(today);
@@ -153,8 +157,8 @@ function ProductDetails() {
     endMonth: format(deliveryEnd, { month: "long" }),
     endYear: deliveryEnd.getFullYear(),
   };
-  
-  
+
+
   const stockCount = Number(product?.stock)
 
   return (
@@ -205,11 +209,11 @@ function ProductDetails() {
                 <span className={styles.discountText}>{Pdiscount}</span>
               </div>
 
-              <small style={stockCount <= 20 ? {color: "red"}: {color: "green"}}> ⚠️ {stockCount} Unit left</small>
-              
+              <small style={stockCount <= 20 ? { color: "red" } : { color: "green" }}> ⚠️ {stockCount} Unit left</small>
+
             </div>
 
-            <StarRating rating={4.5} />
+            <StarRating rating={product?.rating} />
             <hr />
 
             <button
@@ -344,8 +348,8 @@ function ProductDetails() {
 
         <Swiper
           spaceBetween={5}
-          slidesPerView={2}
-          slidesPerGroup={2}
+
+          slidesPerGroup={1}
           loop={relatedProducts.length > 1}
           autoplay={{ delay: 3000 }}
           navigation={true}
@@ -364,7 +368,7 @@ function ProductDetails() {
                   onClick={() => {
 
                     navigate(`/clothes/${related.product_id}`),
-                    handlescroll()
+                      handlescroll()
                   }
                   }
                 >
@@ -374,7 +378,7 @@ function ProductDetails() {
                   />
                   <h3>{related.productName}</h3>
                   <p>
-                    Price: {symbol} {related.price}
+                    Price: {symbol} {new Intl.NumberFormat("en-Us").format(related.price)}
                   </p>
                 </div>
               </SwiperSlide>

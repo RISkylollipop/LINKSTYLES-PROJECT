@@ -10,6 +10,7 @@ import Home from "./Pages/Home";
 // Admin Pages
 import Links from "./Components/Links/links.jsx";
 import AddProduct from './Components/Links/Product/AddProduct.jsx'
+import ProductList from "./Components/Links/productlist.jsx";
 // 
 
 // Users Pages
@@ -82,13 +83,14 @@ function App() {
 
 
 
-              (
+              
               <Routes>
                 <Route path="/link/admin" element={<Links />} />
                 <Route path="/link/admin/addproduct" element={<AddProduct />} />
+                <Route path="/link/admin/productlist" element={<ProductList/>} />
 
               </Routes>
-              )
+              
             </CountryContextProvider>
           </ClothContextProvider>
         </LoginContextProvider>

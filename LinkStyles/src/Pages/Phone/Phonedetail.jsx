@@ -41,6 +41,7 @@ function Phonedetail() {
         }
 
       } catch (error) {
+        console.log(`Unable to Fetch Phone Datails`);
         console.error(`Unable to Fetch Phone Datails`)
       }
     }

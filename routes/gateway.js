@@ -2,7 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const router = express.Router();
 require('dotenv').config();
-const db = require(`../database`)
+const {db, dbPool} = require(`../database`)
 const { sendMail, sendCompanyMail, RegistrationMail } = require(`../utilitis/sendMails`);
 
 

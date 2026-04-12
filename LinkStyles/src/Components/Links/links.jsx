@@ -198,9 +198,18 @@ function Links() {
                                     }}>
                                         Catalog {catalogMenu ? "✖️" : "➡️"}
                                         <ul className={`${catalogMenu ? styles.catopen : styles.catclose} ${styles.listNav}`}>
-                                            <li>Product List</li>
-                                            <li>Product</li>
-                                            <li>Categories list</li>
+                                            <li
+                                            onClick={()=> navigate(`/link/admin/productlist`)}
+                                            target="_blank"
+                                            >Product List
+                                                &nbsp;  <small style={{ color: "green" }}>{produceProductCount}</small>
+                                            </li>
+                                            <li>Products
+                                                &nbsp;  <small style={{ color: "green" }}>{produceProductCount}</small>
+                                            </li>
+                                            <li>Categories list
+                                                &nbsp;  <small style={{ color: "green" }}>{5}</small>
+                                            </li>
                                             <li>Category</li>
                                         </ul>
                                     </li>

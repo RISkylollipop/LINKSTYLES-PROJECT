@@ -19,21 +19,54 @@ export default function CountryContextProvider({ children }) {
   });
 
   // Fetch countries once
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        setCheckoutLoading(true);
-        const res = await fetch("https://countriesnow.space/api/v0.1/countries/positions");
-        const data = await res.json();
-        setCountries(data.data || []);
-      } catch (err) {
-        console.error("❌ Error fetching countries:", err);
-      } finally {
-        setCheckoutLoading(false);
-      }
-    };
-    fetchCountries();
-  }, []);
+useEffect(() => {
+  const fetchCountries = async () => {
+    try {
+      setCheckoutLoading(true);
+
+      const res = await fetch(
+        "https://countriesnow.space/api/v0.1/countries/positions"
+      );
+
+      const data = await res.json();
+
+      localStorage.setItem(
+        "countries_cache",
+        JSON.stringify({
+          data: data.data || [],
+          timestamp: Date.now()
+        })
+      );
+
+      setCountries(data.data || []);
+
+    } catch (err) {
+      console.error("❌ Error fetching countries:", err);
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }
+
+  const cached = localStorage.getItem("countries_cache");
+
+  if (cached) {
+    const parsed = JSON.parse(cached);
+
+    const now = Date.now();
+    const cacheAge = now - parsed.timestamp;
+
+    const DAY = 12 * 60 * 60 * 1000;
+
+    if (cacheAge < DAY) {
+      console.log("Using cached countries");
+      setCountries(parsed.data);
+      return; 
+    }
+  }
+
+  fetchCountries();
+
+}, []);
 
   // Handle country change and load states dynamically
   const handleCountryChange = async (e) => {

@@ -1,6 +1,18 @@
 const mysql = require(`mysql2`)
 require(`dotenv`).config()
 
+const dbPool = mysql.createPool({ 
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT,
+    ssl: {
+    rejectUnauthorized: false // required for Aiven
+  }
+    
+})
+
 const db = mysql.createConnection({ 
     host: process.env.MYSQLHOST,
     user: process.env.MYSQLUSER,
@@ -13,6 +25,38 @@ const db = mysql.createConnection({
     
 })
 
+db.connect((err, result) => {
+
+    if (err) {
+        console.log(err `Error Connecting`);
+        
+    }else{
+
+        
+        db.query(`select * from products`, (err, data)=>{
+    if(err){
+        console.log(err);
+        
+    }else{
+        console.log(data.length);
+        
+    }
+})
+        console.log(`Database Started`);
+    }
+    
+})
+
+
+
+
+
+module.exports = { 
+   db: db,
+  dbPool: dbPool.promise() 
+};
+
+
 // const db = mysql.createConnection(process.env.MYSQL_PUBLIC_URL)
 // console.log('DB Config:', {
 //   host: process.env.MYSQLHOST,
@@ -23,19 +67,18 @@ const db = mysql.createConnection({
 // });
 
 
-db.connect((err, result) => {
+// db.connect((err, result) => {
 
-    if (err) {
-        console.error(err , `Error Connecting`)
-    }else{
+//     if (err) {
+//         console.error(err , `Error Connecting`)
+//     }else{
 
-        console.log(`Database Started on Aiven server internally`);
+//         console.log(`Database Started on Aiven server internally`);
         
-    }
+//     }
     
-})
+// })
 
-module.exports = db;
 
 
 
