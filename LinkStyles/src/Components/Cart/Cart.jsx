@@ -58,12 +58,12 @@ function Cart() {
 
                                     <p>
                                         Price: {symbol}{""}
-                                        {new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(item.price)}
+                                        {new Intl.NumberFormat("en-NG").format(item.price)}
                                     </p>
 
                                     <p>
                                         Total Price: {symbol}{""}
-                                        {new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(totalPrice)}
+                                        {new Intl.NumberFormat("en-NG").format(totalPrice)}
                                     </p>
                                 </div>
 
@@ -107,7 +107,7 @@ function Cart() {
                     ? { display: "block", }
                     : { display: "none" }}
 
-                >Total: {symbol}{new Intl.NumberFormat("en-NG", { style : "currency", currency: "NGN"}).format((totalCartPrice).toFixed(2))}
+                >Total: {symbol}{new Intl.NumberFormat("en-NG").format((totalCartPrice).toFixed(2))}
                 </h3>
 
                 <button

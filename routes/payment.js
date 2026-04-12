@@ -60,7 +60,7 @@ const paymentRef = async () => {
 router.post('/v1/init-transaction', async (req, res) => {
 
   const { amount, customerEmail, customerName, cart } = req.body;
-  console.log(req.body, `Req body from Initialize Transaction`);
+  // console.log(req.body, `Req body from Initialize Transaction`);
 
   if (!amount || !customerEmail || !customerName) {
     return res.status(400).json({ message: 'Missing amount or email' });
@@ -113,7 +113,7 @@ router.post('/v1/init-transaction', async (req, res) => {
 // 🏦 Step 2: Generate Dynamic Bank Account
 router.post('/generate-account', async (req, res) => {
   const { payloadCartRef } = req.body;
-  console.log(req.body, `Req body From generated account`);
+  // console.log(req.body, `Req body From generated account`);
 
   if (!req.body.transactionReference) {
     return res.status(400).json({ message: 'Transaction reference required' });
@@ -127,8 +127,8 @@ router.post('/generate-account', async (req, res) => {
     const cartGoods = JSON.stringify(req.body.CartItem)
     const accessToken = await getAccessToken();
     const paymentReference = await paymentRef()
-    console.log(paymentReference);
-    console.log(transactionReference);
+    // console.log(paymentReference);
+    // console.log(transactionReference);
 
 
 
@@ -186,8 +186,10 @@ router.post('/generate-account', async (req, res) => {
 });
 
 router.post(`/v1/paymentDelayUpdate/:reference?`, (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
+  
   const { reference } = req.params;
+  // console.log( reference );
   if (req.body.status === 'PENDING') {
     const FailedQuery = `update cart 
 set status = 'FAILED' where monnify_ref = ?;`

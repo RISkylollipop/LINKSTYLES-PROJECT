@@ -81,7 +81,7 @@ const Payment = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
 
-  const CartTotal = new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(totalCartPrice.toFixed(2));
+  const CartTotal = new Intl.NumberFormat("en-NG").format(totalCartPrice.toFixed(2));
   const TotalCart = totalCartPrice.toFixed(2);
 
   const amount = new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(cart.totalCartPrice)
@@ -166,7 +166,7 @@ const Payment = () => {
       paymentMode: "Payment On Delivery"
 
     }
-    console.log(filterCartAndPayload);
+    // console.log(filterCartAndPayload);
     try {
 
       const response = await fetch(`${URL}/deliverydetails`, {
@@ -335,6 +335,8 @@ const Payment = () => {
 
 
             const transactionRef = initData.transactionReference;
+            // console.log(`transactionReference:`, transactionRef);
+            
             setTransactionReference(transactionRef);
 
 
@@ -366,7 +368,7 @@ const Payment = () => {
             const accountData = await genAccountRes.json();
 
             if (accountData.status === "success") {
-              console.log(`Account Daata`, accountData);
+              // console.log(`Account Daata`, accountData);
 
               setOpayData({
                 bank: accountData.mainData.bankName,
@@ -375,7 +377,7 @@ const Payment = () => {
                 email: accountData.customerEmail,
                 mainaccountName: accountData.mainData.accountName,
                 status: accountData.mainData.status,
-                amount: new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(accountData.mainData.totalPayable)
+                amount: new Intl.NumberFormat("en-NG").format(accountData.mainData.totalPayable)
 
               });
 
@@ -402,7 +404,7 @@ const Payment = () => {
 
   useEffect(() => {
 
-    console.log(`InterVal Ref: ${intervalRef.current}`);
+    // console.log(`InterVal Ref: ${intervalRef.current}`);
 
   }, [intervalRef.current])
 
@@ -417,14 +419,16 @@ const Payment = () => {
 
   const handlePaymentResponse = async (data) => {
     if (data.status === "PAID") {
-      toast.success(data.success || "✅ Payment confirmed!");
-      setPaymentConfirmed(true);
-      localStorage.removeItem("cart");
+      setTimeout(() => {
+        toast.success(data?.status || "✅ Payment confirmed!");
+        localStorage.removeItem('cart') 
+        setPaymentConfirmed(true);
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+        navigate("/");
+      }, 5000);
 
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
 
-      navigate("/");
       return;
     }
 
@@ -448,7 +452,9 @@ const Payment = () => {
     intervalRef.current = setInterval(async () => {
       try {
         const data = await getPaymentStatus();
-        console.log("Payment status:", data.status);
+        // console.log(data);
+        
+        // console.log("Payment status:", data.status);
 
         await handlePaymentResponse(data);
 
@@ -487,6 +493,9 @@ const Payment = () => {
 
   const handleConfirmation = async () => {
     if (!transactionReference) return;
+
+    // console.log(transactionReference);
+    
 
     setManualConfirmation(true);
     setButtonClick(true);
@@ -864,7 +873,7 @@ const Payment = () => {
                             <h3>Item Name: <span>{item.productName}</span></h3> <img src={item.image1} alt={item.productName} width={80} />
                           </div>
                           <div className={styles.sections}>
-                            <span><b>Quantity:</b></span> <span><b>{item.quantity}</b></span> <span><b>{symbol} {item.price}</b></span>
+                            <span><b>Quantityghjhg:</b></span> <span><b>{item.quantity}</b></span> <span><b>{symbol} {item.price}</b></span>
                           </div>
                           <br />
                           <div className={styles.sections}>

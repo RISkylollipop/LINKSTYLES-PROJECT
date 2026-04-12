@@ -72,11 +72,14 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
             const customerName = customer?.name || metaData?.customerName
 
             // Query DB for the cart data
-            // console.log(transactionReference);
+            // console.log(`Minify Ref`,transactionReference);
+            // console.log(`Payment ref`,paymentReference);
+            // console.log(`Amount`,amountPaid);
+
 
             db.query(
-                `SELECT items FROM cart WHERE monnify_ref = ? AND reference_id = ? AND amount = ?`,
-                [transactionReference,paymentReference,amountPaid],
+                `SELECT items FROM cart WHERE monnify_ref = ? AND amount = ?`,
+                [transactionReference,amountPaid],
                 async (err, result) => {
                     if (err) {
                         console.log(err);
@@ -97,8 +100,8 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
 
                     // console.log('DB items value:', result[0].items);
 
-                    db.query(`update cart set status = 'PAID' where monnify_ref = ? AND reference_id = ? AND amount = ?`,
-                        [transactionReference, paymentReference, amountPaid],
+                    db.query(`update cart set status = 'PAID' where monnify_ref = ?  AND amount = ?`,
+                        [transactionReference, amountPaid],
                         async (err, result) => {
                             if (err) {
                                 console.log(err);
@@ -107,16 +110,16 @@ router.post('/monnify/webhook', express.json({ type: '*/*' }), async (req, res) 
                                 console.log(`cart payment updated successfully`);
                                 
 
-                                db.query(`select * from delivery_details where email = ?`, [customerEmail], (err, data) => {
-                                    if (err) {
-                                        console.log(err);
-                                        return res.json(`No customer data Found`)
+                                // db.query(`select * from delivery_details where email = ?`, [customerEmail], (err, data) => {
+                                //     if (err) {
+                                //         console.log(err);
+                                //         return res.json(`No customer data Found`)
 
-                                    } else {
-                                        console.log(data);
+                                //     } else {
+                                //         console.log(data);
 
-                                    }
-                                })
+                                //     }
+                                // })
 
                             }
                         })
@@ -178,11 +181,11 @@ router.get('/payment/status/:reference?', (req, res) => {
                 }
 
                 console.log(data);
-                return res.json({message : 'PAYMENT CONFIRMED'});
+                return res.status(200).json(data[0]);
             }
         );
     } else {
-        // For debugging: return in-memory confirmed payments
+        
         return res.json(Array.from(confirmedPayments.values()));
     }
 });
