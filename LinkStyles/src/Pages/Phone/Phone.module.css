@@ -34,7 +34,7 @@
     transparent 70%
   );
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
 }
 
 /* faint circle bg decoration */
@@ -48,7 +48,7 @@
   border-radius: 50%;
   background: rgba(255,255,255,0.07);
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
 }
 
 @keyframes bannerIn {
@@ -61,7 +61,7 @@
   flex: 1;
   padding: 20px 24px;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 .centerSection {
@@ -297,7 +297,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 1000;
+    z-index: 3;
     
     
 }

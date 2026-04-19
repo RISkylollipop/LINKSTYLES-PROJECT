@@ -1,5 +1,239 @@
-.loginContainer{
-    width: 70%;
-    height: fit-content;
-    margin: 20px auto;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.pageRoot {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: #0a0a0a;
+}
+
+/* ── Left Panel ── */
+.leftPanel {
+  position: sticky;
+  top: 0;
+  width: 42%;
+  height: 100vh;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .leftPanel { display: none; }
+}
+
+.swiperFull {
+  width: 100%;
+  height: 100%;
+}
+
+.slideImage {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.leftOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.3) 0%,
+    rgba(0,0,0,0.1) 30%,
+    rgba(0,0,0,0.7) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px 40px;
+}
+
+.brandMark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.brandMark span {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  white-space: nowrap;
+}
+
+.brandLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
+}
+
+.heroText {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0 0 16px;
+}
+
+.heroText em {
+  font-style: italic;
+  color: #e63946;
+}
+
+.heroSub {
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 280px;
+
+}
+
+/* ── Right Panel ── */
+.rightPanel {
+  flex: 1;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.formInner {
+  width: 100%;
+  max-width: 400px;
+}
+
+.formHeader {
+  margin-bottom: 40px;
+}
+
+.formLogo {
+  font-family: cursive;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #fff;
+  margin-bottom: 28px;
+  text-align: center;
+  font-style: italic;
+}
+
+.formLogo span {
+  color: #e63946;
+}
+
+.formHeader h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+.formHeader p {
+  color: #555;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ── Form Fields ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+
+}
+
+.fieldGroup label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.fieldGroup input {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 13px 14px;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+
+.fieldGroup input::placeholder {
+  color: #444;
+}
+
+.fieldGroup input:focus {
+  border-color: #e63946;
+  background: #1f1515;
+}
+
+/* ── Submit Button ── */
+.submitBtn {
+  margin-top: 8px;
+  background: #e63946;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  width: 100%;
+}
+
+.submitBtn:hover {
+  background: #c1121f;
+}
+
+.submitBtn:active {
+  transform: scale(0.99);
+}
+
+.submitBtn:disabled {
+  background: #4a1018;
+  color: #7a4045;
+  cursor: not-allowed;
+}
+
+
+.registerPrompt {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}
+
+.registerPrompt span {
+  color: #e63946;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.registerPrompt span:hover {
+  text-decoration: underline;
 }

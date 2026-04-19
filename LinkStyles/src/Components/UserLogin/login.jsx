@@ -1,32 +1,47 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import styles from "./login.module.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext";
 
-import backgroundImage from "../LatestTrend/LatestTrendImages/trend1.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
 
-// 3. Login Component
+import LatestTrendImage1 from "../LatestTrend/LatestTrendImages/trend1.png";
+import LatestTrendImage2 from "../LatestTrend/LatestTrendImages/trend2.png";
+import LatestTrendImage3 from "../LatestTrend/LatestTrendImages/trend3.png";
+import LatestTrendImage4 from "../LatestTrend/LatestTrendImages/trend4.png";
+
+const bgImage = [
+  { id: 1, image: LatestTrendImage1 },
+  { id: 2, image: LatestTrendImage2 },
+  { id: 3, image: LatestTrendImage3 },
+  { id: 4, image: LatestTrendImage4 },
+];
+
 export function Login() {
-  const { user, setUser, mainData, setMainData, productlenght,
-    setProductlenght } = useContext(LoginContext);
+  const { user, setUser, mainData, setMainData, productlenght, setProductlenght } = useContext(LoginContext);
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_APP_URL;
+
   const [formData, setFormData] = useState({
     first_name: "",
     email: "",
     password: "",
   });
 
-  const URL = import.meta.env.VITE_APP_URL;
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    fetch(`${URL}/api/v1/login`, {
+    fetch(`${BASE_URL}/api/v1/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -37,136 +52,144 @@ export function Login() {
         return data;
       })
       .then((data) => {
+        setLoading(false);
 
         if (data.status === 200 && data.token) {
-
           setUser(data.MainData);
           setMainData(data.MainData);
-
           localStorage.setItem("token", data.token);
           localStorage.setItem("data", JSON.stringify(data.MainData));
-          localStorage.setItem("productlength", data.productLenght)
-
+          localStorage.setItem("productlength", data.productLenght);
 
           if (data.message === "Admin Login successfully") {
-            toast.success(data.Admingreeting)
+            toast.success(data.Admingreeting);
             setTimeout(() => {
-              navigate("/link/admin")
-              const productlenght = localStorage.getItem("productlength")
-              setProductlenght(productlenght);
-
-
-
-
+              navigate("/link/admin");
+              setProductlenght(localStorage.getItem("productlength"));
             }, 5000);
           } else {
             toast.success(data.message);
             setTimeout(() => navigate("/clothes"), 3500);
           }
-
-        }
-
-        else if (data.status === 404) {
+        } else if (data.status === 404) {
           toast.info(data.message || "Email not found, please register first.");
           setTimeout(() => navigate("/register"), 2500);
-        }
-
-        else if (data.status === 401) {
+        } else if (data.status === 401) {
           toast.error(data.message || "Incorrect password.");
-        }
-
-        else if (data.status === 429) {
-
-          toast.error(`${data.statusmsg.toUpperCase()}!!! 
-          ${data.msg}, Remaining attempts: ${data.remainingAttempt}`)
-          
-        }
-
-        else {
+        } else if (data.status === 429) {
+          toast.error(`${data.statusmsg?.toUpperCase()}!!! ${data.msg}, Remaining attempts: ${data.remainingAttempt}`);
+        } else {
           toast.warn("Something went wrong. Please try again.");
         }
       })
-
       .catch((err) => {
+        setLoading(false);
         console.error("Error:", err);
         toast.error("Server error, please try again later.");
       });
   };
 
-
+  
   return (
-    <>
-      <main
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "100vh",
-        }}
-      >
-        <h1
-          style={{
-            color: "white",
-            fontSize: "50px",
-            fontWeight: "bolder",
-          }}
+    <main className={styles.pageRoot}>
+      <ToastContainer theme="dark" position="top-center" />
+
+      {/* Left — Swiper Panel */}
+      <div className={styles.leftPanel}>
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={1}
+          loop={true}
+          speed={1500}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          modules={[Autoplay]}
+          className={styles.swiperFull}
         >
-          Login here
-        </h1>
+          {bgImage.map((image) => (
+            <SwiperSlide key={image.id}>
+              <div
+                className={styles.slideImage}
+                style={{ backgroundImage: `url(${image.image})` }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-        <form onSubmit={handleSubmit} className={styles.loginContainer}>
-          <FloatingLabel
-            controlId="floatingInput1"
-            label="First Name"
-            className="mb-3"
-          >
-            <Form.Control
-              type="text"
-              placeholder="Firstname"
-              value={formData.first_name}
-              onChange={(e) =>
-                setFormData({ ...formData, first_name: e.target.value })
-              }
-            />
-          </FloatingLabel>
+        <div className={styles.leftOverlay}>
+          <div className={styles.brandMark}>
+            <div className={styles.brandLine} />
+            <span>LINKSTYLES</span>
+            <div className={styles.brandLine} />
+          </div>
+          <h1 className={styles.heroText}>
+            Welcome<br />
+            <em>Back</em>
+          </h1>
+          <p className={styles.heroSub}>
+            Sign in to continue your fashion journey with us.
+          </p>
+        </div>
+      </div>
 
-          <FloatingLabel
-            controlId="floatingInput2"
-            label="Email Address"
-            className="mb-3"
-          >
-            <Form.Control
-              type="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-            />
-          </FloatingLabel>
+      {/* Right — Login Form */}
+      <div className={styles.rightPanel}>
+        <div className={styles.formInner}>
 
-          <FloatingLabel
-            controlId="floatingInput3"
-            label="Password"
-            className="mb-3"
-          >
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-            />
-          </FloatingLabel>
+          <div className={styles.formHeader}>
+            <div className={styles.formLogo}>
+              LINK<span>STYLES</span>
+            </div>
+            <h2>Sign In</h2>
+            <p>Enter your details to access your account</p>
+          </div>
 
-          <Button variant="success" type="submit">
-            Submit
-          </Button>
-        </form>
-      </main>
-    </>
+          <form onSubmit={handleSubmit} className={styles.form}>
+
+            <div className={styles.fieldGroup}>
+              <label>First Name</label>
+              <input
+                type="text"
+                placeholder="Your first name"
+                value={formData.first_name}
+                onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                required
+              />
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label>Email Address</label>
+              <input
+                type="email"
+                placeholder="your@email.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+              />
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Your password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                required
+              />
+            </div>
+
+            <button type="submit" className={styles.submitBtn} disabled={loading}>
+              {loading ? "Signing In..." : "Sign In →"}
+            </button>
+
+            <p className={styles.registerPrompt}>
+              Don't have an account?{" "}
+              <span onClick={() => navigate("/register")}>Create one</span>
+            </p>
+
+          </form>
+        </div>
+      </div>
+    </main>
   );
 }
