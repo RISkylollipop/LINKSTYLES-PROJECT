@@ -16,6 +16,7 @@ import backgroundImage from "../LatestTrend/LatestTrendImages/trend5.png";
 import loadingMark from "./gifs/loadingmark.gif";
 import successMark from "./gifs/successmark.gif";
 
+import RegisterFooter from "./registerfooter";
 import styles from "./register.module.css";
 
 const bgImage = [
@@ -26,15 +27,11 @@ const bgImage = [
 ];
 
 export const UserRegister = () => {
-
-
-const URL = import.meta.env.VITE_APP_URL;
-
-
+  const BASE_URL = import.meta.env.VITE_APP_URL;
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -52,19 +49,12 @@ const URL = import.meta.env.VITE_APP_URL;
 
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-
   const [message, setMessage] = useState("");
-  const [messageColor, setMessageColor] = useState("white");
-
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
 
-  const redirectDelay = 6000; // 3s delay before redirect
-  const toastDelay = 3000;
+  const redirectDelay = 6000;
 
-  //---------------------------------------------------------
-  // Fetch countries
-  //---------------------------------------------------------
   useEffect(() => {
     fetch("https://countriesnow.space/api/v0.1/countries/positions")
       .then((res) => res.json())
@@ -72,14 +62,9 @@ const URL = import.meta.env.VITE_APP_URL;
       .catch(() => toast.error("Error loading countries"));
   }, []);
 
-  //---------------------------------------------------------
-  // Fetch states
-  //---------------------------------------------------------
   const handleCountryChange = (e) => {
     const selected = e.target.value;
-
     setFormData({ ...formData, country: selected, state: "" });
-
     fetch("https://countriesnow.space/api/v0.1/countries/states", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -90,174 +75,197 @@ const URL = import.meta.env.VITE_APP_URL;
       .catch(() => toast.error("Error loading states"));
   };
 
-  //---------------------------------------------------------
-  // Profile picture preview
-  //---------------------------------------------------------
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-
     if (!selectedFile) {
       setFile(null);
       setPreview(null);
       setMessage("Please add a profile picture");
       return;
     }
-
     setFile(selectedFile);
-
     const reader = new FileReader();
     reader.onloadend = () => setPreview(reader.result);
     reader.readAsDataURL(selectedFile);
-
-    setMessage("Profile Picture Added");
-    setMessageColor("white");
+    setMessage("Profile picture added ✓");
   };
 
-  //---------------------------------------------------------
-  // Submit Registration
-  //---------------------------------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!file) {
-      toast.error("Please Add a Profile Picture");
+      toast.error("Please add a profile picture");
       return;
     }
-
     setLoading(true);
     setSuccess(false);
 
     const dataForm = new FormData();
     dataForm.append("profilePicture", file);
-
-    Object.entries(formData).forEach(([key, value]) => {
-      dataForm.append(key, value);
-    });
+    Object.entries(formData).forEach(([key, value]) => dataForm.append(key, value));
 
     try {
-      const response = await fetch(`${URL}/api/v1/register`, {
+      const response = await fetch(`${BASE_URL}/api/v1/api/v1/register`, {
         method: "POST",
         body: dataForm,
       });
-
       const data = await response.json();
 
       if (!response.ok) {
         setLoading(false);
-
-        // 409 → email already exists
-        if (response.status === 409) {
-          toast.error(data.message || "Email already exists");
-          return;
-        }
-
-        // 500 → server/database error
-        if (response.status === 500) {
-          toast.error(data.message || "Server error");
-          return;
-        }
-
-        toast.error("Registration failed");
-        return;
+        if (response.status === 409) return toast.error(data.message || "Email already exists");
+        if (response.status === 500) return toast.error(data.message || "Server error");
+        return toast.error("Registration failed");
       }
 
-      //---------------------------------------------------------
-      // SUCCESS
-      //---------------------------------------------------------
       setLoading(false);
       setSuccess(true);
-
       toast.success("Registration Successful!");
-
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, redirectDelay);
-
-    } catch (error) {
+      setTimeout(() => { window.location.href = "/login"; }, redirectDelay);
+    } catch {
       setLoading(false);
       toast.error("Network error. Try again!");
     }
   };
 
+  if (loading || success) {
+    return (
+      <div className={styles.statusScreen}>
+        <div className={styles.statusLogo}>LINK<span>STYLES</span></div>
+        {loading && (
+          <div className={styles.statusContent}>
+            <img src={loadingMark} alt="Loading..." width="120" />
+            <p>Creating your account...</p>
+          </div>
+        )}
+        {success && (
+          <div className={styles.statusContent}>
+            <img src={successMark} alt="Success!" width="140" />
+            <h2>Welcome to Linkstyles</h2>
+            <p>Redirecting you to login...</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <main>
-      
-      {/* BG Swiper */}
-      <Swiper
-        spaceBetween={0}
-        slidesPerView="auto"
-        loop={true}
-        speed={3000}
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
-        modules={[Autoplay]}
-      >
-        {bgImage.map((image) => (
-          <SwiperSlide key={image.id}>
-            <div
-              style={{
-                backgroundImage: `url(${image.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                height: "300px",
-                width: "100%",
-              }}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <>
+    <main className={styles.pageRoot}>
+      <ToastContainer theme="dark" position="top-right" />
 
-     
-      {loading || success ? (
-        <div style={{ textAlign: "center", marginTop: "40px" }}>
-          {loading && <img src={loadingMark} alt="Loading..." width="200" />}
-          {success && (
-            <>
-              <img src={successMark} alt="Success!" width="250" />
-              <p>Registration Successful! Redirecting...</p>
-            </>
-          )}
-        </div>
-      ) : (
-    
-
-        
-        <div
-          className={styles.registerContainer}
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: "cover",
-          }}
+      {/* Left — Swiper Panel */}
+      <div className={styles.leftPanel}>
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={1}
+          loop={true}
+          speed={1500}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          modules={[Autoplay]}
+          className={styles.swiperFull}
         >
-          <div className={styles.cardHeader}>
-            <h3>Create an account</h3>
-            <h3>Enter your information to continue</h3>
+          {bgImage.map((image) => (
+            <SwiperSlide key={image.id}>
+              <div
+                className={styles.slideImage}
+                style={{ backgroundImage: `url(${image.image})` }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <div className={styles.leftOverlay}>
+          <div className={styles.brandMark}>
+            <div className={styles.brandLine} />
+            <span>LINKSTYLES</span>
+            <div className={styles.brandLine} />
+          </div>
+          <h1 className={styles.heroText}>
+            Dress Like<br />
+            <em>You Mean It</em>
+          </h1>
+          <p className={styles.heroSub}>Join thousands of Nigerians shopping the latest fashion trends.</p>
+        </div>
+      </div>
+
+      {/* Right — Form Panel */}
+      <div className={styles.rightPanel}>
+        <div className={styles.formInner}>
+
+          <div className={styles.formHeader}>
+            <div className={styles.formLogo}>LINK<span>STYLES</span></div>
+            <h2>Create Account</h2>
+            <p>Fill in your details to get started</p>
           </div>
 
-          <form className={styles.FormStyle} onSubmit={handleSubmit}>
-            {/* Profile Picture */}
-            <div className={styles.mainPreviewImageContainer}>
-              <div className={styles.previewImageContainer}>
-                {preview ? <img src={preview} alt="Preview" /> : "PROFILE PICTURE"}
+          {/* Avatar Upload */}
+          <div className={styles.avatarSection}>
+            <label className={styles.avatarLabel} htmlFor="avatarInput">
+              <div className={styles.avatarRing}>
+                {preview
+                  ? <img src={preview} alt="Preview" className={styles.avatarImg} />
+                  : <div className={styles.avatarPlaceholder}>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      <span>Add Photo</span>
+                    </div>
+                }
               </div>
+            </label>
+            <input id="avatarInput" type="file" accept="image/*" onChange={handleFileChange} className={styles.hiddenInput} />
+            {message && <p className={styles.avatarMessage}>{message}</p>}
+          </div>
 
-              {message && <p style={{ color: messageColor }}>{message}</p>}
+          <form onSubmit={handleSubmit} className={styles.form}>
 
-              <input type="file" accept="image/*" onChange={handleFileChange} />
+            {/* Name Row */}
+            <div className={styles.row}>
+              <div className={styles.fieldGroup}>
+                <label>First Name</label>
+                <input type="text" placeholder="First Name" value={formData.first_name}
+                  onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} required />
+              </div>
+              <div className={styles.fieldGroup}>
+                <label>Last Name</label>
+                <input type="text" placeholder="Surname" value={formData.lastname}
+                  onChange={(e) => setFormData({ ...formData, lastname: e.target.value })} required />
+              </div>
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label>Middle Name</label>
+              <input type="text" placeholder="Optional" value={formData.middle_name}
+                onChange={(e) => setFormData({ ...formData, middle_name: e.target.value })} />
+            </div>
+
+            <div className={styles.row}>
+              <div className={styles.fieldGroup}>
+                <label>Email Address</label>
+                <input type="email" placeholder="you@email.com" value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
+              </div>
+              <div className={styles.fieldGroup}>
+                <label>Phone Number</label>
+                <input type="tel" placeholder="080123456789" value={formData.phone_number}
+                  onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })} required />
+              </div>
             </div>
 
             {/* Inputs */}
             <div className={styles.textDivContainer}>
               {[
-                ["Firstname:", "first_name", "text", "First Name", true],
-                ["Lastname:", "lastname", "text", "Last Name", true],
-                ["Middle Name:", "middle_name", "text", "Middle Name", false],
+                ["Firstname:", "first_name", "text", "First Name"],
+                ["Lastname:", "lastname", "text", "Last Name"],
+                ["Middle Name:", "middle_name", "text", "Middle Name"],
                 ["Email:", "email", "email", "Email Address"],
-                ["Phone Number:", "phone_number", "tel", "Phone Number", true],
-                ["Password:", "password", "password", "Secure Password", true],
-                ["City:", "city", "text", "City", true],
-                ["Nearest Landmark:", "nearest_landmark", "text", "Nearest Landmark", true],
-                ["Delivery Home Address:", "address", "text", "Home Address", true],
-              ].map(([label, key, type, placeholder, config]) => (
+                ["Phone Number:", "phone_number", "tel", "Phone Number"],
+                ["Password:", "password", "password", "Secure Password"],
+                ["City:", "city", "text", "City"],
+                ["Nearest Landmark:", "nearest_landmark", "text", "Nearest Landmark"],
+                ["Delivery Home Address:", "address", "text", "Home Address"],
+              ].map(([label, key, type, placeholder]) => (
                 <div key={key} className={styles.inputgroup}>
                   <label className={styles.labelling}>{label}</label>
                   <input
@@ -265,7 +273,7 @@ const URL = import.meta.env.VITE_APP_URL;
                     value={formData[key]}
                     onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
                     placeholder={placeholder}
-                    required={config}
+                    required
                   />
                 </div>
               ))}
@@ -288,38 +296,52 @@ const URL = import.meta.env.VITE_APP_URL;
 
               {/* State */}
               {states.length > 0 && (
-                <select
-                  style={{ height: "40px", borderRadius: "10px", padding: "10px" }}
-                  name="state"
-                  value={formData.state}
-                  onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                  required
-                >
-                  <option value="">Select State</option>
-                  {states.map((state, idx) => (
-                    <option key={idx} value={state.name}>
-                      {state.name}
-                    </option>
-                  ))}
-                </select>
+                <div className={styles.fieldGroup}>
+                  <label>State</label>
+                  <select value={formData.state}
+                    onChange={(e) => setFormData({ ...formData, state: e.target.value })} required>
+                    <option value="">Select State</option>
+                    {states.map((s, i) => <option key={i} value={s.name}>{s.name}</option>)}
+                  </select>
+                </div>
               )}
+            </div>
 
-              <div className={styles.buttonDivStyles}>
-                <button type="submit" disabled={loading}>
-                Register
-              </button> 
-              <p>Already have an account</p>
-              <button type="submit" disabled={loading}
-              onClick={() => navigate(`/login`)}
-              >
-                Login
-              </button>
+            <div className={styles.row}>
+              <div className={styles.fieldGroup}>
+                <label>City</label>
+                <input type="text" placeholder="Your city" value={formData.city}
+                  onChange={(e) => setFormData({ ...formData, city: e.target.value })} required />
+              </div>
+              <div className={styles.fieldGroup}>
+                <label>Nearest Landmark</label>
+                <input type="text" placeholder="e.g. Near GTBank" value={formData.nearest_landmark}
+                  onChange={(e) => setFormData({ ...formData, nearest_landmark: e.target.value })} required />
               </div>
             </div>
+
+            <div className={styles.fieldGroup}>
+              <label>Delivery Address</label>
+              <input type="text" placeholder="Full home address" value={formData.address}
+                onChange={(e) => setFormData({ ...formData, address: e.target.value })} required />
+            </div>
+
+            <button type="submit" className={styles.submitBtn} disabled={loading}>
+              {loading ? "Creating Account..." : "Create My Account →"}
+            </button>
+
+            <p className={styles.loginPrompt}>
+              Already have an account?{" "}
+              <span onClick={() => navigate("/login")}>Sign In</span>
+            </p>
+
           </form>
         </div>
-      )}
+
+      </div>
     </main>
+        <RegisterFooter/>
+    </>
   );
 };
 
