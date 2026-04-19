@@ -14,14 +14,11 @@
 const {Resend} = require(`resend`);
 require('dotenv').config();
 
-
-
 const resendKey = process.env.RESEND_API_KEY
 
 const resend = new Resend(resendKey)
 
 const from = 'Linkstyles <orders@mail.kwarapolydata.com.ng>'
-
 
 
 
