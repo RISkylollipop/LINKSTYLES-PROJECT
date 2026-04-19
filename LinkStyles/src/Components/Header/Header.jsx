@@ -167,7 +167,7 @@ function Header() {
 
                             <li className={`${styles.headerlink} ${styles.navLinks} ${styles.cart} ${styles.li}`}>
                                 <FaShoppingCart size={24}
-                                    onClick={() => navigate("product/cart")}
+                                    onClick={() => navigate("/product/cart")}
                                     color="gray"
                                     title='My Cart' />
 

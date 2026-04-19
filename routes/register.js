@@ -106,23 +106,19 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
 
             console.log('Registration completed');
 
-            await RegistrationMail({
-              first_name,
-              lastname,
-              middle_name,
-              email,
-              phone_number,
-              password,
-              address,
-              city,
-              state,
-              country,
-            });
-
-            return res.status(201).json({
+            
+            res.status(201).json({
               message: 'Registration successfully processed',
               userId: data.insertId,
             });
+
+            
+            RegistrationMail({
+              first_name, lastname, middle_name,
+              email, phone_number, password,
+              address, city, state, country,
+            }).catch(err => console.error('RegistrationMail failed:', err));
+            
           });
         }
       );

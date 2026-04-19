@@ -1,80 +1,390 @@
-.registerContainer {
-  font-family: "Montserrat", sans-serif;
-  width: 95%;
-  margin: 0 auto;
-  padding-top: 30px;
-  border-radius: 10px;
-  word-wrap: break-word;
-  white-space: nowrap;
-  text-transform: capitalize;
-  justify-content: center;
-  align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── Root ── */
+.pageRoot {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: #0a0a0a;
+  overflow-x: hidden;
 }
 
-.cardHeader {
-    color: white;
-    text-align: center;
-    white-space: normal;
-    font-family: cursive;
-    word-break: break-word;
-    overflow-x: hidden;
-}
-.mainPreviewImageContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
-}
-.previewImageContainer{
-    width: 220px;
-    height: 220px;
-    margin-top: 10px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+ /* LEFT PANEL — Image Swiper */
+
+.leftPanel {
+  position: sticky;
+  top: 0;
+  width: 42%;
+  height: 100vh;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
-.previewImageContainer img {
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
+@media (max-width: 900px) {
+  .leftPanel { display: none; }
 }
-.textDivContainer {
+
+.swiperFull {
+  width: 100%;
+  height: 100%;
+}
+
+.slideImage {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: contain;
+  background-repeat: no-repeat;
+}
+
+.leftOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.3) 0%,
+    rgba(0,0,0,0.1) 30%,
+    rgba(0,0,0,0.7) 100%
+  );
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  justify-content: flex-end;
+  padding: 48px 40px;
 }
 
-.inputgroup {
+.brandMark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.brandMark span {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  white-space: normal;
+}
+
+.brandLine {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.4);
+}
+
+.heroText {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0 0 16px;
+}
+
+.heroText em {
+  font-style: italic;
+  color: #e63946;
+}
+
+.heroSub {
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 280px;
+}
+
+/* =============================================
+   RIGHT PANEL — Form
+   ============================================= */
+.rightPanel {
+  flex: 1;
+  background: #111;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.formInner {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* ── Form Header ── */
+.formHeader {
+  margin-bottom: 32px;
+}
+
+.formLogo {
+  font-family: cursive;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #fff;
+  margin-bottom: 24px;
+  text-align: center;
+  font-style: italic;
+}
+
+.formLogo span {
+  color: #e63946;
+}
+
+.formHeader h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin: 0 0 6px;
+}
+
+.formHeader p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ── Avatar Section ── */
+.avatarSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  
+  margin-bottom: 28px;
 }
 
-.inputgroup input {
-  width: 90vw;              
-  padding: 8px 12px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.avatarLabel {
+  cursor: pointer;
+}
+
+.avatarRing {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 2px dashed #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  background: #1a1a1a;
+}
+
+.avatarRing:hover {
+  border-color: #e63946;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+}
+
+.avatarPlaceholder span {
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.avatarMessage {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #4caf50;
+  letter-spacing: 0.5px;
+}
+
+/* ── Form Fields ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldGroup label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.fieldGroup input,
+.fieldGroup select {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  appearance: none;
 }
 
-.labelling{
-    color: white;
-    margin: 0;
-    padding: 0;
-    margin-bottom: -10px;
+.fieldGroup input::placeholder {
+  color: #444;
 }
 
+.fieldGroup input:focus,
+.fieldGroup select:focus {
+  border-color: #e63946;
+  background: #1f1515;
+}
 
+.fieldGroup select option {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* ── Section Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #222;
+}
+
+.divider span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #555;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* ── Submit Button ── */
+.submitBtn {
+  margin-top: 8px;
+  background: #e63946;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  width: 100%;
+}
+
+.submitBtn:hover {
+  background: #c1121f;
+}
+
+.submitBtn:active {
+  transform: scale(0.99);
+}
+
+.submitBtn:disabled {
+  background: #4a1018;
+  color: #7a4045;
+  cursor: not-allowed;
+}
+
+/* ── Login Prompt ── */
+.loginPrompt {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  margin: 4px 0 0;
+}
+
+.loginPrompt span {
+  color: #e63946;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.loginPrompt span:hover {
+  text-decoration: underline;
+}
+
+/* =============================================
+   STATUS SCREEN (Loading / Success)
+   ============================================= */
+.statusScreen {
+  min-height: 100vh;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.statusLogo {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #fff;
+}
+
+.statusLogo span {
+  color: #e63946;
+}
+
+.statusContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.statusContent h2 {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 28px;
+  margin: 0;
+}
+
+.statusContent p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
