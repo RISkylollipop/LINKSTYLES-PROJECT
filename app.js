@@ -3,7 +3,7 @@ const path = require(`path`);
 const cors = require('cors');
 const helmet = require(`helmet`)
 require(`dotenv`).config();
-const db = require(`./database`);
+const {db, dbPool} = require(`./database`);
 const paymentRoute = require(`./routes/payment`);
 const gatewayRoute = require(`./routes/gateway`);
 const loginRoute = require(`./routes/login`);
