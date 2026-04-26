@@ -20,6 +20,23 @@ router.get(`/clothes`, async (req, res) => {
 });
 
 
+router.get('/clothes/:id', (req, res) => {
+  const productId = req.params.id;
+  
+  db.query(
+    `select * from products where product_id = ? and category = 'clothing' order by rand()`,
+    [productId],
+    (err, result) => {
+      if (err) {
+        console.log(`product not Found/Fetch`);
+      } else if (result[0]) {
+        res.json(result);
+      }
+    }
+  );
+});
+
+
 
 
 

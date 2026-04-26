@@ -52,10 +52,7 @@ function ProductDetails() {
       isMounted = false;
     };
   }, [productID]);
-  if (!product) {
-    return <PageLoading name="Loading Clothes Details..." />;
-  }
-
+  
   useEffect(() => {
     if (product?.category) {
       fetch(
@@ -72,10 +69,13 @@ function ProductDetails() {
         })
         .catch((error) =>
           console.error("Error fetching related products:", error)
-        );
+      );
     }
   }, [product?.category]);
-
+  
+  if (!product) {
+    return <PageLoading name="Loading Clothes Details..." />;
+  }
 
 
 

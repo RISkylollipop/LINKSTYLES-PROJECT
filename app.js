@@ -113,9 +113,9 @@ app.get('/api/location', async (req, res) => {
   
   const UserIP = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.headers['x-real-ip'] || req.socket.remoteAddress;
   
-  const IP = `212.58.224.20`;
+  // const IP = `212.58.224.20`;
 
-  console.log(`User IP : `, UserIP);
+  // console.log(`User IP : `, UserIP);
   
 
   const locationData = await getLocationData(UserIP);
@@ -124,53 +124,6 @@ app.get('/api/location', async (req, res) => {
   res.json(locationData);
 });
 
-app.get('/api/v1/clothes/:id', (req, res) => {
-  const productId = req.params.id;
-  
-  db.query(
-    `select * from products where product_id = ? and category = 'clothing' order by rand()`,
-    [productId],
-    (err, result) => {
-      if (err) {
-        console.log(`product not Found/Fetch`);
-      } else if (result[0]) {
-        res.json(result);
-      }
-    }
-  );
-});
-
-app.get(`/phone/:id`, (req, res) => {
-  const phoneID = req.params.id;
-
-  db.query(
-    `select * from products where category = 'electronics' and product_id = ?`,
-    [phoneID],
-    (err, data) => {
-      if (err) {
-        console.log(err, `Phone detail fetching Error`);
-      } else if (data) {
-        // console.log(`Data from Phone View Detail`,data);
-        res.json(data);
-      }
-    }
-  );
-});
-
-app.get(`/api/v1/phones`, (req, res) => {
-  console.log(req.body);
-
-  const query = `select * from products where productName LIKE '%phone%'`;
-
-  db.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      // console.log(data);
-      res.json(data);
-    }
-  });
-});
 
 
 
