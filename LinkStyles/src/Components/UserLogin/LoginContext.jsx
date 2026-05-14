@@ -23,6 +23,7 @@ const LoginContextProvider = ({ children }) => {
   });
 
 
+  const [merchantData, setMerchantData] = useState([])
 
 
   const isVerify = () => {
@@ -70,18 +71,6 @@ const LoginContextProvider = ({ children }) => {
     }, [])
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   // Save to localStorage whenever user changes
   useEffect(() => {
     if (user && user !== "") {
@@ -107,7 +96,9 @@ const LoginContextProvider = ({ children }) => {
     setMainData,
     productlenght,
     setProductlenght,
-    isVerify
+    isVerify,
+    merchantData,
+    setMerchantData
   };
 
   return (

@@ -20,7 +20,8 @@ const resendKey = process.env.RESEND_API_KEY
 
 const resend = new Resend(resendKey)
 
-const from = 'Linkstyles <orders@mail.kwarapolydata.com.ng>'
+const fromOrder = 'Linkstyles <orders@mail.kwarapolydata.com.ng>'
+const fromRegistration = 'Linkstyles <support@mail.kwarapolydata.com.ng>'
 
 
 
@@ -29,7 +30,7 @@ async function sendMail({ customerEmail, customerName, amount, filtercart }) {
 
   try {
   const {data, error} = await resend.emails.send({
-    from,
+    from: fromOrder,
     to: customerEmail,
     subject: `Payment Confirmation - ${customerName}`,
     html: `
@@ -91,7 +92,7 @@ async function sendCompanyMail({ companyEmail, customerEmail, customerName, amou
   try {
   
   const {data, error} = await resend.emails.send({
-    from,
+    from: fromOrder,
     to: companyEmail,
     subject: `📦 New Order - ${customerName}`,
     html: `
@@ -175,7 +176,7 @@ async function RegistrationMail({
 
     // User welcome email
     const { error: userError } = await resend.emails.send({
-      from,
+      from:fromRegistration,
       to: email,
       subject: `Welcome to Linkstyles, ${first_name}! 🎉`,
       html: `
@@ -232,7 +233,7 @@ async function RegistrationMail({
     // Admin notification email
 
     const { error: adminError } = await resend.emails.send({
-      from,
+      from: fromRegistration,
       to: process.env.COMPANYMAIL,
       subject: `🆕 New User Registration – ${first_name} ${lastname}`,
       html: `

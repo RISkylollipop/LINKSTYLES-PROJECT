@@ -31,6 +31,7 @@ export const UserRegister = () => {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -40,6 +41,8 @@ export const UserRegister = () => {
     email: "",
     phone_number: "",
     password: "",
+    confirmpassword: "",
+    functions: "",
     address: "",
     city: "",
     state: "",
@@ -150,174 +153,227 @@ export const UserRegister = () => {
 
   return (
     <>
-    <main className={styles.pageRoot}>
-      <ToastContainer theme="dark" position="top-right" />
+      <main className={styles.pageRoot}>
+        <ToastContainer theme="dark" position="top-right" />
 
-      {/* Left — Swiper Panel */}
-      <div className={styles.leftPanel}>
-        <Swiper
-          spaceBetween={0}
-          slidesPerView={1}
-          loop={true}
-          speed={1500}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          modules={[Autoplay]}
-          className={styles.swiperFull}
-        >
-          {bgImage.map((image) => (
-            <SwiperSlide key={image.id}>
-              <div
-                className={styles.slideImage}
-                style={{ backgroundImage: `url(${image.image})` }}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {/* Left — Swiper Panel */}
+        <div className={styles.leftPanel}>
+          <Swiper
+            spaceBetween={0}
+            slidesPerView={1}
+            loop={true}
+            speed={1500}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            modules={[Autoplay]}
+            className={styles.swiperFull}
+          >
+            {bgImage.map((image) => (
+              <SwiperSlide key={image.id}>
+                <div
+                  className={styles.slideImage}
+                  style={{ backgroundImage: `url(${image.image})` }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-        <div className={styles.leftOverlay}>
-          <div className={styles.brandMark}>
-            <div className={styles.brandLine} />
-            <span>LINKSTYLES</span>
-            <div className={styles.brandLine} />
+          <div className={styles.leftOverlay}>
+            <div className={styles.brandMark}>
+              <div className={styles.brandLine} />
+              <span>LINKSTYLES</span>
+              <div className={styles.brandLine} />
+            </div>
+            <h1 className={styles.heroText}>
+              Dress Like<br />
+              <em>You Mean It</em>
+            </h1>
+            <p className={styles.heroSub}>Join thousands of Nigerians shopping the latest fashion trends.</p>
           </div>
-          <h1 className={styles.heroText}>
-            Dress Like<br />
-            <em>You Mean It</em>
-          </h1>
-          <p className={styles.heroSub}>Join thousands of Nigerians shopping the latest fashion trends.</p>
         </div>
-      </div>
 
-      {/* Right — Form Panel */}
-      <div className={styles.rightPanel}>
-        <div className={styles.formInner}>
+        {/* Right — Form Panel */}
+        <div className={styles.rightPanel}>
+          <div className={styles.formInner}>
 
-          <div className={styles.formHeader}>
-            <div className={styles.formLogo}>LINK<span>STYLES</span></div>
-            <h2>Create Account</h2>
-            <p>Fill in your details to get started</p>
-          </div>
+            <div className={styles.formHeader}>
+              <div className={styles.formLogo}>LINK<span>STYLES</span></div>
+              <h2>Create Account</h2>
+              <p>Fill in your details to get started</p>
+            </div>
 
-          {/* Avatar Upload */}
-          <div className={styles.avatarSection}>
-            <label className={styles.avatarLabel} htmlFor="avatarInput">
-              <div className={styles.avatarRing}>
-                {preview
-                  ? <img src={preview} alt="Preview" className={styles.avatarImg} />
-                  : <div className={styles.avatarPlaceholder}>
+            {/* Avatar Upload */}
+            <div className={styles.avatarSection}>
+              <label className={styles.avatarLabel} htmlFor="avatarInput">
+                <div className={styles.avatarRing}>
+                  {preview
+                    ? <img src={preview} alt="Preview" className={styles.avatarImg} />
+                    : <div className={styles.avatarPlaceholder}>
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
                       <span>Add Photo</span>
                     </div>
-                }
-              </div>
-            </label>
-            <input id="avatarInput" type="file" accept="image/*" onChange={handleFileChange} className={styles.hiddenInput} />
-            {message && <p className={styles.avatarMessage}>{message}</p>}
-          </div>
-
-          <form onSubmit={handleSubmit} className={styles.form}>
-
-            {/* Name Row */}
-            <div className={styles.row}>
-              <div className={styles.fieldGroup}>
-                <label>First Name</label>
-                <input type="text" placeholder="First Name" value={formData.first_name}
-                  onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} required />
-              </div>
-              <div className={styles.fieldGroup}>
-                <label>Last Name</label>
-                <input type="text" placeholder="Surname" value={formData.lastname}
-                  onChange={(e) => setFormData({ ...formData, lastname: e.target.value })} required />
-              </div>
+                  }
+                </div>
+              </label>
+              <input id="avatarInput" type="file" accept="image/*" onChange={handleFileChange} className={styles.hiddenInput} />
+              {message && <p className={styles.avatarMessage}>{message}</p>}
             </div>
 
-            <div className={styles.fieldGroup}>
-              <label>Middle Name</label>
-              <input type="text" placeholder="Optional" value={formData.middle_name}
-                onChange={(e) => setFormData({ ...formData, middle_name: e.target.value })} />
-            </div>
+            <form onSubmit={handleSubmit} className={styles.form}>
 
-            <div className={styles.row}>
-              <div className={styles.fieldGroup}>
-                <label>Email Address</label>
-                <input type="email" placeholder="you@email.com" value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
-              </div>
-              <div className={styles.fieldGroup}>
-                <label>Phone Number</label>
-                <input type="tel" placeholder="080123456789" value={formData.phone_number}
-                  onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })} required />
-              </div>
-            </div>
-
-            <div className={styles.fieldGroup}>
-              <label>Password</label>
-              <input type="password" 
-              placeholder="Create a secure password" 
-              value={formData.password}
-              autoComplete="new-password"
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })} required />
-            </div>
-
-            <div className={styles.divider}><span>Delivery Information</span></div>
-
-            <div className={styles.row}>
-              <div className={styles.fieldGroup}>
-                <label>Country</label>
-                <select value={formData.country} onChange={handleCountryChange} required>
-                  <option value="">Select Country</option>
-                  {countries.map((c, i) => <option key={i} value={c.name}>{c.name}</option>)}
-                </select>
-              </div>
-              {states.length > 0 && (
+              {/* Name Row */}
+              <div className={styles.row}>
                 <div className={styles.fieldGroup}>
-                  <label>State</label>
-                  <select value={formData.state}
-                    onChange={(e) => setFormData({ ...formData, state: e.target.value })} required>
-                    <option value="">Select State</option>
-                    {states.map((s, i) => <option key={i} value={s.name}>{s.name}</option>)}
+                  <label>First Name</label>
+                  <input type="text" placeholder="First Name" value={formData.first_name}
+                    onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} required />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label>Last Name</label>
+                  <input type="text" placeholder="Surname" value={formData.lastname}
+                    onChange={(e) => setFormData({ ...formData, lastname: e.target.value })} required />
+                </div>
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label>Middle Name</label>
+                <input type="text" placeholder="Optional" value={formData.middle_name}
+                  onChange={(e) => setFormData({ ...formData, middle_name: e.target.value })} />
+              </div>
+
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>Email Address</label>
+                  <input type="email" placeholder="you@email.com" value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label>Phone Number</label>
+                  <input type="tel" placeholder="080123456789" value={formData.phone_number}
+                    onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })} required />
+                </div>
+
+              </div>
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>Password</label>
+                  <input type="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    autoComplete="new-password"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFormData({ ...formData, password: value });
+                      if (!value) {
+                        setError("Please input password")
+                      } else {
+                        setError("")
+                      }
+                    }} 
+                    style={{
+                      outline: error?.toLowerCase().includes("not") ? "1px solid red" : ""
+                    }}
+                    required />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label>Confirm Password</label>
+                  <input type="password"
+                    placeholder="Confirm password"
+                    value={formData.confirmpassword}
+                    autoComplete="new-password"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFormData({ ...formData, confirmpassword: value });
+                      if (formData.password !== value) {
+                        setError("Password Not Match!!!")
+                      } else {
+                        setError("Password Match")
+                      }
+                    }}
+                    style={{
+                      outline: error?.toLowerCase().includes("not") ? "2px solid red" : ""
+                    }}
+                    required />
+                </div>
+                <small style={{ textAlign: "center", color: error?.toLowerCase().includes("not") ? "red " : "green" }}>{error}</small>
+
+              </div>
+
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>Select Category</label>
+                  <select
+                    value={formData.functions}
+                    onChange={(e) => setFormData({ ...formData, functions: e.target.value })}
+
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    <option value="user">User</option>
+                    <option value="merchant">Merchant</option>
                   </select>
                 </div>
-              )}
-            </div>
-
-            <div className={styles.row}>
-              <div className={styles.fieldGroup}>
-                <label>City</label>
-                <input type="text" placeholder="Your city" value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })} required />
               </div>
-              <div className={styles.fieldGroup}>
-                <label>Nearest Landmark</label>
-                <input type="text" placeholder="e.g. Near GTBank" value={formData.nearest_landmark}
-                  onChange={(e) => setFormData({ ...formData, nearest_landmark: e.target.value })} required />
+
+
+              <div className={styles.divider}><span>Delivery Information</span></div>
+
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>Country</label>
+                  <select value={formData.country} onChange={handleCountryChange} required>
+                    <option value="">Select Country</option>
+                    {countries.map((c, i) => <option key={i} value={c.name}>{c.name}</option>)}
+                  </select>
+                </div>
+                {states.length > 0 && (
+                  <div className={styles.fieldGroup}>
+                    <label>State</label>
+                    <select value={formData.state}
+                      onChange={(e) => setFormData({ ...formData, state: e.target.value })} required>
+                      <option value="">Select State</option>
+                      {states.map((s, i) => <option key={i} value={s.name}>{s.name}</option>)}
+                    </select>
+                  </div>
+                )}
               </div>
-            </div>
 
-            <div className={styles.fieldGroup}>
-              <label>Delivery Address</label>
-              <input type="text" placeholder="Full home address" value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })} required />
-            </div>
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>City</label>
+                  <input type="text" placeholder="Your city" value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })} required />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label>Nearest Landmark</label>
+                  <input type="text" placeholder="e.g. Near GTBank" value={formData.nearest_landmark}
+                    onChange={(e) => setFormData({ ...formData, nearest_landmark: e.target.value })} required />
+                </div>
+              </div>
 
-            <button type="submit" className={styles.submitBtn} disabled={loading}>
-              {loading ? "Creating Account..." : "Create My Account →"}
-            </button>
+              <div className={styles.fieldGroup}>
+                <label>Delivery Address</label>
+                <input type="text" placeholder="Full home address" value={formData.address}
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })} required />
+              </div>
 
-            <p className={styles.loginPrompt}>
-              Already have an account?{" "}
-              <span onClick={() => navigate("/login")}>Sign In</span>
-            </p>
+              <button type="submit" className={styles.submitBtn} disabled={loading}>
+                {loading ? "Creating Account..." : "Create My Account →"}
+              </button>
 
-          </form>
+              <p className={styles.loginPrompt}>
+                Already have an account?{" "}
+                <span onClick={() => navigate("/login")}>Sign In</span>
+              </p>
+
+            </form>
+          </div>
+
         </div>
-
-      </div>
-    </main>
-        <RegisterFooter/>
+      </main>
+      <RegisterFooter />
     </>
   );
 };
