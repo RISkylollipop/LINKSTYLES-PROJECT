@@ -13,6 +13,9 @@ import AddProduct from './Components/Links/Product/AddProduct.jsx'
 import ProductList from "./Components/Links/productlist.jsx";
 // 
 
+//
+import Merchant from "./Components/Links/merchant/merchant.jsx"
+//
 // Users Pages
 import Phones from "./Pages/Phone/Phones";
 import Productlunch from "./Pages/ClothProduct/product.jsx";
@@ -50,6 +53,7 @@ function App() {
   // const isAdminRoute = location.pathname(`/admin`)
   // const isAdminRoute = location.pathname.includes(`/admin`)
   const isAdminRoute = location.pathname.startsWith(`/link`)
+  const isMerchantRoute = location.pathname.startsWith(`/me`)
 
 
   useEffect(() => {
@@ -67,13 +71,13 @@ function App() {
         .catch((err) => console.error("Ping failed:", err));
     };
 
-    ping(); // ping immediately on mount
+    ping(); 
     const interval = setInterval(ping, 60000); // every 60 seconds ping to keep my site alive because of renderhost
 
     return () => clearInterval(interval); // cleanup on unmount
   }, []);
 
-  
+
   return (
     <>
       {isAdminRoute ?
@@ -83,7 +87,7 @@ function App() {
 
 
 
-              
+              (
               <Routes>
                 <Route path="/link/admin" element={<Links />} />
                 <Route path="/link/admin/addproduct" element={<AddProduct />} />
@@ -95,7 +99,25 @@ function App() {
           </ClothContextProvider>
         </LoginContextProvider>
 
-        : (
+        : isMerchantRoute ? (
+
+          <>
+
+            <LoginContextProvider>
+              <ClothContextProvider>
+               
+                <Routes>
+
+                  <Route path="/me/dashboard" element={<Merchant/>} />
+                  
+                </Routes>
+                
+              </ClothContextProvider>
+            </LoginContextProvider>
+
+          </>
+
+        ) : (
 
 
           <>

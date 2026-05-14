@@ -31,6 +31,7 @@ export const UserRegister = () => {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -40,6 +41,8 @@ export const UserRegister = () => {
     email: "",
     phone_number: "",
     password: "",
+    confirmpassword: "",
+    functions: "",
     address: "",
     city: "",
     state: "",
@@ -220,11 +223,13 @@ export const UserRegister = () => {
 
             <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
 
+
               {/* Name Row */}
               <div className={styles.row}>
                 <div className={styles.fieldGroup}>
                   <label>First Name</label>
-                  <input type="text" placeholder="Firstname" value={formData.first_name}
+
+                  <input type="text" placeholder="First Name" value={formData.first_name}
                     onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} required />
                 </div>
                 <div className={styles.fieldGroup}>
@@ -243,7 +248,9 @@ export const UserRegister = () => {
               <div className={styles.row}>
                 <div className={styles.fieldGroup}>
                   <label>Email Address</label>
-                  <input type="email" placeholder="Youremail@email.com" value={formData.email}
+
+                  <input type="email" placeholder="you@email.com" value={formData.email}
+
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
                 </div>
                 <div className={styles.fieldGroup}>
@@ -251,16 +258,70 @@ export const UserRegister = () => {
                   <input type="tel" placeholder="080123456789" value={formData.phone_number}
                     onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })} required />
                 </div>
+
+
+              </div>
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>Password</label>
+                  <input type="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    autoComplete="new-password"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFormData({ ...formData, password: value });
+                      if (!value) {
+                        setError("Please input password")
+                      } else {
+                        setError("")
+                      }
+                    }} 
+                    style={{
+                      outline: error?.toLowerCase().includes("not") ? "1px solid red" : ""
+                    }}
+                    required />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label>Confirm Password</label>
+                  <input type="password"
+                    placeholder="Confirm password"
+                    value={formData.confirmpassword}
+                    autoComplete="new-password"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFormData({ ...formData, confirmpassword: value });
+                      if (formData.password !== value) {
+                        setError("Password Not Match!!!")
+                      } else {
+                        setError("Password Match")
+                      }
+                    }}
+                    style={{
+                      outline: error?.toLowerCase().includes("not") ? "2px solid red" : ""
+                    }}
+                    required />
+                </div>
+                <small style={{ textAlign: "center", color: error?.toLowerCase().includes("not") ? "red " : "green" }}>{error}</small>
+
               </div>
 
-              <div className={styles.fieldGroup}>
-                <label>Password</label>
-                <input type="password"
-                  placeholder="Create a secure password"
-                  value={formData.password}
-                  autoComplete="new-password"
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })} required />
+              <div className={styles.row}>
+                <div className={styles.fieldGroup}>
+                  <label>Select Category</label>
+                  <select
+                    value={formData.functions}
+                    onChange={(e) => setFormData({ ...formData, functions: e.target.value })}
+
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    <option value="user">User</option>
+                    <option value="merchant">Merchant</option>
+                  </select>
+                </div>
               </div>
+
 
               <div className={styles.divider}><span>Delivery Information</span></div>
 
@@ -314,6 +375,7 @@ export const UserRegister = () => {
 
             </form>
           </div>
+
         </div>
       </main>
       <RegisterFooter />

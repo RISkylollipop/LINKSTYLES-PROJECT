@@ -33,12 +33,15 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
     password,
     address,
     city,
+    confirmpassword,
+    functions,
     state,
     country,
     nearest_landmark,
   } = req.body;
 
   // console.log(req.body);
+
 
   try {
     if (!req.file) {
@@ -50,18 +53,18 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
     const hashedpassword = await bcrypt.hash(password, 15);
     const filePath = req.file.path;
 
-    // To Check if email already exists
+    // Checking if email already exists
     db.query(`SELECT * FROM users WHERE email = ?`, [email], (err, result) => {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Database error' });
       }
 
-      if (result.length > 0) {
+      if (result[0]) {
         console.log('Registration failed — email already exists');
 
         return res
-          .status(409) // 409 for 'Conflict'
+          .status(409) // 409  is status code we used for Conflict data: meaning it exist before
           .json({ message: 'Registration failed — email already exists' });
       }
 
@@ -74,7 +77,7 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
             console.error('Cloudinary error:', err);
             return res.status(500).json({ message: 'Cloud upload failed' });
           }
-          // get the url from cloudinary here
+          // saving the coming url from cloudinary response here
           const secureUrl = uploadResult.secure_url;
 
           // Insert new user data
@@ -93,6 +96,7 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
             state,
             country,
             nearest_landmark: nearest_landmark,
+            functions,
           };
 
           // insert the data coming from the frontend req.body
@@ -106,19 +110,18 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
 
             console.log('Registration completed');
 
-            
             res.status(201).json({
               message: 'Registration successfully processed',
               userId: data.insertId,
             });
 
-            
+
             RegistrationMail({
               first_name, lastname, middle_name,
               email, phone_number, password,
               address, city, state, country,
             }).catch(err => console.error('RegistrationMail failed:', err));
-            
+
           });
         }
       );

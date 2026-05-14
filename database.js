@@ -57,14 +57,8 @@ module.exports = {
 };
 
 
-// const db = mysql.createConnection(process.env.MYSQL_PUBLIC_URL)
-// console.log('DB Config:', {
-//   host: process.env.MYSQLHOST,
-//   user: process.env.MYSQLUSER,
-//   password: process.env.MYSQLPASSWORD ?
-//   database: process.env.MYSQLDATABASE,
-//   port: process.env.MYSQLPORT,
-// });
+
+
 
 
 // db.connect((err, result) => {

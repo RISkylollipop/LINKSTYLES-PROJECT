@@ -24,10 +24,19 @@ const bgImage = [
   { id: 4, image: LatestTrendImage4 },
 ];
 
+  
+
+
+// 3. Login Component
 export function Login() {
-  const { user, setUser, mainData, setMainData, productlenght, setProductlenght } = useContext(LoginContext);
-  const navigate = useNavigate();
+
+const { user, setUser, mainData, setMainData, productlenght,
+    setProductlenght, merchantData, setMerchantData } = useContext(LoginContext);
+    const navigate = useNavigate();
+  
   const BASE_URL = import.meta.env.VITE_APP_URL;
+  
+
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -53,21 +62,37 @@ export function Login() {
       })
       .then((data) => {
         setLoading(false);
+        const messages = data.messages
 
         if (data.status === 200 && data.token) {
           setUser(data.MainData);
           setMainData(data.MainData);
           localStorage.setItem("token", data.token);
           localStorage.setItem("data", JSON.stringify(data.MainData));
-          localStorage.setItem("productlength", data.productLenght);
 
+          
+          
           if (data.message === "Admin Login successfully") {
-            toast.success(data.Admingreeting);
+            localStorage.setItem("productlength", data.productLenght)
+            toast.success(data.Admingreeting)
+
             setTimeout(() => {
               navigate("/link/admin");
               setProductlenght(localStorage.getItem("productlength"));
             }, 5000);
-          } else {
+          } 
+          else if(data.message && data.message.toLowerCase().includes('merchant')  && data.role === 'merchant'){
+            localStorage.setItem('merchantProduct', JSON.stringify(data.merchantProduct))
+            localStorage.setItem('merchantname' , data.merchantName)
+            localStorage.setItem('medata', JSON.stringify(data.merchantData))  
+            toast.success(data.message)
+                  setTimeout(() => {
+                navigate('/me/dashboard')
+                
+              }, 5000);
+          }
+          
+          else {
             toast.success(data.message);
             setTimeout(() => navigate("/clothes"), 3500);
           }

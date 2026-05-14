@@ -1,4 +1,397 @@
-.mainDashboard {
+/* 1. IMPORT MUST BE AT THE VERY TOP */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #080c10;
+    color: white;
+}
+
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #080c10;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    background: #080c10;
+}
+
+.sidebar {
+    width: 220px;
+    background: rgba(255, 255, 255, 0.04);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: "Anthropic Sans", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    color: #e2e8f0;
+    overflow: auto;
+    max-height: 100vh;
+}
+
+.logosection {
+    margin-bottom: 0px;
+    padding: 0, 20px 28px;
+    padding-bottom: 40px;
+    margin-top: 30px;
+    margin-left: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #f8fafc;
+
+}
+
+
+.listing button {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    min-width: 90%;
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    border-radius: 8px;
+    align-items: center;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 11px 12px;
+    gap: 12px;
+    margin: 10px auto;
+    margin-bottom: 5px;
+}
+
+.isActiveStyle {
+    color: #00ff88;
+    box-shadow: 0, 0, 0, #80f1bc26;
+    background: rgba(0, 255, 136, 0.08);
+}
+
+.isNotActiveStyle {
+
+    color: #475569;
+    background: transparent;
+
+}
+
+.merchant {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #334155;
+    letter-spacing: 2px;
+    margin-top: 2px;
+    text-decoration: uppercase;
+
+}
+
+.logosection h4 {
+    line-height: 1rem;
+
+}
+
+.logosection small {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #1E3955;
+}
+
+
+.topBarDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0;
+    align-items: center;
+    margin-bottom: 38px;
+    font-family: 'JetBrains Mono', monospace;
+
+}
+
+.topdivLinks p {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #475569;
+    letter-spacing: 2px;
+}
+
+.ball {
+    background: #00ff88;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    box-shadow: 0, 0, 6px, #00ff88;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0, 0, 4px, #00ff88;
+        opacity: 1;
+    }
+
+    50% {
+        box-shadow: 0, 0, 12, #00ff88;
+        opacity: 0.6;
+    }
+
+    100% {
+        box-shadow: 0, 0, 4px, #00ff88;
+        opacity: 1;
+    }
+}
+
+.onlinestore {
+    color: #00ff88;
+    font-size: 11px;
+    letter-spacing: 1px;
+    white-space: normal;
+}
+
+
+
+.overviewheading h3 {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: left;
+}
+
+.overviewheading p {
+    text-align: left;
+    font-size: 12px;
+    color: white;
+    white-space: normal;
+    word-break: normal;
+    word-wrap: break-word;
+}
+
+
+.digitalAnalysis, .dataAnalysis {
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px auto;
+    gap: 10px;
+}
+
+.digitalAnalysiscard {
+    display: flex;
+    flex: 1;
+    min-width: 230px;
+
+    height: 180px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow:
+        1px 1px 2px rgba(247, 232, 232, 0.1),
+        -1px -1px 2px rgba(247, 232, 232, 0.1);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 10px;
+}
+
+.digitalAnalysisbody {
+    width: 100%;
+}
+
+.cardinnerdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.livedot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.analystCardBodyPara {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.analystCardBodyPara h5 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.analystCardBodyPara small {
+    font-size: 11px;
+    color: #64748b;
+
+}
+
+.analystCardBodyPara h6 {
+
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    color: #00ff88;
+}
+
+
+
+
+
+/* Data analysis Section */
+.dataAnalysisCard{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 240px;
+    height: fit-content;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow:
+        1px 1px 2px rgba(247, 232, 232, 0.1),
+        -1px -1px 2px rgba(247, 232, 232, 0.1);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 10px;
+    border-radius: 8px;
+    gap: 20px;
+}
+.dataAnalysisCardBody{
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+}
+
+
+
+.dataAnalysisCard p{
+    font-size: 11px;
+    color: green;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+.TooltipContainer{
+    width: fit-content;
+    padding: 12px 15px;
+    background: #0f172a;
+    height: fit-content;
+    border: 1px solid rgba(46, 242, 138, 0.2);
+    border-radius: 8px;
+    
+}
+.TooltipContainer p {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 6px;
+
+}
+.wrapperStyle{
+    max-width: 120px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .mainDashboard {
     position: relative;
     width: 98vw;
     height: 100vh;
@@ -37,11 +430,11 @@
     color: gray;
     margin-left: 20px;
     cursor: pointer;
-}
+} */
 
 /* style={{ color: "gray", cursor: "pointer" }} */
 
-.navbar {
+/* .navbar {
     width: 15vw;
     background-color: rgb(228, 238, 238);
     cursor: pointer;
@@ -85,15 +478,15 @@
 }
 
 /* Open state */
-.open {
+/* .open {
     width: 300px;
     display: flex;
     transform: rotateY(0deg);
     transition: transform 1s ease-in-out;
-}
+}  */
 
 /* Close state */
-.close {
+/* .close {
     display: flex;
     width: -300px;
     transform: rotateY(-90deg);
@@ -219,7 +612,7 @@
     align-items: baseline;
 }
 
-/* Section 2 Styling */
+
 .headerDiv2 .card {
     display: flex;
     flex-direction: column;
@@ -242,9 +635,9 @@
     margin: 0;
     justify-content: center;
     align-items: baseline;
-}
+} */
 
-.cardDetail {
+/* .cardDetail {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -274,7 +667,6 @@
     flex-direction: row;
 }
 
-/* Section 3 Styling */
 
 .EachSubHeaderCard {
     width: 45%;
@@ -282,7 +674,7 @@
     background-color: rgb(228, 238, 238);
     margin: 10px auto;
     border-radius: 7px;
-    /* overflow-y: scroll; */
+  
 
 }
 
@@ -314,7 +706,7 @@
     box-shadow: 3px 3px 0 gainsboro,
         -3px -3px 0 gainsboro;
     object-fit: cover;
-    /* background-color: bisque; */
+ 
 }
 
 .EachSubHeaderCard .card img {
@@ -336,13 +728,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
+} */
 
 
 
 
 
-@media screen and (min-width: 280px) and (max-width: 768px) {
+/* @media screen and (min-width: 280px) and (max-width: 768px) {
 
     .subBodyContainer {
         padding-top: 00px;
@@ -477,7 +869,7 @@
         font-family: c;
     }
 
-    /* Open state */
+   
     .open {
         width: 100%;
         display: flex;
@@ -485,7 +877,7 @@
         transition: transform 1s ease-in-out;
     }
 
-    /* Close state */
+
     .close {
         display: flex;
         width: -300px;
@@ -533,7 +925,7 @@
         border-radius: 7px;
     }
 
-    /* section 3 styling */
+
 
     .headerDiv3{
         flex-direction: column;
@@ -578,4 +970,4 @@
        font-size: 10px;
     }
 
-}
+} */

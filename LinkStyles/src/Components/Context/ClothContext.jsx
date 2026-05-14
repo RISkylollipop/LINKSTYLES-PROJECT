@@ -11,30 +11,40 @@ export default function ClothContextProvider({ children }) {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
     return Array.isArray(savedCart)
       ? savedCart.map(item => ({
-          ...item,
-          quantity: item.quantity || 1,
-        }))
+        ...item,
+        quantity: item.quantity || 1,
+      }))
       : [];
   });
 
   // Currency symbol
   const [symbol, setSymbol] = useState("₦");
-
+  
   useEffect(() => {
-    let mounted = true;
+    const countryApi = async () => {
+      try {
+        const res = await fetch(`${URL}/api/location`);
+        const data = await res.json();
 
-    fetch(`${URL}/api/location`)
-      .then(res => res.json())
-      .then(data => {
-        if (mounted) {
-          setSymbol(data.currency_symbol || "₦");
-        }
-      })
-      .catch(err => console.log("Location error:", err));
+        setSymbol(data.currency_symbol || "₦");
+      } catch (error) {
+        console.log(error);
+        console.error(error);
+      }
+    };
 
-    return () => (mounted = false);
+    
+    countryApi();
+
+    
+    const interval = setInterval(countryApi, 20000000);
+
+    return () => clearInterval(interval);
   }, []);
 
+
+
+  
   // Save cart anytime changes occur
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
