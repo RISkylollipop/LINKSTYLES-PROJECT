@@ -3,10 +3,10 @@ const axios = require("axios");
 const router = express.Router();
 
 require("dotenv").config();
-const db = require(`../database`);
+const { db, dbPool } = require(`../database`);
 const crypto = require("crypto");
 const { writeFile, readFile } = require("fs");
-
+const { log } = require("console");
 
 // Monnify Configuration
 const MONNIFY_BASE_URL = "https://api.monnify.com";
@@ -121,7 +121,6 @@ router.post("/generate-account", async (req, res) => {
 
   console.log(`PayLoad Cart Ref :`, req.body);
 
-
   if (!payloadCartRef.transactionReference) {
     return res.status(400).json({ message: "Transaction reference required" });
   }
@@ -137,10 +136,10 @@ router.post("/generate-account", async (req, res) => {
 
     const merchant_note = payloadCartRef.deliveryNote;
     const accessToken = await getAccessToken();
-    const paymentReference = await paymentRef()
-    // console.log(paymentReference);
-    // console.log(transactionReference);
+    const paymentReference = await paymentRef();
 
+    console.log(paymentReference);
+    console.log(transactionReference);
 
     const OrderCartItems = payloadCartRef.CartItem;
     const dborderID = await orderIdfuntion();
@@ -157,64 +156,36 @@ router.post("/generate-account", async (req, res) => {
       cart: cartGoods,
     };
 
-    db.query(ordersDataQuery, ordersData, async (err, orderData) => {
-      if (err) {
-        console.log(`Order data Error:`, err);
-        fs.appendFile(
-          "./Database_Error_Log.txt",
-          `\nOrder data Error : ${err}`,
-          (e) => {
-            if (e) {
-              console.log(`write File Error :`, e);
-            }
-          },
-        );
-        return res.status(403).json({ error: `Database internal Error` });
-      } else {
+    const [orderDataDbResult] = await dbPool.query(ordersDataQuery, ordersData);
+    const orderResult = orderDataDbResult;
 
-        await Promise.all(
-          OrderCartItems.map((item) => {
-            return new Promise((resolve, reject) => {
-              const dbQuery = `insert into order_items set ?`;
-
-              const orderItemsData = {
-                order_id: dborderID,
-                product_id: item.productId,
-                merchantPID: item.merchantPID,
-                product_name: item.goodsName,
-                price: item.goodsPrice,
-                quantity: item.goodsQuantity,
-                delivery_status: "pending",
-                merchant_note,
-              };
-
-              db.query(dbQuery, orderItemsData, (err, result) => {
-                if (err) {
-                  console.log(`Order Items Insert Error :`, err);
-
-                  fs.appendFile(
-                    "./DataBase_Error_Log.txt",
-                    `\n Order Items Insert Error : ${err}`,
-                    (e) => {
-                      if (e) {
-                        console.log(`write File Error :`, e);
-                      }
-                    },
-                  );
-
-                  reject(err);
-                } else {
-                  resolve(result);
-                }
-              });
-            });
-          }),
-        );
-        console.log(`Orders Sent To Database`);
-        console.log(`Order Items Sent To Database`);
+    if(orderResult.affectedRows > 0){
+      for (const item of OrderCartItems) {
+        const dbQuery = `insert into order_items set ?`;
+  
+        const orderItemsData = {
+          order_id: dborderID,
+          product_id: item.productId,
+          merchantPID: item.merchantPID,
+          product_name: item.goodsName,
+          price: item.goodsPrice,
+          quantity: item.goodsQuantity,
+          delivery_status: "pending",
+          merchant_note,
+        };
+        const [orderItemdbResult] = await dbPool.query(dbQuery, orderItemsData);
+        const itemsResult = orderItemdbResult;
+        if (itemsResult.affectedRows > 0) {
+          console.log(`Order Item Inserted`);
+          console.log(`Order Insertion ID : `,itemsResult.insertId);
+        }
       }
-    });
 
+    }else{
+      console.log(`Order insertion Failed`);
+      return res.status(400).json({ error: `Order insertion failed` })
+      
+    }
     // db.query()
 
     const status = `PENDING`;
@@ -228,37 +199,38 @@ router.post("/generate-account", async (req, res) => {
       status: status,
       payment_mode: "Transfer",
     };
-    db.query(`insert into cart set ?`, SqlQueryData, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(`Cart data sent and saved to database successfully`);
-      }
-    });
 
-    const response = await axios.post(
-      `${MONNIFY_BASE_URL}/api/v1/merchant/bank-transfer/init-payment`,
-      {
-        transactionReference,
-        bankCode: "058",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
+    const [CartInsertQuery] = await dbPool.query(
+      `insert into cart set ?`,
+      SqlQueryData,
     );
-
-    return res.status(200).json({
-      status: "success",
-      accountNumber: response.data.responseBody.accountNumber,
-      mainData: response.data.responseBody,
-      // bankName: response.data.responseBody.bankName,
-      // amount: response.data.responseBody.amount,
-      // paymentReference: response.data.responseBody.paymentReference,
-      accountName: "LinkStyles Nigeria LTD",
-      customerEmail: customerEmail,
-    });
+    if (CartInsertQuery.affectedRows === 0) {
+      console.log(`No response from Cart database Insertion`);
+    } else {
+      console.log(`Cart data sent and saved to database successfully`);
+      const response = await axios.post(
+        `${MONNIFY_BASE_URL}/api/v1/merchant/bank-transfer/init-payment`,
+        {
+          transactionReference,
+          bankCode: "058",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.status(200).json({
+        status: "success",
+        accountNumber: response.data.responseBody.accountNumber,
+        mainData: response.data.responseBody,
+        // bankName: response.data.responseBody.bankName,
+        // amount: response.data.responseBody.amount,
+        // paymentReference: response.data.responseBody.paymentReference,
+        accountName: "LinkStyles Nigeria LTD",
+        customerEmail: customerEmail,
+      });
+    }
   } catch (error) {
     console.error(
       "Dynamic Account Error:",
@@ -272,11 +244,10 @@ router.post("/generate-account", async (req, res) => {
 
 router.post(`/v1/paymentDelayUpdate/:reference?`, (req, res) => {
   // console.log(req.body);
-  
+
   const { reference } = req.params;
   // console.log( reference );
-  if (req.body.status === 'PENDING') {
-
+  if (req.body.status === "PENDING") {
     const FailedQuery = `update cart 
 set status = 'FAILED' where monnify_ref = ?;`;
 

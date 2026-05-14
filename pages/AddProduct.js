@@ -43,7 +43,7 @@ router.post('/v1/addoldproduct', adminAuth(), (req, res) => {
   const sql = 'INSERT INTO products SET ?';
 
   try {
-    const result = dbPool('INSERT INTO products SET ?', insertData)
+    const [result] = dbPool('INSERT INTO products SET ?', insertData)
     console.log(result.insertId);
     return res.json({
       message: 'Product added successfully',
@@ -54,19 +54,6 @@ router.post('/v1/addoldproduct', adminAuth(), (req, res) => {
     console.log(error);
     console.error(error)
   }
-  // db.query(sql, insertData, (err, result) => {
-  //   if (err) {
-  //     console.error('Database Insert Error:', err);
-  //     return res.status(500).json({ message: 'Database error' });
-  //   }
-
-  //   else {
-  //     console.log('Product inserted successfully:', result);
-  //     console.log(result.insertId);
-  //     return res.json({
-  //       message: 'Product added successfully',
-  //       productId: result.insertId,
-  //     });
 
 });
 
