@@ -60,7 +60,7 @@ const ScrollToTop = () => {
         <button
           style={scrollButtonStyle}
           onClick={handleBackToTop}
-          style={HandleStyle()}
+          
         >
           &uarr;
         </button>
