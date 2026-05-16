@@ -72,13 +72,18 @@ const { user, setUser, mainData, setMainData, productlenght,
 
           
           
-          if (data.message === "Admin Login successfully") {
-            localStorage.setItem("productlength", data.productLenght)
+          if (data?.message === "Admin Login successfully") {
+            localStorage.setItem('allProduct', JSON.stringify(data.allProducts))
+            localStorage.setItem('allUsers', JSON.stringify(data.allUsers))
+            localStorage.setItem('allOrders', JSON.stringify(data.allOrders))
+            localStorage.setItem('allOrderItems', JSON.stringify(data.allOrderItems))
+            
             toast.success(data.Admingreeting)
 
             setTimeout(() => {
+
+
               navigate("/link/admin");
-              setProductlenght(localStorage.getItem("productlength"));
             }, 5000);
           } 
           else if(data.message && data.message.toLowerCase().includes('merchant')  && data.role === 'merchant'){
@@ -117,7 +122,11 @@ const { user, setUser, mainData, setMainData, productlenght,
   
   return (
     <main className={styles.pageRoot}>
-      <ToastContainer theme="dark" position="top-center" />
+      <ToastContainer theme="dark" position="top-center" 
+      className={styles.ToastStyles}
+      style={{whiteSpace: "normal", wordWrap: "break-word",
+        fontSize: "clamp('10px 2vw 15px')"
+      }}/>
 
       {/* Left — Swiper Panel */}
       <div className={styles.leftPanel}>

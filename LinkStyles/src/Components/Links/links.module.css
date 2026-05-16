@@ -192,7 +192,8 @@ body {
 }
 
 
-.digitalAnalysis, .dataAnalysis {
+.digitalAnalysis,
+.dataAnalysis {
     width: 95%;
     display: flex;
     flex-wrap: wrap;
@@ -280,7 +281,7 @@ body {
 
 
 /* Data analysis Section */
-.dataAnalysisCard{
+.dataAnalysisCard {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -296,7 +297,8 @@ body {
     border-radius: 8px;
     gap: 20px;
 }
-.dataAnalysisCardBody{
+
+.dataAnalysisCardBody {
     width: 100%;
     height: 100%;
     margin-top: 0;
@@ -304,670 +306,162 @@ body {
 
 
 
-.dataAnalysisCard p{
+.dataAnalysisCard p {
     font-size: 11px;
     color: green;
     margin: 0;
     padding: 0;
     text-transform: uppercase;
 }
-.TooltipContainer{
+
+.TooltipContainer {
     width: fit-content;
     padding: 12px 15px;
     background: #0f172a;
     height: fit-content;
     border: 1px solid rgba(46, 242, 138, 0.2);
     border-radius: 8px;
-    
+
 }
+
 .TooltipContainer p {
     font-size: 13px;
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 6px;
 
 }
-.wrapperStyle{
+
+.wrapperStyle {
     max-width: 120px;
     white-space: normal;
     word-wrap: break-word;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .mainDashboard {
-    position: relative;
-    width: 98vw;
-    height: 100vh;
-    background-color: burlywood;
-    margin: 10px;
-    padding: 0;
-    box-shadow: 2px 2px 0 gainsboro,
-        -2px -2px 0 gainsboro;
-    overflow-x: hidden;
-    overflow-y: auto;
-    box-sizing: border-box;
-    border-radius: 10px;
-}
-
-.subBodyContainer {
-    position: relative;
-    width: 100vw;
-    height: auto;
-    background-color: rgb(228, 238, 238);
-    display: flex;
-    padding-top: 80px;
-
-}
-
-.logo {
-    margin-top: 10px;
-    margin-left: 20px;
-    font-weight: 700;
-    color: gray;
-    text-transform: capitalize;
-    font-family: 'Alex Brush', cursive;
-    letter-spacing: 1px;
-}
-
-.menuStyle {
-    color: gray;
-    margin-left: 20px;
-    cursor: pointer;
-} */
-
-/* style={{ color: "gray", cursor: "pointer" }} */
-
-/* .navbar {
-    width: 15vw;
-    background-color: rgb(228, 238, 238);
-    cursor: pointer;
-    padding: 20px 0;
-    color: antiquewhite;
-    text-decoration: none;
-    font-family: c;
-    font-size: 30px;
-    border-radius: 10px;
-    overflow-x: hidden;
-    transition: 1s ease-in-out;
-    perspective: 800px;
-}
-
-.navbar ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.navbar ul li {
-    margin-top: 30px;
-    margin-left: 20px;
-    color: rgb(52, 50, 50);
-    font-size: 20px;
-    position: relative;
-}
-
-.navbar ul li small {
-    position: absolute;
-    top: -5px;
-}
-
-.navbar ul li:hover {
-    width: 80%;
-    padding: 0 20px;
-    background-color: rgb(229, 235, 235);
-    ;
-    cursor: pointer;
-    transition: padding 0.2s ease, background-color 0.2s ease;
-    border-radius: 10px;
-}
-
-/* Open state */
-/* .open {
-    width: 300px;
-    display: flex;
-    transform: rotateY(0deg);
-    transition: transform 1s ease-in-out;
-}  */
-
-/* Close state */
-/* .close {
-    display: flex;
-    width: -300px;
-    transform: rotateY(-90deg);
-    transition: transform 1s ease-in-out;
-    overflow: hidden;
-}
-
-.listNav {
+.tableContainer {
+    display: grid;
+    gap: 5px;
     width: 100%;
-    transition: all 0.8s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    transition: height 0.8s ease-in-out, width 0.8s ease-in-out;
-    background-color: rgb(228, 238, 238);
-    font-size: 15px;
-    backface-visibility: hidden;
-}
-
-.catopen {
-    transform: rotateX(0deg);
-    transition: all 0.8s ease-in-out;
-}
-
-.catclose {
-    width: 0;
-    transform: rotateX(-90deg);
-    backface-visibility: hidden;
-    overflow: hidden;
-    max-height: 0;
-    transition: height 0.8s ease-in-out, width 0.8s ease-in-out;
-}
-
-
-
-.moreSetting {
-    width: 95%;
-    height: 100px;
-    background-color: rgb(228, 238, 238);
-    color: rgb(45, 42, 42);
     margin: 10px auto;
-    border-radius: 7px;
 }
 
-.mainDashboard {
-    background-color: rgb(228, 238, 238);
-    width: 80%;
+.tableContainerCard {
+   display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 240px;
     height: fit-content;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow:
+        1px 1px 2px rgba(247, 232, 232, 0.1),
+        -1px -1px 2px rgba(247, 232, 232, 0.1);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: scroll;
 }
 
-.headerDiv1,
-.headerDiv2,
-.headerDiv3,
-.headerDiv4,
-.headerDiv5 {
-    width: 95%;
-    background-color: rgb(228, 238, 238);
-    margin: 10px auto;
-    border-radius: 10px;
+.tableContainerCard table {
+    border-radius: 8px;
 }
 
-.headerDiv1 {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-    margin: 10px auto;
+.tableContainerCard table {
+    margin-top: 20px;
+    overflow-x: scroll;
+    width: 100%;
+    column-width: auto;
+}
+
+.tableContainerCard h5 {
+    color: #00ff88;
 }
 
 
-.headerDiv1 li {
-    display: inline;
-    color: rgb(52, 50, 50);
-    list-style: none;
-    text-decoration: none;
-    margin-right: 10px;
+.tableContainerCard table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.profileClockContainer {
-    width: 400px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-}
-
-.profileClockContainer img {
-    width: 50px;
-    margin-left: 20px;
-    overflow: hidden;
-    border-radius: 50%;
-    flex-wrap: wrap;
-}
-
-.profileClockContainer h5 {
+.tableContainerCard table thead th {
+    padding: 14px 16px;
     font-size: 10px;
-    line-height: 10px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
 }
 
-.admindetail {
-    margin-left: 10px;
-    margin-top: 10px;
+.tableContainerCard table thead th td,
+.tableContainerCard table thead th tr {
+    text-align: left;
 }
 
-.admindetail h5 {
-    font-weight: 900;
-    white-space: normal;
-    font-size: 12px;
+
+.tableContainerCard table tbody tr td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: clamp(10px, 0.5vw, 15px);
     word-wrap: break-word;
+    white-space: normal;
 }
 
-.headerDiv2 {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-right: 10px;
-    justify-content: space-around;
-    align-items: baseline;
-}
+.tableContainerCard table tbody tr .status {
+    padding: 4px 10px;
+    margin: 40% auto;
 
-
-.headerDiv2 .card {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
     width: fit-content;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 0 gainsboro,
-        -2px -2px 0 gainsboro;
-}
-
-.headerDiv2 .card img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-}
-
-.cardbody {
-    width: 100%;
-    margin: 0;
-    justify-content: center;
-    align-items: baseline;
-} */
-
-/* .cardDetail {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-    text-align: center;
-}
-
-.cardDetail h3 {
-    font-size: 20px;
-    font-weight: 600;
-    font-family: c;
-}
-
-.cardDetail p {
-    font-size: 17px;
-    font-weight: 600;
-    font-family: c;
-}
-
-
-.headerDiv3,
-.headerDiv4,
-.headerDiv5 {
-    background-color: rgb(228, 238, 238);
-    margin: 10px auto;
-    display: flex;
-    flex-direction: row;
-}
-
-
-.EachSubHeaderCard {
-    width: 45%;
-    height: auto;
-    background-color: rgb(228, 238, 238);
-    margin: 10px auto;
-    border-radius: 7px;
-  
-
-}
-
-.EachSubHeaderCard .cardTitle {
-    width: 100%;
-    height: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: c;
-}
-
-.EachSubHeaderCard .cardcontainer {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 10px auto;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.EachSubHeaderCard .card {
-    width: 200px;
     height: fit-content;
+
+    font-size: clamp(10px, 0.5vw, 15px);
+    text-align: center;
+
+    border-radius: 20px;
+    text-transform: capitalize;
+
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 3px 3px 0 gainsboro,
-        -3px -3px 0 gainsboro;
-    object-fit: cover;
- 
+    align-items: center;
+    justify-content: center;
+
 }
 
-.EachSubHeaderCard .card img {
-    width: 60px;
-    border-radius: 7px;
-    margin-left: 10px;
-    margin-top: 10px;
+.tableContainerCard table tbody tr td button {
+    border-radius: 5px;
+    padding: 2px 10px;
+    max-width: 200px;
 }
 
-.EachSubHeaderCard .card h5 {
-    margin-left: 10px;
-    margin-top: 5px;
-    font-size: 20px;
-    font-weight: 900;
-    font-family: c;
+.tableCartListing li{
+    /* list-style-type: circle; */
+    list-style-type: square;
+    padding: 5px;
 }
 
-.headerContainer {
+
+.orderbtn button {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-} */
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    border-radius: 8px;
+    align-items: center;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin: 10px;
+}
 
+.searchInput {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #e2e8f0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+}
 
-
-
-
-/* @media screen and (min-width: 280px) and (max-width: 768px) {
-
-    .subBodyContainer {
-        padding-top: 00px;
-        margin: 0;
-
-    }
-
-    .logo {
-        margin-left: 10px;
-        font-weight: 900;
-        font-size: 12px;
-    }
-
-    .navbar {
-        position: sticky;
-        width: 30vw;
-        background-color: rgb(228, 238, 238);
-        cursor: pointer;
-        font-size: 10px;
-        border-radius: 10px;
-        transition: 1s ease-in-out;
-        z-index: 1000;
-    }
-    .mainDashboard {
-        background-color: rgb(228, 238, 238);
-        width: 60vw;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin: 10px 0px 10px 30px;
-
-    }
-
-    .navbar ul {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    .navbar ul li {
-        margin-top: 30px;
-        margin-left: 10px;
-        font-size: 15px;
-    }
-
-    .navbar ul li ul li {
-        margin-top: 30px;
-        margin-left: 10px;
-        font-size: 12px;
-    }
-
-    .navbar ul li small {
-        position: absolute;
-        top: -5px;
-    }
-
-    .navbar ul li:hover {
-        width: 60%;
-        padding: 0 5px;
-
-    }
-
-    .headerMenu {
-        font-size: 10px;
-    }
-
-    .profileClockContainer h5 {
-        font-size: 10px;
-        font-weight: 600;
-        font-size: 10px;
-    }
-
-
-    .headerDiv1,
-    .headerDiv2 p,
-    h5 {
-        font-size: 1rem;
-    }
-
-    .admindetail {
-        margin-left: 10px;
-        margin-top: 10px;
-    }
-
-    .admindetail h5 {
-        font-weight: 900;
-        white-space: normal;
-        font-size: 12px;
-        word-wrap: break-word;
-    }
-
-
-    .headerDiv2 .card {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        width: 400px;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 0 gainsboro,
-            -2px -2px 0 gainsboro;
-
-    }
-
-
-    .cardbody {
-        width: 100%;
-        margin: 0;
-        justify-content: center;
-        align-items: baseline;
-        font-size: 10px;
-    }
-
-    .cardDetail {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: last baseline;
-        text-align: center;
-        font-size: 12px;
-    }
-
-    .cardDetail h3 {
-        font-size: 20px;
-        font-weight: 900;
-        font-family: c;
-    }
-
-    .cardDetail p {
-        font-size: 12px;
-        font-weight: 900;
-        font-family: c;
-    }
-
-   
-    .open {
-        width: 100%;
-        display: flex;
-        transform: rotateY(0deg);
-        transition: transform 1s ease-in-out;
-    }
-
-
-    .close {
-        display: flex;
-        width: -300px;
-        transform: rotateY(-90deg);
-        transition: transform 1s ease-in-out;
-        overflow: hidden;
-    }
-
-    .listNav {
-        width: 100%;
-        transition: all 0.8s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        transition: height 0.8s ease-in-out, width 0.8s ease-in-out;
-        background-color: rgb(228, 238, 238);
-        font-size: 1rem;
-        backface-visibility: hidden;
-    }
-
-    .catopen {
-        transform: rotateX(0deg);
-        transition: all 0.8s ease-in-out;
-
-    }
-
-
-    .catclose {
-        width: 0;
-        transform: rotateX(-90deg);
-        backface-visibility: hidden;
-        overflow: hidden;
-        max-height: 0;
-        transition: height 0.8s ease-in-out, width 0.8s ease-in-out;
-    }
-
-
-
-    .moreSetting {
-        width: 95%;
-        height: 100px;
-        background-color: rgb(228, 238, 238);
-        color: rgb(45, 42, 42);
-        margin: 10px auto;
-        border-radius: 7px;
-    }
-
-
-
-    .headerDiv3{
-        flex-direction: column;
-        width: 60vw;
-        margin: 10px auto;
-        padding: 10px;
-    }
-    .EachSubHeaderCard {
-        width: 100%;
-        font-size: 15px;
-        margin: 0;
-        padding: 0;
-        margin-bottom: 10px;
-
-    }
-
-    .EachSubHeaderCard .cardTitle h3, h5{
-       font-size: 12px;
-       justify-content: space-around;
-       align-items: center;
-       margin-bottom: 0px;
-    }
-
-    .EachSubHeaderCard .cardcontainer {
-        margin-top: 0;
-        width: 100%;
-    }
-
-    .EachSubHeaderCard .card {
-       width: 90px;
-       margin: 0px;
-       gap: 0;
-       padding: 5px;
-
-    }
-
-    .EachSubHeaderCard .card img {
-        width: 40px;
-    }
-
-    .EachSubHeaderCard .card h5 {
-       font-size: 10px;
-    }
-
-} */
+.searchInput:focus {
+    border-color: rgba(0, 255, 136, 0.4);
+}

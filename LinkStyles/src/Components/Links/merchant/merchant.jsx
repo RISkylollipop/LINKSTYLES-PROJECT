@@ -28,6 +28,8 @@ const activeProduct = newProduct?.filter((p) =>
 const notActiveProduct = newProduct?.filter((p) => p.status === "out_of_stock");
 const productlenght = activeProduct?.length || 0;
 const notActiveProductlength = 0 || notActiveProduct?.length;
+
+
 const STATUS_STYLE = {
   delivered: { background: "rgba(0,255,136,0.1)", color: "#00ff88" },
   processing: { background: "rgba(251,191,36,0.1)", color: "#fbbf24" },
@@ -958,7 +960,7 @@ function Merchant({ owner }) {
           <div className={styles.logo}>
             Link<span style={{ color: "#00ff88" }}>styles</span>
           </div>
-          <div className={styles.merchant}>{data.toUpperCase()}</div>
+          <div className={styles.merchant}>{data?.toUpperCase()}</div>
         </div>
 
         <div>
@@ -1001,7 +1003,7 @@ function Merchant({ owner }) {
                 color: "#080c10",
               }}
             >
-              {medata.store_name[0]}
+              {/* {medata?.store_name[0]} */}
             </div>
             <div>
               <p

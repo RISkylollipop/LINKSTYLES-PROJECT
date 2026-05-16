@@ -72,10 +72,11 @@ router.post("/v1/login", loginLimiter, async (req, res) => {
       if (result.role_name === "admin" && result.role_id === 1) {
         const role_name = result.role_name; // Response 2
         const name = result.first_name;
-        const Admingreeting = `Welcome ${role_name} ${name}`; // Response 4
+        const Admingreeting = `Welcome ${role_name} ${(name).toLowerCase()}`; // Response 4
 
         const productReqQuery = `select product_id, productName, category, description, price, stock, 
         image1, created_time, rating, merchantPID, sales, status from products`;
+
         const userReqQuery = `select id, profilepicture, concat(first_name,' ',lastname,' ', middle_name) as Fullname, email, 
         phone_number, address, city, state, country, is_verified, functions from users;`;
 
@@ -90,17 +91,21 @@ router.post("/v1/login", loginLimiter, async (req, res) => {
         // all data response 5,6,7,8
         // All admin Data Response Goes Here
 
-        console.log(`Admin Logging in.....`);
-        return res.status(200).json({
-          message: "Admin Login successfully",
-          token,
-          MainData: result,
-          Admingreeting,
-          allProducts,
-          allUsers,
-          allOrders,
-          allOrderItems,
-        });
+        if(allProducts.length > 0 && allUsers.length > 0 && allOrderItems.length > 0 && allOrders.length > 0){
+          return res.status(200).json({
+            message: "Admin Login successfully",
+            token,
+            MainData: result,
+            Admingreeting,
+            allProducts,
+            allUsers,
+            allOrders,
+            allOrderItems,
+          });
+
+        } else{
+          return res.status(400).json({error: `Improper Login`})
+        }
       } 
       
       else if (result.role_name === "merchant" && result.role_id === 2) {
@@ -138,7 +143,8 @@ from merchants where email = ?`;
             const merchantProduct = merchantProductQueryData;
 
             return res.status(200).json({
-              message: `Welcome Back Merchant ${merchantName}`,
+              message: `Welcome Back Merchant /n
+              ${merchantName}`,
               token,
               MainData: result,
               merchantName,

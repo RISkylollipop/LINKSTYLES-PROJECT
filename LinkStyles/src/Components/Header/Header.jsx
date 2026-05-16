@@ -48,9 +48,7 @@ function Header() {
         const logoutData = await res.json()
         toast.success(`Logout Successfully See You Soon` || logoutData.message)
         setTimeout(() => {
-            localStorage.removeItem(`user`)
-            localStorage.removeItem(`data`)
-            localStorage.removeItem(`token`)
+            localStorage.clear()
             window.location.href = '/login'
         }, 5000);
     }

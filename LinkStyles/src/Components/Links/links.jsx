@@ -1,7 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  ResponsiveContainer,AreaChart,BarChart, PieChart, Cell,
-  XAxis,YAxis,Pie,Legend,Bar,Area,Tooltip,CartesianGrid } from "recharts";
+  ResponsiveContainer,
+  AreaChart,
+  BarChart,
+  PieChart,
+  Cell,
+  XAxis,
+  YAxis,
+  Pie,
+  Legend,
+  Bar,
+  Area,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 
 import styles from "./links.module.css";
 
@@ -10,15 +22,81 @@ import styles from "./links.module.css";
 // Create table to get all product and filter all that belongs to specific merchant
 // Create Merchant Wallet management
 
-function Table() {
-  return (
-    <>
-      <div>
-        <h3>Table</h3>
-      </div>
-    </>
-  );
-}
+
+const orderrows = [
+  {
+    orderid: "ORD-25098",
+    customer: "Amaka Obi",
+    product: "Ankara Bag",
+    amount: 8500,
+    status: "delivered",
+  },
+  {
+    orderid: "ORD-25099",
+    customer: "Emeka Nwosu",
+    product: "Agbada Set",
+    amount: 24000,
+    status: "processing",
+  },
+  {
+    orderid: "ORD-25100",
+    customer: "Olamide Badiru",
+    product: "Gucci Lace",
+    amount: 82500,
+    status: "delivered",
+  },
+  {
+    orderid: "ORD-25101",
+    customer: "Olasco LTD",
+    product: "Bluetooth Speaker",
+    amount: 124000,
+    status: "shipped",
+  },
+  {
+    orderid: "ORD-25102",
+    customer: "Olayinka Faridah",
+    product: "Bone Straight 32in",
+    amount: 350000,
+    status: "cancelled",
+  },
+  {
+    orderid: "ORD-25103",
+    customer: "Jumoke Olarongbe",
+    product: "Set Of Pot",
+    amount: 170000,
+    status: "processing",
+  },
+  {
+    orderid: "ORD-25104",
+    customer: "Adebayo Johnson",
+    product: "Sneakers",
+    amount: 45000,
+    status: "shipped",
+  },
+  {
+    orderid: "ORD-25105",
+    customer: "Ngozi Eze",
+    product: "Headphones",
+    amount: 30000,
+    status: "processing",
+  },
+  {
+    orderid: "ORD-25106",
+    customer: "Tunde Ade",
+    product: "Watch",
+    amount: 150000,
+    status: "delivered",
+  },
+  {
+    orderid: "ORD-25107",
+    customer: "Funmi Adeyemi",
+    product: "Dress",
+    amount: 60000,
+    status: "cancelled",
+  },
+];
+
+
 
 function Overview() {
   // Digital analysis List of Customers, List of Merchants,
@@ -27,16 +105,98 @@ function Overview() {
   //
   // Customer Sales
 
-  // id: "revenue", name: "Total Revenue", value: 562000, justification: "+18% this month", color: "green", icon: "₦"
+  const [newOrdersRow, setNewOrdersRow] = useState(() => {
+    try {
+      const orders = localStorage.getItem("allOrders");
+      return orders ? JSON.parse(orders) : [];
+    } catch (error) {
+      console.log("Error parsing localStorage data:", error);
+      console.error(error);
+      return [];
+    }
+  });
 
+  // cart
+  // created_at
+  // customer_email
+  // :
+  // customer_name
+  // id
+  // :
+  // 1
+  // monnify_ref
+
+  // order_id
+  // payment_mode
+  // shipping_address
+  // total_amount
+
+  const headers = [
+    "ORDER_ID",
+    "REFERENCE_ID",
+    "CUSTOMER_NAME",
+    "PRODUCT",
+    "AMOUNT",
+    "PAYMENT MODE",
+    "SHIPPING ADDRESS",
+  ];
   const overviewData = [
-    { id: "revernue",label: "Total Revenue",value: 12000000,justification: "10% more total",color: "green",icon: "₦"},
-    { id: "customers",label: "Customers",value: 4,justification: "+1 new user",color: "green", icon: "👥" },
-    { id: "merchants", label: "merchants", value: 2,justification: "+1 new merchant",color: "orange",icon: "👤"},
-    { id: "sales",label: "Sales",value: 142000,justification: "2% more than yesterday",color: "green",icon: "📈"},
-    { id: "orders", label: "Orders",value: 26,justification: "From 12am till Now", color: "#3074e0",icon: "◈"},
-    { id: "inbox",label: "Inbox",value: 8,justification: "All for the Month", color: "orange", icon: "📩"},
-    {id: "withdrawal",label: "Withdrawal Request", value: 5,justification: "Pending Withdrawal",color: "#717CFA", icon: "💳"},
+    {
+      id: "revernue",
+      label: "Total Revenue",
+      value: 12000000,
+      justification: "10% more total",
+      color: "green",
+      icon: "₦",
+    },
+    {
+      id: "customers",
+      label: "Customers",
+      value: 4,
+      justification: "+1 new user",
+      color: "green",
+      icon: "👥",
+    },
+    {
+      id: "merchants",
+      label: "merchants",
+      value: 2,
+      justification: "+1 new merchant",
+      color: "orange",
+      icon: "👤",
+    },
+    {
+      id: "sales",
+      label: "Sales",
+      value: 142000,
+      justification: "2% more than yesterday",
+      color: "green",
+      icon: "📈",
+    },
+    {
+      id: "orders",
+      label: "Orders",
+      value: 26,
+      justification: "From 12am till Now",
+      color: "#3074e0",
+      icon: "◈",
+    },
+    {
+      id: "inbox",
+      label: "Inbox",
+      value: 8,
+      justification: "All for the Month",
+      color: "orange",
+      icon: "📩",
+    },
+    {
+      id: "withdrawal",
+      label: "Withdrawal Request",
+      value: 5,
+      justification: "Pending Withdrawal",
+      color: "#717CFA",
+      icon: "💳",
+    },
   ];
 
   // Area Chart
@@ -118,7 +278,14 @@ function Overview() {
     }
   }
 
-  const PIECOLOUR = ["#00ff88","#60a5fa","#fbbf24", "#f87171",  "#a78bfa",  "#fb923c",];
+  const PIECOLOUR = [
+    "#00ff88",
+    "#60a5fa",
+    "#fbbf24",
+    "#f87171",
+    "#a78bfa",
+    "#fb923c",
+  ];
 
   return (
     <>
@@ -286,16 +453,37 @@ function Overview() {
         </div>
       </div>
 
-      <Table />
+      <Table
+        headers={headers}
+        rows={newOrdersRow.slice(0, 5)}
+        label="Recent &middot; Orders"
+        type="overview"
+      />
     </>
   );
 }
 
 function Products() {
+  const [products, setProducts] = useState(() => {
+    try {
+      const allProducts = localStorage.getItem("allProduct");
+
+      return allProducts ? JSON.parse(allProducts) : [];
+    } catch (error) {}
+  });
+  const [search, setSearch] = useState("");
+
   return (
-    <div>
-      <h3>Products</h3>
-    </div>
+    <>
+      <div className={`${styles.overviewheading} ${styles.topBarDiv}`}>
+        <h3>Products</h3>
+        <p>{products.length} total products</p>
+      </div>
+
+      <div>
+        <div className={styles.productBtn}></div>
+      </div>
+    </>
   );
 }
 
@@ -308,10 +496,112 @@ function Customers() {
 }
 
 function Order() {
+  // created_at
+  // delivered_at
+  // delivery_status
+  // dispute_reason
+  // disputed_at
+  // id
+  // merchantPID
+  // merchant_note
+  // order_id
+  // price
+  // product_id
+  // product_image
+  // product_name
+  // quantity
+  // updated_at
+
+  const headers = [
+    "MERCHANT_ID",
+    "REFERENCE_ID",
+    "PRODUCT_ID",
+    "PRODUCT_NAME",
+    "QUANTITY",
+    "PRICE",
+    "PRODUCT_IMAGE",
+    "STATUS",
+    "UPDATE STATUS",
+  ];
+  const actions = [
+    { name: "shipped", label: "shipped" },
+    { name: "Processing", label: "Processing" },
+    { name: "Delivered", label: "Delivered" },
+  ];
+  const orderBtn = [
+    { id: "all", label: "All" },
+    { id: "processing", label: "Processing" },
+    { id: "pending", label: "Pending" },
+    { id: "delivered", label: "Delivered" },
+    { id: "disputed", label: "Disputed" },
+    { id: "resolved", label: "Resolved" },
+  ];
+
+  const [orderStatus, setOrderStatus] = useState("all");
+
+  const [orderItems, setOrderItems] = useState(() => {
+    try {
+      const allOrderItems = localStorage.getItem("allOrderItems");
+      return allOrderItems ? JSON.parse(allOrderItems) : [];
+    } catch (error) {
+      console.log(error);
+      console.error(error);
+      return [];
+    }
+  });
+
+  const [search, setSearch] = useState("");
+
+  const filterorderItem = orderItems.filter((o) => {
+    const statusMatch =
+      orderStatus === "all" || o.delivery_status === orderStatus;
+    const searchMatch =
+      o.merchantPID.toLowerCase().includes(search.toLowerCase()) ||
+      o.product_name.toLowerCase().includes(search.toLowerCase()) ||
+      o.order_id.toLowerCase().includes(search.toLowerCase());
+    return statusMatch && searchMatch;
+  });
+
   return (
-    <div>
-      <h3>Orders</h3>
-    </div>
+    <>
+      <div className={`${styles.overviewheading} ${styles.topBarDiv}`}>
+        <h3>Orders</h3>
+        <p>{orderItems.length} total orders</p>
+      </div>
+
+      <div style={{ display: "flex", gap: "10px" }} className={styles.orderbtn}>
+        {orderBtn &&
+          orderBtn.map((btn) => (
+            <button
+              className={
+                orderStatus === btn.id
+                  ? styles.isActiveStyle
+                  : styles.isNotActiveStyle
+              }
+              key={btn.id}
+              onClick={() => setOrderStatus(btn.id)}
+            >
+              {btn.label}
+            </button>
+          ))}
+      </div>
+
+      <input
+        className={styles.searchInput}
+        type="search"
+        placeholder="Search Merchant, Order ID or Product Name"
+        value={search}
+        onChange={(e) => setSearch(e.target.value.trimStart())}
+      />
+
+      <Table
+        label="Orders Items &middot; Table"
+        headers={headers}
+        rows={filterorderItem}
+        type="orders"
+        actions={actions}
+      />
+    </>
   );
 }
 
@@ -352,7 +642,7 @@ const SECTIONS = {
 };
 
 function Links() {
-  const [activeId, setActiveId] = useState("overview");
+  const [activeId, setActiveId] = useState("products");
 
   const sidebarList = [
     { id: "overview", label: "Overview", icon: "⬡" },

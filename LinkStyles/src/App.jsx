@@ -87,7 +87,7 @@ function App() {
 
 
 
-              (
+              
               <Routes>
                 <Route path="/link/admin" element={<Links />} />
                 <Route path="/link/admin/addproduct" element={<AddProduct />} />
@@ -99,7 +99,7 @@ function App() {
           </ClothContextProvider>
         </LoginContextProvider>
 
-        : isMerchantRoute ? (
+        : isMerchantRoute ? 
 
           <>
 
@@ -117,7 +117,7 @@ function App() {
 
           </>
 
-        ) : (
+         : 
 
 
           <>
@@ -163,7 +163,7 @@ function App() {
             </LoginContextProvider>
 
 
-          </>)}
+          </>}
 
 
 

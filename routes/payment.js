@@ -168,6 +168,7 @@ router.post("/generate-account", async (req, res) => {
           product_id: item.productId,
           merchantPID: item.merchantPID,
           product_name: item.goodsName,
+          product_image : item.goodsImage,
           price: item.goodsPrice,
           quantity: item.goodsQuantity,
           delivery_status: "pending",
