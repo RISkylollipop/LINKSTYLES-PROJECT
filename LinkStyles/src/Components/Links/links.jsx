@@ -97,6 +97,206 @@ const orderrows = [
 ];
 
 
+const STATUS_STYLE = {
+  // Positive states - Green
+  delivered: { background: "rgba(0,255,136,0.1)", color: "#00ff88" },
+  active: { background: "rgba(0,255,136,0.1)", color: "#00ff88" },
+
+  // In-progress states - Blue
+  shipped: { background: "rgba(96,165,250,0.1)", color: "#60a5fa" },
+  processing: { background: "rgba(96,165,250,0.1)", color: "#60a5fa" },
+
+  // Warning states - Amber/Yellow
+  pending: { background: "rgba(27, 26, 25, 0.1)", color: "#f2af06" },
+  low_stock: { background: "rgba(27, 26, 25, 0.1)", color: "#f2af06" },
+
+  // Problematic states - Red
+  cancelled: { background: "rgba(248,113,113,0.1)", color: "#f87171" },
+  out_of_stock: { background: "rgba(248,113,113,0.1)", color: "#f87171" },
+
+  // Dispute/Issue state - Orange/Red-Orange
+  disputed: { background: "rgba(251,146,60,0.1)", color: "#fb923c" },
+};
+
+
+
+
+function Table({ headers, rows, label, type, actions }) {
+  return (
+    <>
+      <div className={styles.tableContainer}>
+        <div className={styles.tableContainerCard}>
+          <h5>{label}</h5>
+
+          <table>
+            <thead>
+              <tr>
+                {headers &&
+                  headers.map((header) => <th key={header}>{header}</th>)}
+              </tr>
+            </thead>
+
+            {type === "orders" ? (
+              <tbody>
+                {rows.length > 0 ? (
+                  rows.map((row, idx) => (
+                    
+                    <tr key={idx}>
+                      <td>{row.merchantPID}</td>
+                      <td>{row.order_id}</td>
+                      <td>{row.product_id}</td>
+                      <td>{row.product_name}</td>
+                      <td>{row.quantity}</td>
+                      <td>{row.price}</td>
+                      <td
+                        style={{
+                          borderRight: "1px solid rgba(247, 183, 5, 0.97)",
+                        }}
+                      >
+                        <img
+                          src={row?.product_image}
+                          width="80px"
+                          height="60px"
+                          alt="Product Image"
+                        />
+                      </td>
+                      <td
+                        className={styles.status}
+                        style={STATUS_STYLE[row.delivery_status]}
+                      >
+                        {row.delivery_status}
+                      </td>
+                      <td style={{ padding: 0 }}>
+                        {actions &&
+                          actions.map((a) => (
+                            <button
+                              style={{
+                                padding: "3px 2px",
+                                margin: "2px",
+                                cursor: "pointer",
+                              }}
+                              key={a.name}
+                            >
+                              {a.label}
+                            </button>
+                          ))}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <div style={{ width: "100%", display: "block" }}>
+                    <h3
+                      style={{
+                        textAlign: "left",
+                        margin: "10px auto",
+                        width: "100%",
+                      }}
+                    >
+                      No Match rows
+                    </h3>
+                  </div>
+                )}
+              </tbody>
+            ) : type === "overview" ? (
+              <tbody>
+                {rows.length > 0 &&
+                  rows.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.id}</td>
+                      <td>{row.order_id}</td>
+                      <td>{row.customer_name}</td>
+
+                      <td style={{ paddingLeft: "15px" }}>
+                        {row.cart.map((cartitem, idx) => (
+                          <span key={idx}>
+                            <small>{cartitem.goodsQuantity}x</small>
+                            <li className={styles.tableCartListing}>
+                              {cartitem.goodsName}
+                            </li>
+                            &nbsp;
+                          </span>
+                        ))}
+                      </td>
+                      <td>{row.total_amount}</td>
+                      <td>{row.payment_mode}</td>
+                      <td>
+                        {row.shipping_address === " "
+                          ? "NIGERIA"
+                          : row.shipping_address !== " "
+                            ? row.shipping_address
+                            : "NOT AVAILABLE"}{" "}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            ) : type === "products" ? (
+              <tbody>
+                {rows.length > 0 &&
+                  rows.map((row, idx) => (
+                    <tr key={idx}>
+                      {/* <td>{row.product_id}</td> */}
+                      <td>{row?.orderid || row?.productName || null}</td>
+
+                      <td>{row?.customer || row?.category || null}</td>
+
+                      {}
+
+                      <td style={row?.price ? { color: "green" } : null}>
+                        {new Intl.NumberFormat("en-NG").format(
+                          `${row?.amount || row?.price}`,
+                        )}
+                      </td>
+
+                      <td>{row?.stock ?? 0}</td>
+                      <td>{row?.sales || null}</td>
+                      <td
+                        className={styles.status}
+                        style={STATUS_STYLE[row.status]}
+                      >
+                        {row?.status}
+                      </td>
+
+                      <td>
+                        {row?.action || null}
+                        <button className={styles.editBtn}>
+                          <span style={{ fontSize: "15px" }}>&#9998;</span> EDIT
+                        </button>
+                        <button className={styles.deleteBtn}>
+                          <span style={{ fontSize: "15px" }}>&#128465;</span>{" "}
+                          DELETE
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            ) : type === "users" ? (
+              <tbody>
+                <tr key={idx}>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            ) : null}
+          </table>
+        </div>
+      </div>
+    </>
+  );
+}
+
+
+
+
+
+
+
+
+
+
 
 function Overview() {
   // Digital analysis List of Customers, List of Merchants,
@@ -104,6 +304,8 @@ function Overview() {
   //  Notification, Withdrawal Request
   //
   // Customer Sales
+
+
 
   const [newOrdersRow, setNewOrdersRow] = useState(() => {
     try {
@@ -289,6 +491,44 @@ function Overview() {
 
   return (
     <>
+
+     <div className={styles.overviewheading}>
+                <h3>Overview</h3>
+
+                <p>Your Users and Merchant performance at a glance</p>
+      </div>
+
+       <div className={styles.digitalAnalysis}>
+                {overviewData && overviewData?.map((overview) => (
+
+                    <div
+                        key={overview.id}
+                        className={styles.digitalAnalysiscard}>
+                        <div className={styles.digitalAnalysisbody}>
+                            <div className={styles.cardinnerdiv}>
+                                <h5>{overview.icon}</h5>
+
+                                <h6 style={{ color: overview.color }}>
+                                    <span
+                                        className={styles.livedot}
+                                        style={{ background: overview.color }}
+                                    ></span>
+
+                                    LIVE
+                                </h6>
+                            </div>
+
+                            <div className={styles.analystCardBodyPara}>
+                                <h5>{new Intl.NumberFormat("en-NG").format(overview.value)}</h5>
+                                <small>{overview.label}</small>
+                                <h6>{overview.justification}</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                ))}
+
+            </div>
       <div className={styles.dataAnalysis}>
         <div className={styles.dataAnalysisCard}>
           <p>Total Revenue &middot; 2025/2026</p>
@@ -469,7 +709,12 @@ function Products() {
       const allProducts = localStorage.getItem("allProduct");
 
       return allProducts ? JSON.parse(allProducts) : [];
-    } catch (error) {}
+    } catch (error) {
+
+      console.log(`Unable to parse Products`);
+      console(error)
+      return []
+    }
   });
   const [search, setSearch] = useState("");
 
@@ -477,7 +722,7 @@ function Products() {
     <>
       <div className={`${styles.overviewheading} ${styles.topBarDiv}`}>
         <h3>Products</h3>
-        <p>{products.length} total products</p>
+        <p>{products?.length} total products</p>
       </div>
 
       <div>
@@ -490,27 +735,12 @@ function Products() {
 function Customers() {
   return (
     <div>
-      <h3>Customer</h3>
+      <h3>Customer section is coming soon ...</h3>
     </div>
   );
 }
 
 function Order() {
-  // created_at
-  // delivered_at
-  // delivery_status
-  // dispute_reason
-  // disputed_at
-  // id
-  // merchantPID
-  // merchant_note
-  // order_id
-  // price
-  // product_id
-  // product_image
-  // product_name
-  // quantity
-  // updated_at
 
   const headers = [
     "MERCHANT_ID",
@@ -521,7 +751,7 @@ function Order() {
     "PRICE",
     "PRODUCT_IMAGE",
     "STATUS",
-    "UPDATE STATUS",
+    "UPDATE STATUS"
   ];
   const actions = [
     { name: "shipped", label: "shipped" },
@@ -544,7 +774,7 @@ function Order() {
       const allOrderItems = localStorage.getItem("allOrderItems");
       return allOrderItems ? JSON.parse(allOrderItems) : [];
     } catch (error) {
-      console.log(error);
+      console.log(`Unable to parse Orders`,error);
       console.error(error);
       return [];
     }
@@ -552,13 +782,13 @@ function Order() {
 
   const [search, setSearch] = useState("");
 
-  const filterorderItem = orderItems.filter((o) => {
+  const filterorderItem = orderItems?.filter((o) => {
     const statusMatch =
       orderStatus === "all" || o.delivery_status === orderStatus;
     const searchMatch =
-      o.merchantPID.toLowerCase().includes(search.toLowerCase()) ||
-      o.product_name.toLowerCase().includes(search.toLowerCase()) ||
-      o.order_id.toLowerCase().includes(search.toLowerCase());
+      o.merchantPID?.toLowerCase().includes(search.toLowerCase()) ||
+      o.product_name?.toLowerCase().includes(search.toLowerCase()) ||
+      o.order_id?.toLowerCase().includes(search.toLowerCase());
     return statusMatch && searchMatch;
   });
 
@@ -566,7 +796,7 @@ function Order() {
     <>
       <div className={`${styles.overviewheading} ${styles.topBarDiv}`}>
         <h3>Orders</h3>
-        <p>{orderItems.length} total orders</p>
+        <p>{orderItems?.length} total orders</p>
       </div>
 
       <div style={{ display: "flex", gap: "10px" }} className={styles.orderbtn}>
@@ -608,7 +838,7 @@ function Order() {
 function Inbox() {
   return (
     <div>
-      <h3>Inbox</h3>
+      <h3>Inbox section is coming soon ...</h3>
     </div>
   );
 }
@@ -617,7 +847,7 @@ function Filemanager() {
   return (
     <>
       <div>
-        <h3> File Manager</h3>
+        <h3> File Manager section is coming soon ...</h3>
       </div>
     </>
   );
@@ -626,7 +856,7 @@ function Filemanager() {
 function Settings() {
   return (
     <div>
-      <h3>Settings</h3>
+      <h3>Settings section is coming soon ...</h3>
     </div>
   );
 }
@@ -642,7 +872,7 @@ const SECTIONS = {
 };
 
 function Links() {
-  const [activeId, setActiveId] = useState("products");
+  const [activeId, setActiveId] = useState("overview");
 
   const sidebarList = [
     { id: "overview", label: "Overview", icon: "⬡" },
