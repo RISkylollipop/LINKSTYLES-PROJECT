@@ -57,8 +57,12 @@ const ScrollToTop = () => {
   return (
     <>
       {isVisible && (
-        <button onClick={handleBackToTop} style={HandleStyle()}>
-          <button style={scrollButtonStyle}>&uarr;</button>
+        <button
+          style={scrollButtonStyle}
+          onClick={handleBackToTop}
+          style={HandleStyle()}
+        >
+          &uarr;
         </button>
       )}
     </>
