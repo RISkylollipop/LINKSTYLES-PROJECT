@@ -195,6 +195,7 @@ const { user, setUser, mainData, setMainData, productlenght,
               <input
                 type="email"
                 placeholder="your@email.com"
+                autoComplete="off"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
