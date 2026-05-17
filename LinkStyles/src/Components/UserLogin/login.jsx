@@ -207,6 +207,7 @@ const { user, setUser, mainData, setMainData, productlenght,
                 type="password"
                 placeholder="Your password"
                 value={formData.password}
+                autoComplete="new-password"
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
               />
