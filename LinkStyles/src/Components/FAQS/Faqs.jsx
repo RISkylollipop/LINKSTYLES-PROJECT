@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { faqDatas } from "./data";
-import styles from "./faqs.module.css";
+import styles from "./Faqs.module.css"
 
 export const Faqs = () => {
   const [selectedId, setSelectedId] = useState(null);
