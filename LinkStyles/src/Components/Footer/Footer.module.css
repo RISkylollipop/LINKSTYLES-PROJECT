@@ -60,7 +60,7 @@
 
 
 .FooterCardContainer {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 2fr 1fr;
     gap: 10px;
     width: 100%;
@@ -286,7 +286,8 @@
     }
 
     .footerCardNews {
-        width: 100%;
+        max-width: 80%;
+        margin: 0 auto;
         margin-top: 0;
     }
 

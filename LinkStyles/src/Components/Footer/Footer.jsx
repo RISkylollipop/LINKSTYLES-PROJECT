@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "react-bootstrap";
-import "bootstrap/dist/js/bootstrap.min.js";
 import styles from "./Footer.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -271,13 +268,12 @@ function Footer() {
         spaceBetween={0}
         slidesPerView="auto"
         loop={true}
-        speed={1800} // Adjust for smoothness (lower = slower, smoother)
+        speed={1800} 
         autoplay={{
-          delay: 0, // No delay
+          delay: 0,
           disableOnInteraction: false,
         }}
-        freeMode={true} // Allow natural movement
-        // centeredSlides={true} // Center slides smoothly
+        freeMode={true}
         modules={[Autoplay]}
         breakpoints={{
           300: { slidesPerView: 2 },
