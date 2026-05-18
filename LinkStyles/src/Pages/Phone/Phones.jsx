@@ -1,210 +1,153 @@
 import { useContext, useState, useEffect } from "react";
 import PageLoading from "../../Components/PageLoading/PageLoading";
 import { useNavigate } from "react-router-dom";
-
 import { LoginContext } from "../../Components/UserLogin/LoginContext";
 import { ClothContext } from "../../Components/Context/ClothContext";
-
 import StarRating from "../../Components/Context/StarRating";
-
 import styles from "./Phone.module.css";
 import image1 from "./images/image1.png";
 
-// Swiper Imports
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 function Phones() {
-  const { user, setUser, mainData, setMaindata } = useContext(LoginContext);
+  const { user } = useContext(LoginContext);
   const { addToCart, symbol } = useContext(ClothContext);
   const [phones, setPhones] = useState([]);
-
   const navigate = useNavigate();
-
   const URL = import.meta.env.VITE_APP_URL;
+
+  // Dynamic date — "1ST — 14TH NOV" becomes today + 14 days
+  const today = new Date();
+  const endDate = new Date(today);
+  endDate.setDate(today.getDate() + 14);
+
+  const formatDay = (d) => {
+    const day = d.getDate();
+    const suffix = day === 1 || day === 21 || day === 31 ? "ST"
+      : day === 2 || day === 22 ? "ND"
+      : day === 3 || day === 23 ? "RD" : "TH";
+    return `${day}${suffix}`;
+  };
+
+  const monthName = (d) =>
+    d.toLocaleString("en-US", { month: "short" }).toUpperCase();
+
+  const dealDateRange = `${formatDay(today)} — ${formatDay(endDate)} ${monthName(endDate)}`;
 
   useEffect(() => {
     fetch(`${URL}/api/v1/phones`)
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setPhones(data);
-        } else {
-          console.log("Invalid Data Format", data);
-        }
+        if (Array.isArray(data)) setPhones(data);
+        else console.log("Invalid Data Format", data);
       })
-      .catch((error) => console.error("Error fetching products:", error));
+      .catch((err) => console.error("Error fetching products:", err));
   }, []);
 
-  const handlescroll = () => {
-    if (window.scrollY > 300) {
-      window.scrollTo({
-        top: 50,
-        behavior: "auto"
-      })
-    }
-  }
+  const handleScroll = () => {
+    window.scrollTo({ top: 50, behavior: "auto" });
+  };
+
   return (
-    <>
-      <main className={styles.main}>
-        <h2 className={styles.headings}>Phones & Tablets</h2>
-        <h3 className={styles.callToOrder}>CALL TO ORDER 08140470626</h3>
+    <main className={styles.main}>
 
-        {/* HEADER SECTION */}
-        <header className={styles.header}>
-          {/* Left */}
-          <div className={styles.headerSection}>
-            <span className={styles.logo}>Link Styles</span>
-            <div className={styles.festivalBadge}>
-              <span className={styles.festivalLabel}>Brand Festival</span>
-            </div>
-            <div className={styles.datePill}>1ST — 14TH NOV</div>
+      {/* ── BANNER ── */}
+      {/* <header className={styles.banner}>
+        <div className={styles.bannerLeft}>
+          <span className={styles.brandName}>Link Styles</span>
+          <div className={styles.festivalBadge}>
+            <span>BRAND FESTIVAL</span>
           </div>
+          <div className={styles.datePill}>{dealDateRange}</div>
+        </div>
 
-          {/* Center */}
-          <div className={`${styles.headerSection} ${styles.centerSection}`}>
-            <p className={styles.dealTag}>🔥 Limited Time</p>
-            <h1 className={styles.dealTitle}>PHONE<br />DEAL</h1>
-            <div className={styles.discountRow}>
-              <span className={styles.upTo}>UP TO</span>
-              <span className={styles.percent}>10%</span>
-              <span className={styles.off}>OFF</span>
-            </div>
-            <p className={styles.dealSub}>Correct phones for you</p>
+        <div className={styles.bannerCenter}>
+          <p className={styles.dealTag}>🔥 Limited Time Deal</p>
+          <h1 className={styles.dealTitle}>PHONE<br />DEALS</h1>
+          <div className={styles.discountRow}>
+            <span className={styles.upTo}>UP TO</span>
+            <span className={styles.percent}>10%</span>
+            <span className={styles.off}>OFF</span>
           </div>
+          <p className={styles.dealSub}>Best phones, best prices</p>
+        </div>
 
-          {/* Right */}
-          <div className={`${styles.headerSection} ${styles.imageSection}`}>
-            <img src={image1} alt="advert image" className={styles.bannerImg} />
-          </div>
-        </header>
+        <div className={styles.bannerRight}>
+          <img src={image1} alt="Phone deal" className={styles.bannerImg} />
+        </div>
+      </header> */}
 
-        <h1 style={{fontFamily: "c"}}>Limited Stock Available</h1>
+      {/* ── HEADINGS ── */}
+      <h2 className={styles.pageHeading}>Phones & Tablets</h2>
+      <p className={styles.callToOrder}>📞 CALL TO ORDER — 08140470626</p>
+      <p className={styles.limitedStock}>⚠️ Limited Stock Available</p>
 
-        {phones && phones.length > 0 ? (
-          <div className={styles.cardContainers}>
-            {phones.map((phone) => {
-              // BUILD IMAGE ARRAY FIRst to make Slide Easy
-              const phoneImages = [phone?.image1, phone?.image2 , phone?.image3];
-              if (phoneImages > 1 && phoneImages <= 3){
-                phoneImages.push(...phoneImages)
-              }
+      {/* ── PRODUCT GRID ── */}
+      {phones && phones.length > 0 ? (
+        <div className={styles.grid}>
+          {phones.map((phone) => {
+            const newPrice = Number(phone?.price);
+            let originalPrice;
 
-              let starRating = phone?.rating
-              // PRICE CALC LOGIC
-              const newPrice = Number(phone?.price);
-              let originalPrice;
+            if (newPrice < 1600000) originalPrice = newPrice * 1.2;
+            else if (newPrice <= 1800000) originalPrice = newPrice * 1.17;
+            else if (newPrice <= 1900000) originalPrice = newPrice * 1.15;
+            else originalPrice = newPrice * 1.1;
 
-              if (newPrice < 1600000) {
-                originalPrice = newPrice * 1.2;
-              } else if (newPrice <= 1800000) {
-                originalPrice = newPrice * 1.17;
-              } else if (newPrice <= 1900000) {
-                originalPrice = newPrice * 1.15;
-              } else {
-                originalPrice = newPrice * 1.1;
-              }
+            const discount = originalPrice - newPrice;
+            const Pdiscount = Math.round((discount / originalPrice) * 100);
 
-              originalPrice = originalPrice.toFixed(2);
+            return (
+              <div key={phone.product_id} className={styles.card}>
+                {/* Discount Badge */}
+                <span className={styles.discountBadge}>-{Pdiscount}%</span>
 
-              const discount = Number(originalPrice - newPrice).toFixed(2);
-              const Pdiscount = Number((discount / originalPrice) * 100).toFixed(0);
-              const PdiscountPercent = `-${Pdiscount}%`;
+                {/* Image */}
+                <div className={styles.imageWrap}>
+                  <img
+                    src={phone.image2}
+                    alt={phone.productName}
+                    className={styles.cardImage}
+                    onClick={() => { navigate(`/phone/${phone.product_id}`); handleScroll(); }}
+                  />
+                </div>
 
-              return (
-                <div key={phone.product_id} className={styles.cards}>
-                  <div className={styles.cardBody}>
-                    <span className={styles.discount}>{PdiscountPercent}</span>
+                {/* Card Body */}
+                <div className={styles.cardBody}>
+                  <h3 className={styles.productName}>{phone.productName}</h3>
 
-                    
-                    {/* <Swiper
-                      modules={[Navigation, Pagination, Autoplay]}
-                      // navigation = {{clickable : true}}
-                      // pagination={{ clickable: true }}
-                      autoplay={{ delay: 2500 }}
-                      loop={true}
-                      className={styles.slider}
+                  <div className={styles.priceSection}>
+                    <span className={styles.price}>
+                      {symbol || "₦"}{new Intl.NumberFormat("en-US").format(newPrice)}
+                    </span>
+                    <span className={styles.oldPrice}>
+                      {symbol || "₦"}{new Intl.NumberFormat("en-US").format(Math.round(originalPrice))}
+                    </span>
+                  </div>
+
+                  <StarRating rating={phone?.rating} />
+
+                  <div className={styles.btnGroup}>
+                    <button
+                      className={styles.viewBtn}
+                      onClick={() => { navigate(`/phone/${phone.product_id}`); handleScroll(); }}
                     >
-                      {phoneImages.map((img, index) => (
-                        <SwiperSlide key={index}>
-                          <img
-                            onClick={() => {
-
-                              navigate(`/phone/${phone.product_id}`),
-                                handlescroll()
-                            }
-
-                            }
-                            src={img}
-                            alt={phone.productName}
-                            className={styles.cardImage}
-                          />
-                        </SwiperSlide>
-                      ))}
-                    </Swiper> */}
-
-                    <img
-                            onClick={() => {
-
-                              navigate(`/phone/${phone.product_id}`),
-                                handlescroll()
-                            }
-
-                            }
-                            src={phone.image2}
-                            alt={phone.productName}
-                            className={styles.cardImage}
-                          />
-
-                    <h3>{phone.productName}</h3>
-
-                    <div className={styles.priceSection}>
-                      <span className={styles.price}>
-                        {symbol || "₦"}
-                        {new Intl.NumberFormat("en-US").format(newPrice)}
-                        
-                      </span>
-                      <br />
-                      <span className={styles.oldPrice}>
-                        {symbol || "₦"}
-                        {new Intl.NumberFormat("en-US").format(originalPrice)}
-                      </span>
-                    </div>
-                    <StarRating rating={starRating} />
-
-                    <div className={styles.btnGroup}>
-                      <button
-                        onClick={() => {
-
-                          navigate(`/phone/${phone.product_id}`),
-                            handlescroll()
-                        }
-                        }
-                        className={styles.detailbtn}
-                      >
-                        View More
-                      </button>
-
-                      <button
-                        onClick={() => addToCart(phone)}
-                        className={styles.addtocartbtn}
-                      >
-                        Add to Cart
-                      </button>
-                    </div>
+                      View More
+                    </button>
+                    <button
+                      className={styles.cartBtn}
+                      onClick={() => addToCart(phone)}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        ) : (
-          <PageLoading name="Phone and Tablets" />
-        )}
-      </main>
-    </>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <PageLoading name="Phones and Tablets" />
+      )}
+    </main>
   );
 }
 

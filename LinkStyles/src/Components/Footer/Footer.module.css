@@ -1,5 +1,8 @@
-.cardContainer {
+.footer {
     font-family: 'Montserrat', sans-serif;
+}
+
+.cardContainer {
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -55,103 +58,198 @@
     height: 600px;
 }
 
-.footerFastLinkContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
 
-}
-
-/* Footer Sections */
-.footerFastLink {
-    display: block;
-    width: 250px;
-    margin: 0 auto;
-    text-align: center;
-    white-space: normal;
-    word-wrap: break-word;
-    
-}
-
-/* Heading Styles */
-.footerFastLink h2 {
-    text-align: center;
-    font-weight: bolder;
-    margin-top: 20px;
-    font-size: 1.5rem;
-    font-family: c;
-}
-
-/* List Styles */
-.footerFastLink ul {
-    padding: 0;
-}
-
-.footerLi {
-    text-decoration: none;
-    list-style: none;
-    cursor: pointer;
-    font-size: 18px;
-    padding: 5px 0;
-}
-
-.footerLi:hover {
-    color: rgb(87, 59, 7);
-    transition: color 0.3s ease;
-}
-
-/* Newsletter Section */
-.Newsletter {
-    flex-basis: 30%;
-    text-align: left;
-}
-
-/* Input Field */
-.Newsletter input {
-    width: 80%;
+.FooterCardContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 10px;
+    width: 100%;
     padding: 10px;
+    background: #f1f1f2;
+}
+
+
+.logo {
+    padding-top: 15px;
+    font-weight: 500;
+    color: gray;
+    text-transform: capitalize;
+    font-family: 'Alex Brush', cursive;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.footerCardLogo{
+    max-width: 240px;
+    min-width: 230px;
+}
+
+.footerCardLogo p {
+    font-size: clamp(12px, 1vw, 15px);
+    text-align: left;
+    margin-bottom: 10px;
+    white-space: normal;
+}
+
+.footerCardLogo button {
+    font-size: 12px;
+    border-radius: 15px;
+    padding: 0 5px;
+    border: 1px solid orange;
+    font-weight: 700;
+    color: orange;
+    outline: none;
+}
+
+
+.socialHandles {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    max-width: 160px;
+    min-width: 140px;
+}
+
+.socialHandles span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: rgba(96, 95, 95, 0.07);
+    border: 1px solid rgba(112, 111, 111, 0.09);
+    border-radius: 50%;
+    font-size: 15px;
+    color: black;
+    cursor: pointer;
+}
+
+.footerCardMiniConttainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
     margin-top: 10px;
 }
 
-.Newsletter p {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    word-wrap: break-word;
-    white-space: normal;
-
+.footerCard,
+.footerCardNews {
+    margin: 0;
+    padding: 0;
+    justify-content: flex-start;
 }
 
-.newsLetterFormGroup {
+.footerCard h1,
+.footerCardNews h1 {
+    font-size: clamp(12px, 0.7vw, 15px);
+    font-weight: 600;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif, monospace;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footerCard ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footerCard ul li {
+    margin-bottom: 8px;
+    color: rgba(50, 49, 49, 0.8);
+    text-transform: capitalize;
+    transition: ease-in-out 0.3s;
+    font-size: clamp(13px, 1vw, 15px);
+    cursor: pointer;
+}
+
+.footerCard ul li:hover {
+    color: orange;
+    transition: ease-in-out 0.3s;
+}
+
+.footerCardNews {
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
-    
 }
 
-.formGrp input {
-    width: 400px;
-    font-size: 0.8rem;
-    outline: none;
-    border: 2px solid burlywood;
+.footerCardNews p {
+    font-size: clamp(13px, 0.6vw, 15px);
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.footerCardNews small {
+    white-space: normal;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.newsLetter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    width: 100%;
+}
+
+.newsLetter div {
+    padding: 0;
+    width: 100%;
+}
+
+.newsLetter input {
+    padding: 10px 8px 10px 4px;
+    margin: 0;
+    font-size: clamp(15px, 1vw, 17px);
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+
+
+.newsLetter button {
+    width: fit-content;
+    font-size: 14px;
+    padding: 0 10px;
+    border: 1px solid orange;
     border-radius: 10px;
-    margin: 0 auto;
-
+    margin-top: -5px;
 }
 
-.formGrp button {
-    outline: none;
-    border: 2px solid burlywood;
-    border-radius: 10px;
+.downFooter {
+    display: flex;
+    background: #f1f1f2;
+    border-top: 1px solid rgba(50, 49, 49, 0.8);
+    justify-content: space-around;
+    align-items: center;
 }
 
-.copyRight {
-    font-family: c;
+.downFooter div span {
+    color: orange;
     font-weight: 600;
+    font-size: clamp(15px, 2vw, 17px);
 }
+
+
+.downFooter div ul {
+    display: inline-flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.downFooter div ul li {
+    color: rgba(36, 36, 36, 0.8);
+    font: 15px;
+}
+
+
 
 /* MEDIA QUERY FOR MOBILE */
-@media screen and (min-width: 280px) and (max-width: 768px) {
+@media screen and (min-width: 280px) and (max-width: 768px) {}
+
+@media screen and (max-width: 768px) {
 
     .billBoardContainer {
         position: relative;
@@ -167,57 +265,49 @@
 
     }
 
-    .footerFastLinkContainer {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100vw;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footerFastLink {
-        width: 75vw;
-        height: fit-content;
-        padding: 0;
-        margin: 10px auto;
-        border-radius: 10px;
-        box-shadow: 2px 3px 0 lightgrey,
-                -2px -3px 0 lightgrey;
-    }
-
-    .footerFastLink h2 {
-        text-align: center;
-        font-size: 1.5rem;
-        font-family: cursive;
-    }
-
-    .Newsletter {
-        text-align: center;
-        overflow-wrap: break-word;
-    }
-
-    .Newsletter p {
-        text-align: center;
-        font-size: 1rem;
-        font-weight: 600;
-        word-wrap: break-word;
-        white-space: normal;
-
-    }
-
-    .Newsletter input {
-        width: 80vw;
-    }
-
-    .newsLetterFormGroup {
-        display: flex;
+    .FooterCardContainer {
         flex-direction: column;
-        margin-bottom: 10px;
     }
-    .formGrp button{
-        font-size: 1rem;
-        padding: 0 10px;
-        width: fit-content;
+
+    .footerCardLogo {
+        max-width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .socialHandles {
+        max-width: 160px;
+        min-width: 140px;
+    }
+
+    .footerCardMiniConttainer {
+        min-width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footerCardNews {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .newsLetter input {
+        width: 100%;
+    }
+
+    .downFooter {
+        text-align: center;
+        padding: 10px;
+        gap: 0;
+    }
+    .downFooter div p, .downFooter div span{
+        font-size: 12px;
+    }
+
+    .downFooter div ul {
+        gap: 12px;
+        padding: 0;
+    }
+    .downFooter div ul li{
+        font-size: 12px;
     }
 }

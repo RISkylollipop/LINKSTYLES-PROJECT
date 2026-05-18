@@ -1,87 +1,314 @@
-.card-containers {
-    display: inline-flex;
-    flex-wrap: wrap;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* ── ROOT ── */
+.main {
+  font-family: 'Montserrat', sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* ── PAGE HEADER ── */
+.pageHeader {
+  text-align: center;
+  padding: 28px 16px 12px;
+}
+
+.pageTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0 0 8px;
+}
+
+.callToOrder {
+  display: inline-block;
+  background: #FF8C00;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 20px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── FILTER BAR ── */
+.filterBar {
+  max-width: 620px;
+  margin: 0 auto 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fafafa;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #bbb;
+}
+
+.rangeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rangeHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rangeLabel {
+  font-size: 12px;
+  color: #888;
+  flex: 1;
+}
+
+.rangeValue {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FF8C00;
+}
+
+.resetBtn {
+  font-size: 11px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #888;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.resetBtn:hover {
+  background: #e0e0e0;
+}
+
+.rangeInput {
+  width: 100%;
+  accent-color: #FF8C00;
+  cursor: pointer;
+}
+
+/* ── RESULTS COUNT ── */
+.resultCount {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+.resultCount strong {
+  color: #FF8C00;
+}
+
+/* ── GRID ── */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0 16px;
+  justify-content: flex-start;
+}
+
+/* ── CARD ── */
+.card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  min-width: 260px;
+  flex: 1;
+  max-width: 300px;
+  padding: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Discount Badge */
+.discountBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff0eb;
+  color: #FF4D00;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+/* Image */
+.imageWrap {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.imageWrap:hover .cardImage {
+  transform: scale(1.04);
+}
+
+/* Body */
+.cardBody {
+  padding: 0 2px;
+}
+
+.productName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #313133;
+  line-height: 1.4;
+  margin: 0 0 8px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Price */
+.priceSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-size: 18px;
+  color: #FF8C00;
+  font-weight: 700;
+}
+
+.oldPrice {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/* Buttons */
+.btnGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.viewBtn,
+.cartBtn {
+  flex: 1;
+  padding: 7px 6px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.viewBtn {
+  background: #fff;
+  border: 1px solid #FF8C00;
+  color: #FF8C00;
+}
+
+.viewBtn:hover {
+  background: #FF8C00;
+  color: #fff;
+}
+
+.cartBtn {
+  background: #FF8C00;
+  border: 1px solid #FF8C00;
+  color: #fff;
+}
+
+.cartBtn:hover {
+  background: #e07a00;
+}
+
+/* ── NO RESULTS ── */
+.noResults {
+  text-align: center;
+  padding: 60px 16px;
+  color: #888;
+}
+
+.noResults p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.noResults button {
+  background: #FF8C00;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .grid {
     justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: hsl(0, 0%, 50%, );
-    transition: all 3s;
+    padding: 0 10px;
+  }
 
+  .card {
+    min-width: 90%;
+    max-width: 100%;
+  }
+
+  .filterBar {
+    margin: 0 16px 16px;
+  }
 }
 
-.headings {
-    width: 100%;
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.cards {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    width: 320px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-}
-
-.cards:hover {
-    transform: scale(1.05);
-}
-
-.card-body img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.card-body {
-    padding: 15px;
-}
-
-.card-body h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.card-body span {
-    font-weight: bold;
-}
-
-.spandesign {
-    display: flex;
-    gap: 10px;
-    margin: 10px auto;
-}
-
-.detailbtn,
-.addtocartbtn {
-    border-radius: 10px;
-    font-size: 20px;
-    width: 130px;
-}
-
-.detailbtn {
-    background-color: blue;
-    color: white;
-    transition: all 3s;
-}
-
-.detailbtn:hover {
-    background-color: rgb(109, 109, 240);
-    transition: all 3s;
-}
-
-.addtocartbtn {
-    background-color: green;
-    color: white;
-    transition: all 3s;
-}
-
-.addtocartbtn:hover {
-    background-color: #60ec81;
-    transition: all 3s;
+@media (max-width: 480px) {
+  .card {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }

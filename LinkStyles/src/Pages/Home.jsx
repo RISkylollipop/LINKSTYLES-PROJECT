@@ -31,7 +31,6 @@ function Home() {
 
             <div className="Footer">
                 <Footer />
-                <CopyRight/>
             </div>
 
             <div className='scrollToTop'>

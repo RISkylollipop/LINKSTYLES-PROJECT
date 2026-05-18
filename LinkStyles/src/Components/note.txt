@@ -1,3 +1,146 @@
+<>
+         <div className={styles.footerFastLinkContainer}>
+                <div className={styles.footerFastLink}>
+                    <h2>Shop</h2>
+                    <ul className={styles.footerUl}>
+                        <li
+                            className={styles.footerLi}
+                            onClick={() => navigate(`/clothes`)}>
+                            <a> Everyday Style</a>
+                        </li>
+                        <li
+                            className={styles.footerLi}
+                            onClick={() => navigate(`/clothes`)}>
+                            <a> Premium Collection</a>
+                        </li>
+                        <li
+                            className={styles.footerLi}
+                            onClick={() => navigate(`/clothes`)}>
+                            <a> Summer Essentials</a>
+                        </li>
+                        <li
+                            className={styles.footerLi}
+                            onClick={() => navigate(`/clothes`)}>
+                            <a> Winter Essential</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className={styles.footerFastLink}>
+                    <h2>Categories</h2>
+                    <ul>
+                        <li
+                            className={styles.footerLi}
+                            onClick={() => navigate(`/clothes`)}><a>  Clothing</a></li>
+                        <li
+                            className={styles.footerLi}
+                        ><a> Accessories</a></li>
+                        <li
+                            className={styles.footerLi}
+                        ><a> Shoes</a></li>
+                        <li
+                            className={styles.footerLi}
+                        ><a> Bags</a></li>
+
+
+                    </ul>
+                </div>
+
+                <div className={styles.footerFastLink}>
+                    <h2>About Us</h2>
+                    <ul>
+                        <li
+                            className={styles.footerLi}
+                        >
+                            <a onClick={() => window.open(`/`, '_blank')}
+                                style={{ cursor: "pointer" }}
+                            > Home</a></li>
+
+
+
+                        <li
+                            className={styles.footerLi}
+                        >
+                            <a
+                                onClick={() => window.open('/contact', '_blank')}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                Contact Us
+                            </a>
+
+                        </li>
+                        <li
+                            className={styles.footerLi}
+                        ><a> Shop All</a></li>
+
+                        <li
+                            className={styles.footerLi}
+                        ><a onClick={() => navigate(`/faqs`)}> FAQs</a>
+                        </li>
+
+                        <li
+                            className={styles.footerLi}
+                        ><a onClick={() => navigate(`/aboutus`)}> About Us</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div className={`${styles.footerFastLink} ${styles.Newsletter}`}>
+
+                    <div className='newsLetterContainer'>
+
+                        <div className={styles.newsLetterText}>
+                            <h2>Stay Updated</h2>
+                            <p>Subscribe to our newsletter for the latest
+                                fashion trends and  exclusive offers.</p>
+                        </div>
+
+
+                        <form onSubmit={handleSubmit}>
+                            <div className={styles.newsLetterFormGroup}>
+
+                                <div className={styles.formGrp}>
+                                    {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+                                    <input
+                                        type="email"
+                                        placeholder="Enter Your Email"
+                                        value={newsletter.email}
+                                        onChange={(e) => setNewsletter({ ...newsletter, email: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div className={styles.formGrp}>
+                                    <button type="submit" style={{ marginTop: '20px' }}>
+                                        Subscribe
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fetch((``), {
       method: "POST",
       headers: { 'Content-Type': ' application/json' },

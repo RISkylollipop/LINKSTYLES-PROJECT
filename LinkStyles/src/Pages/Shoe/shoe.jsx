@@ -1,207 +1,186 @@
 import React, { useContext, useEffect, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
-import ScrollToTop from "../../Components/ScrollToTop";
-
 import styles from "./shoe.module.css";
 import PageLoading from "../../Components/PageLoading/PageLoading";
 import Footer from "../../Components/Footer/Footer";
+import ScrollToTop from "../../Components/ScrollToTop";
 import { useNavigate } from "react-router-dom";
 import { ClothContext } from "../../Components/Context/ClothContext";
 
 function Shoes() {
-    const { addToCart, symbol } = useContext(ClothContext);
+  const { addToCart, symbol } = useContext(ClothContext);
+  const navigate = useNavigate();
+  const [product, setProduct] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [value, setValue] = useState(100);
+  const URL = import.meta.env.VITE_APP_URL;
 
-    const navigate = useNavigate();
-    const [product, setProduct] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [value, setValue] = useState(2000);
+  useEffect(() => {
+    fetch(`${URL}/api/v1/shoes`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setProduct(data);
+        else console.error("Invalid data format", data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
-    const URL = import.meta.env.VITE_APP_URL;
+  const handleScroll = () => window.scrollTo({ top: 50, behavior: "auto" });
 
-    useEffect(() => {
-        console.log(URL);
-        
-        fetch(`${URL}/api/v1/shoes`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (Array.isArray(data)) {
-                    console.log(`the data`,typeof data);
-                    setProduct(data);
-                } else {
-                    console.error("Invalid data format", typeof data);
-                }
-            })
-            .catch((error) => console.error(error));
-    }, []);
-
-    useEffect(() => {
-        if (product.length > 0) {
-            console.log("✅ Products loaded:", product);
-        }
-    }, [product]);
-
-
-    function handleSearchQuery(e) {
-        setSearchQuery(e.target.value);
-    }
-
-    function handleValueChange(e) {
-        setValue(parseFloat(e.target.value));
-    }
-
-    function refreshValue() {
-        setValue(100);
-    }
-
-    return (
-        <main className={styles.productContainer}>
-            <div>
-                <h3 className={styles.headings}>
-                    Fashion Unleashed - Trendy Looks for Every Occasion!
-                </h3>
-
-                <h3 className={styles.headings}>Call to order 070000000000</h3>
-
-                <div className={styles.seachdiv}>
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        name="searchQuery"
-                        id="search"
-                        value={searchQuery}
-                        onChange={handleSearchQuery}
-                        style={{ borderRadius: "10px", width: "100%", padding: "10px" }}
-                    />
-
-                    <br />
-
-                    <input
-                        type="range"
-                        min="100"
-                        name="priceRange"
-                        id="range"
-                        max="15000"
-                        step="1"
-                        value={value}
-                        onChange={handleValueChange}
-                        style={{ width: "100%", marginTop: "10px" }}
-                    />
-
-                    <br />
-
-                    <span>
-                        <label htmlFor="range">Filter With Price: {value}</label>
-                        <p>
-                            Reset{" "}
-                            <i
-                                className="bi bi-arrow-clockwise"
-                                onClick={refreshValue}
-                            ></i>
-                        </p>
-                    </span>
-                </div>
-
-                <div className={styles.cardContainer}>
-                    {product.length > 0 ? (
-                        product
-                            .filter((prod) => {
-                                const matchesPrice = Number(prod.price) >= value;
-
-                                if (!searchQuery.trim()) return matchesPrice;
-
-                                const words = searchQuery.toLowerCase().split(" ");
-
-                                const matchesSearch = words.some(
-                                    (word) =>
-                                        prod.productName.toLowerCase().includes(word) ||
-                                        prod.description.toLowerCase().includes(word) ||
-                                        prod.category.toLowerCase().includes(word)
-                                );
-
-                                return matchesPrice && matchesSearch;
-                            })
-                            .map((prod) => {
-                                let newPrice = Number(prod.price);
-                                let originalPrice = 0;
-
-                                if (newPrice >= 15000) originalPrice = newPrice * 1.5;
-                                else if (newPrice > 12000) originalPrice = newPrice * 1.4;
-                                else if (newPrice > 7000) originalPrice = newPrice * 1.3;
-                                else if (newPrice > 3000) originalPrice = newPrice * 1.2;
-                                else originalPrice = newPrice * 1.1;
-
-                                originalPrice = Number(originalPrice.toFixed(2));
-                                let discount = originalPrice - newPrice;
-                                let percentDiscount = ((discount / originalPrice) * 100).toFixed(0);
-                                let Pdiscount = `-${percentDiscount}%`;
-
-                                return (
-                                    <div key={prod.product_id} className={styles.card}>
-                                        {prod.image1 ? (
-                                            <div className={styles.imageWrapper}>
-                                                <span className={styles.discount}>{Pdiscount}</span>
-                                                <img
-                                                    src={prod.image1}
-                                                    alt={prod.productName}
-                                                    onClick={() =>
-                                                        navigate(`/shoes/${prod.product_id}`)
-                                                    }
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div style={{ textAlign: "center" }}>
-                                                <PageLoading name="Product Loading..." />
-                                            </div>
-                                        )}
-
-                                        <div className={styles.cardBody}>
-                                            <h3>{prod.productName}</h3>
-
-                                            <p className={styles.priceWrapper}>
-                                                <span className={styles.newPrice}>
-                                                    {symbol}{" "}
-                                                    {new Intl.NumberFormat("en-US").format(newPrice)}
-                                                </span>
-                                                <br />
-                                                <span className={styles.originalPrice}>
-                                                    {symbol}{" "}
-                                                    {new Intl.NumberFormat("en-US").format(originalPrice)}
-                                                </span>
-                                            </p>
-
-                                            <div className={styles.btnGroup}>
-                                                <button
-                                                    onClick={() =>
-                                                        navigate(`/shoes/${prod.product_id}`)
-                                                    }
-                                                    className={styles.detailbtn}
-                                                >
-                                                    View More
-                                                </button>
-                                                <button
-                                                    onClick={() => addToCart(prod)}
-                                                    className={styles.addtocartbtn}
-                                                >
-                                                    Add to Cart
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })
-                    ) : (
-                        <div style={{ textAlign: "center" }}>
-                            <PageLoading name="Product Loading..." />
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            <ScrollToTop />
-            <Footer />
-        </main>
+  const filtered = product.filter((prod) => {
+    const matchesPrice = Number(prod.price) >= value;
+    if (!searchQuery.trim()) return matchesPrice;
+    const words = searchQuery.toLowerCase().split(" ");
+    const matchesSearch = words.some(
+      (word) =>
+        prod.productName.toLowerCase().includes(word) ||
+        prod.description?.toLowerCase().includes(word) ||
+        prod.category?.toLowerCase().includes(word)
     );
+    return matchesPrice && matchesSearch;
+  });
+
+  return (
+    <main className={styles.main}>
+
+      {/* ── PAGE HEADER ── */}
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>Shoes & Footwear</h2>
+        <p className={styles.callToOrder}>📞 CALL TO ORDER — 07000000000</p>
+      </div>
+
+      {/* ── SEARCH & FILTER ── */}
+      <div className={styles.filterBar}>
+        <div className={styles.searchWrap}>
+          <i className="bi bi-search" style={{ color: "#aaa", fontSize: 14 }}></i>
+          <input
+            type="text"
+            placeholder="Search shoes, brands, categories..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={styles.searchInput}
+          />
+          {searchQuery && (
+            <i
+              className="bi bi-x"
+              onClick={() => setSearchQuery("")}
+              style={{ color: "#aaa", fontSize: 16, cursor: "pointer" }}
+            ></i>
+          )}
+        </div>
+
+        <div className={styles.rangeWrap}>
+          <div className={styles.rangeHeader}>
+            <span className={styles.rangeLabel}>Min. Price</span>
+            <span className={styles.rangeValue}>
+              {symbol || "₦"}{new Intl.NumberFormat("en-US").format(value)}
+            </span>
+            <button className={styles.resetBtn} onClick={() => setValue(100)}>
+              Reset
+            </button>
+          </div>
+          <input
+            type="range"
+            min="100"
+            max="15000"
+            step="100"
+            value={value}
+            onChange={(e) => setValue(parseFloat(e.target.value))}
+            className={styles.rangeInput}
+          />
+        </div>
+      </div>
+
+      {/* ── RESULTS COUNT ── */}
+      {product.length > 0 && (
+        <p className={styles.resultCount}>
+          Showing <strong>{filtered.length}</strong> of {product.length} products
+        </p>
+      )}
+
+      {/* ── PRODUCT GRID ── */}
+      {product.length > 0 ? (
+        filtered.length > 0 ? (
+          <div className={styles.grid}>
+            {filtered.map((prod) => {
+              const newPrice = Number(prod.price);
+              let originalPrice;
+
+              if (newPrice >= 15000) originalPrice = newPrice * 1.5;
+              else if (newPrice > 12000) originalPrice = newPrice * 1.4;
+              else if (newPrice > 7000) originalPrice = newPrice * 1.3;
+              else if (newPrice > 3000) originalPrice = newPrice * 1.2;
+              else originalPrice = newPrice * 1.1;
+
+              originalPrice = Math.round(originalPrice);
+              const discount = originalPrice - newPrice;
+              const percentDiscount = Math.round((discount / originalPrice) * 100);
+
+              return (
+                <div key={prod.product_id} className={styles.card}>
+                  <span className={styles.discountBadge}>-{percentDiscount}%</span>
+
+                  <div
+                    className={styles.imageWrap}
+                    onClick={() => { navigate(`/shoes/${prod.product_id}`); handleScroll(); }}
+                  >
+                    {prod.image1 ? (
+                      <img
+                        src={prod.image1}
+                        alt={prod.productName}
+                        className={styles.cardImage}
+                      />
+                    ) : (
+                      <PageLoading name="Loading..." />
+                    )}
+                  </div>
+
+                  <div className={styles.cardBody}>
+                    <h3 className={styles.productName}>{prod.productName}</h3>
+
+                    <div className={styles.priceSection}>
+                      <span className={styles.price}>
+                        {symbol || "₦"}{new Intl.NumberFormat("en-US").format(newPrice)}
+                      </span>
+                      <span className={styles.oldPrice}>
+                        {symbol || "₦"}{new Intl.NumberFormat("en-US").format(originalPrice)}
+                      </span>
+                    </div>
+
+                    <div className={styles.btnGroup}>
+                      <button
+                        className={styles.viewBtn}
+                        onClick={() => { navigate(`/shoes/${prod.product_id}`); handleScroll(); }}
+                      >
+                        View More
+                      </button>
+                      <button
+                        className={styles.cartBtn}
+                        onClick={() => addToCart(prod)}
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={styles.noResults}>
+            <p>No products match your search or filter.</p>
+            <button onClick={() => { setSearchQuery(""); setValue(100); }}>
+              Clear Filters
+            </button>
+          </div>
+        )
+      ) : (
+        <PageLoading name="Shoes & Footwear" />
+      )}
+
+      <ScrollToTop />
+      <Footer />
+    </main>
+  );
 }
 
 export default Shoes;

@@ -9,9 +9,7 @@ const Copyright = () => {
 
   return (
     <footer className={styles.copyRight}>
-      <p>
-        As at today: {currentDay} {currentMonth}, {currentYear}
-      </p>
+      
       <p>
         &copy; {currentYear} Links Styles. All rights reserved.
       </p>

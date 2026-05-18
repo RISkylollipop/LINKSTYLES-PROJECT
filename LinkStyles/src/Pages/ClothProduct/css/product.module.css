@@ -1,255 +1,314 @@
-.productContainer {
-  font-family: 'Segoe UI';
-  max-width: 100vw;
-  padding: 0;
-  margin: 0;
-  align-items: center;
-  justify-content: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
+/* ── ROOT ── */
+.main {
+  font-family: 'Montserrat', sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 40px;
 }
 
-/* Headings */
-.headings {
-  max-width: 100vw;
-  display: block;
-  background-color: #FF9900;
+/* ── PAGE HEADER ── */
+.pageHeader {
   text-align: center;
-  font-size: 1.8rem;
-  margin: 20px;
-  padding: 7px;
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  color: rgb(49, 49, 51);
-  font-size: 20px;
-  line-height: normal;
-  border-radius: 7px;
+  padding: 28px 16px 12px;
 }
 
-/* search input */
-.seachdiv {
-  text-align: center;
+.pageTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0 0 8px;
 }
 
-input {
-  text-align: center;
-  max-width: 45%;
-}
-
-/* Container for all cards */
-.cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  gap: 10px;
-
-}
-
-
-/* Individual card styling */
-.card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 280px;
-  height: auto;
-  padding: 10px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.imageWrapper {
-  position: relative;   
-  width: 100%;
-  height: 200px;
-  border-radius: 5px;
-  overflow: hidden;     
-}
-
-.imageWrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-  display: block;
-}
-
-.discount {
-  position: absolute;
-  top: 10px;       
-  right: 10px;     
-  background: #f68b1e;
-  color: white;
+.callToOrder {
+  display: inline-block;
+  background: #FF8C00;
+  color: #fff;
   font-size: 12px;
-  font-weight: bold;
-  padding: 5px 8px;
-  border-radius: 5px; 
-  z-index: 3;
+  font-weight: 700;
+  padding: 5px 20px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
 }
 
-
-.card:hover {
-  transform: scale(1.05);
-  transition: 2s
+/* ── FILTER BAR ── */
+.filterBar {
+  max-width: 620px;
+  margin: 0 auto 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-
-/* Product Name */
-.cardBody h3 {
-  font-size: 16px;
-  font-family: c;
-  font-style: normal;
-  font-weight: 400;
-  color: rgb(49, 49, 51);
-  line-height: 20px;
-  margin: 10px;
-  word-wrap: break-word;
-  white-space: normal;
-  text-align: left;
-}
-
-.cardBody p {
-  text-align: left;
-  font-size: 14px;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  color: rgb(49, 49, 51);
-  line-height: 14px;
-  margin-bottom: 10px;
-  padding: 0;
-}
-
-.priceWrapper {
+.searchWrap {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fafafa;
 }
 
-.newPrice {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #000;
-}
-
-.originalPrice {
-  font-size: 0.9rem;
-  color: gray;
-  text-decoration: line-through;
-}
-
-
-
-
-/* Description styling */
-
-
-.btnGroup {
-  margin-top: 20px;
-  display: flex;
-  max-width: fit-content;
-  flex-direction: row;
-  justify-self: center;
-  gap: 20px;
-}
-
-.detailbtn,
-.addtocartbtn {
+.searchInput {
   flex: 1;
-  margin: 2px;
-  padding: 6px;
-  font-size: 13px;
   border: none;
-  border-radius: 4px;
+  background: transparent;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #bbb;
+}
+
+.rangeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rangeHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rangeLabel {
+  font-size: 12px;
+  color: #888;
+  flex: 1;
+}
+
+.rangeValue {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FF8C00;
+}
+
+.resetBtn {
+  font-size: 11px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #888;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 10px;
   cursor: pointer;
 }
 
-.detailbtn {
+.resetBtn:hover {
+  background: #e0e0e0;
+}
+
+.rangeInput {
+  width: 100%;
+  accent-color: #FF8C00;
+  cursor: pointer;
+}
+
+/* ── RESULTS COUNT ── */
+.resultCount {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+.resultCount strong {
+  color: #FF8C00;
+}
+
+/* ── GRID ── */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0 16px;
+  justify-content: flex-start;
+}
+
+/* ── CARD ── */
+.card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  min-width: 260px;
+  flex: 1;
+  max-width: 300px;
+  padding: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Discount Badge */
+.discountBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff0eb;
+  color: #FF4D00;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+/* Image */
+.imageWrap {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.imageWrap:hover .cardImage {
+  transform: scale(1.04);
+}
+
+/* Body */
+.cardBody {
+  padding: 0 2px;
+}
+
+.productName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #313133;
+  line-height: 1.4;
+  margin: 0 0 8px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Price */
+.priceSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-size: 18px;
+  color: #FF8C00;
+  font-weight: 700;
+}
+
+.oldPrice {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/* Buttons */
+.btnGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.viewBtn,
+.cartBtn {
+  flex: 1;
+  padding: 7px 6px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.viewBtn {
   background: #fff;
-  border: 1px solid #ff4d00;
-  color: #ff4d00;
+  border: 1px solid #FF8C00;
+  color: #FF8C00;
 }
 
-.detailbtn:hover {
-  background: #ff4d00;
+.viewBtn:hover {
+  background: #FF8C00;
   color: #fff;
 }
 
-.addtocartbtn {
-  background: #ff4d00;
+.cartBtn {
+  background: #FF8C00;
+  border: 1px solid #FF8C00;
   color: #fff;
 }
 
-.addtocartbtn:hover {
-  background: #e63d00;
+.cartBtn:hover {
+  background: #e07a00;
 }
 
-
-/* Tablets (<= 1024px) */
-@media (max-width: 1024px) {
-  .cardContainer {
-    justify-content: center;
-    gap: 15px;
-  }
-
-  .card {
-    width: 220px;
-  }
-
-  .headings {
-    font-size: 18px;
-    margin: 15px;
-    padding: 6px;
-  }
-
-  input {
-    max-width: 60%;
-  }
+/* ── NO RESULTS ── */
+.noResults {
+  text-align: center;
+  padding: 60px 16px;
+  color: #888;
 }
 
-/* Mobile (<= 768px) */
+.noResults p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.noResults button {
+  background: #FF8C00;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .cardContainer {
-    flex-direction: column;
-    align-items: center;
+  .grid {
+    justify-content: center;
+    padding: 0 10px;
   }
 
   .card {
-    width: 90%;
-    max-width: 320px;
+    min-width: 90%;
+    max-width: 100%;
   }
 
-  .headings {
-    font-size: 16px;
-    margin: 10px;
-    padding: 5px;
-  }
-
-  input {
-    max-width: 80%;
-    font-size: 14px;
+  .filterBar {
+    margin: 0 16px 16px;
   }
 }
 
-/* Small Mobile (<= 480px) */
 @media (max-width: 480px) {
   .card {
-    width: 95%;
-    padding: 8px;
-  }
-
-  .headings {
-    font-size: 14px;
-  }
-
-  .cardBody h3,
-  .cardBody p {
-    font-size: 12px;
-  }
-
-  .detailbtn,
-  .addtocartbtn {
-    font-size: 12px;
-    padding: 5px;
+    min-width: 100%;
+    max-width: 100%;
   }
 }

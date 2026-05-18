@@ -1,284 +1,312 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/js/bootstrap.min.js'
-import styles from './Footer.module.css'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
+import "bootstrap/dist/js/bootstrap.min.js";
+import styles from "./Footer.module.css";
+import { useNavigate } from "react-router-dom";
 
+import { FaWhatsapp, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
+import PatnerLogo1 from "./FooterImages/PatnerLogo1.png";
+import PatnerLogo2 from "./FooterImages/PatnerLogo2.png";
+import PatnerLogo3 from "./FooterImages/PatnerLogo3.png";
+import PatnerLogo4 from "./FooterImages/PatnerLogo4.png";
+import PatnerLogo5 from "./FooterImages/PatnerLogo5.png";
+import PatnerLogo6 from "./FooterImages/PatnerLogo6.png";
+import PatnerLogo7 from "./FooterImages/PatnerLogo7.png";
 
+import FooterBillBoard from "./FooterImages/FooterBillBoard.png";
 
-import PatnerLogo1 from './FooterImages/PatnerLogo1.png'
-import PatnerLogo2 from './FooterImages/PatnerLogo2.png';
-import PatnerLogo3 from './FooterImages/PatnerLogo3.png';
-import PatnerLogo4 from './FooterImages/PatnerLogo4.png';
-import PatnerLogo5 from './FooterImages/PatnerLogo5.png';
-import PatnerLogo6 from './FooterImages/PatnerLogo6.png';
-import PatnerLogo7 from './FooterImages/PatnerLogo7.png';
-
-
-import FooterBillBoard from './FooterImages/FooterBillBoard.png';
+const BASE_URL = import.meta.env.VITE_APP_URL;
 
 const PartnerBrands = [
-    { id: 1, name: "ALL BRAND", image: PatnerLogo1 },
-    { id: 2, name: "ALL BRAND", image: PatnerLogo2 },
-    { id: 3, name: "NIKE", image: PatnerLogo3 },
-    { id: 4, name: "FENDI", image: PatnerLogo4 },
-    { id: 5, name: "GIVENCHY", image: PatnerLogo5 },
-    { id: 6, name: "ChANEL", image: PatnerLogo6 },
-    { id: 7, name: "GUCCI", image: PatnerLogo7 },
-    { id: 8, name: "ALL BRAND", image: PatnerLogo1 },
-    { id: 9, name: "ALL BRAND", image: PatnerLogo2 },
-    { id: 10, name: "NIKE", image: PatnerLogo3 },
-    { id: 11, name: "FENDI", image: PatnerLogo4 },
-    { id: 12, name: "GIVENCHY", image: PatnerLogo5 },
-    { id: 13, name: "ChANEL", image: PatnerLogo6 },
-    { id: 14, name: "GUCCI", image: PatnerLogo7 },
-    { id: 15, name: "ALL BRAND", image: PatnerLogo1 },
-    { id: 16, name: "ALL BRAND", image: PatnerLogo2 },
-    { id: 17, name: "NIKE", image: PatnerLogo3 },
-    { id: 18, name: "FENDI", image: PatnerLogo4 },
-    { id: 19, name: "GIVENCHY", image: PatnerLogo5 },
-    { id: 20, name: "ChANEL", image: PatnerLogo6 }
-]
+  { id: 1, name: "ALL BRAND", image: PatnerLogo1 },
+  { id: 2, name: "ALL BRAND", image: PatnerLogo2 },
+  { id: 3, name: "NIKE", image: PatnerLogo3 },
+  { id: 4, name: "FENDI", image: PatnerLogo4 },
+  { id: 5, name: "GIVENCHY", image: PatnerLogo5 },
+  { id: 6, name: "ChANEL", image: PatnerLogo6 },
+  { id: 7, name: "GUCCI", image: PatnerLogo7 },
+  { id: 8, name: "ALL BRAND", image: PatnerLogo1 },
+  { id: 9, name: "ALL BRAND", image: PatnerLogo2 },
+  { id: 10, name: "NIKE", image: PatnerLogo3 },
+  { id: 11, name: "FENDI", image: PatnerLogo4 },
+  { id: 12, name: "GIVENCHY", image: PatnerLogo5 },
+  { id: 13, name: "ChANEL", image: PatnerLogo6 },
+  { id: 14, name: "GUCCI", image: PatnerLogo7 },
+  { id: 15, name: "ALL BRAND", image: PatnerLogo1 },
+  { id: 16, name: "ALL BRAND", image: PatnerLogo2 },
+  { id: 17, name: "NIKE", image: PatnerLogo3 },
+  { id: 18, name: "FENDI", image: PatnerLogo4 },
+  { id: 19, name: "GIVENCHY", image: PatnerLogo5 },
+  { id: 20, name: "ChANEL", image: PatnerLogo6 },
+];
 
-
-
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 
+function FooterCards() {
+  const navigate = useNavigate();
+  const handlescroll = () => {
+    if (window.scrollY > 300) {
+      window.scrollTo({
+        top: 50,
+        behavior: "auto",
+      });
+    }
+  };
+  const FooterData = [
+    {
+      id: "shop",
+      label: "Shop",
+      childs: [
+        { label: "Clothing", path: "/clothes" },
+        { label: "Shoes", path: "/shoes" },
+        { label: "Accessories", path: "/accessories" },
+        { label: "Premium Collection", path: "/premium" },
+        { label: "Summer Essentials", path: "/summers" },
+        { label: "Everyday Style", path: "/householditem" },
+      ],
+    },
+    {
+      id: "company",
+      label: "Company",
+      childs: [
+        { label: "About Us", path: "/about" },
+        { label: "Contact Us", path: "/contact" },
+        { label: "FAQs", path: "/faqs" },
+        { label: "Privacy Policy", path: "/privacy" },
+        { label: "Terms of Service", path: "/terms" },
+      ],
+    },
+  ];
 
-function Footer() {
+  const SocialMedia = [
+    { id: "linkedin", icon: <FaLinkedin /> },
+    { id: "twitter", icon: <FaXTwitter /> },
+    { id: "facebook", icon: <FaFacebook /> },
+    { id: "whatsapp", icon: <FaWhatsapp /> },
+  ];
 
-    const URL = import.meta.env.VITE_APP_URL;
+  const [formData, setFormData] = useState({ email: "" });
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [active, setActive] = useState(false);
 
-    const navigate = useNavigate()
-    const [newsletter, setNewsletter] = useState({ email: "" });
-    const [errors, setErrors] = useState({});
+  const handleSubscribeNewsLetter = async () => {
+    try {
+      setActive(true);
+      const res = await fetch(`${BASE_URL}/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const sendEmailRes = await res.json();
+      if (sendEmailRes?.error) {
+        setError(sendEmailRes.error);
+        setActive(false);
+      } else if (res.status === 403) {
+        setMessage(sendEmailRes.message);
+        setActive(false);
+      } else if (sendEmailRes.message) {
+        setMessage(sendEmailRes.message);
+      }
+    } catch (error) {
+      setActive(false)
+      console.log(error);
+      console.error(error);
+    }
+  };
 
-    const validateLetter = () => {
-        let newErrors = {};
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  return (
+    <div className={styles.footer}>
+      <div className={styles.FooterCardContainer}>
+        <div className={styles.footerCardLogo}>
+          <h3 className={styles.logo}>Linkstyles</h3>
 
-        if (!newsletter.email) {
-            newErrors.email = "Please input your email";
-        } else if (!/\S+@\S+\.\S+/.test(newsletter.email)) {
-            newErrors.email = "Invalid email";
-        }
+          <p>Fashion for every style, delivered across Nigeria.</p>
 
-        return newErrors;
-    };
+          <button>🛒 Sell on Linkstyles</button>
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+          <div className={styles.socialHandles}>
+            {SocialMedia &&
+              SocialMedia.map((handles) => (
+                <span key={handles.id}>{handles.icon}</span>
+              ))}
+          </div>
+        </div>
 
-        const validationErrors = validateLetter();
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
+        <div className={styles.footerCardMiniConttainer}>
+          {FooterData &&
+            FooterData.map((footer) => (
+              <div key={footer.id} className={styles.footerCard}>
+                <h1>{footer.label}</h1>
+                <ul>
+                  {footer.childs.map((items, idx) => (
+                    <li key={idx}>
+                      <a
+                        onClick={() => {
+                          navigate(items.path);
+                          handlescroll();
+                        }}
+                      >
+                        {items.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+        </div>
 
-        setErrors({});
-
-        fetch(`http://linkstyles-project-production.up.railway.app/api/v1/subscribe`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newsletter)
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.error) {
-                    console.log(data);
-                    alert(`${data.error}`)
+        <div className={styles.footerCardNews}>
+          <small style={{ color: "green" }}>{message}</small>
+          <h1>stay updated</h1>
+          <p>Get the latest deals and new arrivals straight to your inbox.</p>
+          <div className={styles.newsLetter}>
+            <input
+              type="email"
+              name="email"
+              autoComplete="off"
+              onChange={(e) => {
+                const value = e.target.value;
+                setFormData({ ...formData, email: value });
+                if (!value) {
+                  setError(`Please input an valid Email`);
+                } else if (!/\S+@\S+\.\S+/.test(value)) {
+                  setError("Please Use a Valid Email");
                 } else {
-                    alert(`${data.message}`);
-                    setNewsletter({ email: "" });
-
+                  setError("");
                 }
-            })
-    };
-
-    return (
-        <>
-            <div className={styles.patnerBrand}>
-                <h2 className={styles.cardName}>Our Partner Brand</h2>
-
-            </div>
-            <Swiper
-                spaceBetween={0}
-                slidesPerView="auto"
-                loop={true}
-                speed={1800} // Adjust for smoothness (lower = slower, smoother)
-                autoplay={{
-                    delay: 0, // No delay
-                    disableOnInteraction: false
-                }}
-                freeMode={true} // Allow natural movement
-                // centeredSlides={true} // Center slides smoothly
-                modules={[Autoplay]}
-                breakpoints={{
-                    300: { slidesPerView: 2 },
-                    500: { slidesPerView: 3 },
-                    768: { slidesPerView: 4 },
-                    1024: { slidesPerView: 4 },
-                    1200: { slidesPerView: 6 }
-                }}
+              }}
+            />
+            <small style={{ color: "red" }}>{error}</small>
+            <button
+              disabled={active}
+              onClick={() => {
+                handleSubscribeNewsLetter();
+              }}
             >
-
-
-
-
-                {PartnerBrands.map((PartnerBrand) => (
-                    <SwiperSlide key={PartnerBrand.id}>
-                        <div className={`${styles.card} ${styles.cardex}`}>
-                            <img src={PartnerBrand.image} alt={PartnerBrand.name} />
-                        </div>
-                    </SwiperSlide>
-
-                ))}
-
-            </Swiper>
-
-
-
-
-            <div className={styles.billBoardContainer}>
-                <div className={styles.billBoard}>
-                    <a>
-                        <img src={FooterBillBoard} alt="" /></a>
-                </div>
-            </div>
-
-            <div className={styles.footerFastLinkContainer}>
-                <div className={styles.footerFastLink}>
-                    <h2>Shop</h2>
-                    <ul className={styles.footerUl}>
-                        <li
-                            className={styles.footerLi}
-                            onClick={() => navigate(`/clothes`)}>
-                            <a> Everyday Style</a>
-                        </li>
-                        <li
-                            className={styles.footerLi}
-                            onClick={() => navigate(`/clothes`)}>
-                            <a> Premium Collection</a>
-                        </li>
-                        <li
-                            className={styles.footerLi}
-                            onClick={() => navigate(`/clothes`)}>
-                            <a> Summer Essentials</a>
-                        </li>
-                        <li
-                            className={styles.footerLi}
-                            onClick={() => navigate(`/clothes`)}>
-                            <a> Winter Essential</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className={styles.footerFastLink}>
-                    <h2>Categories</h2>
-                    <ul>
-                        <li
-                            className={styles.footerLi}
-                            onClick={() => navigate(`/clothes`)}><a>  Clothing</a></li>
-                        <li
-                            className={styles.footerLi}
-                        ><a> Accessories</a></li>
-                        <li
-                            className={styles.footerLi}
-                        ><a> Shoes</a></li>
-                        <li
-                            className={styles.footerLi}
-                        ><a> Bags</a></li>
-
-
-                    </ul>
-                </div>
-
-                <div className={styles.footerFastLink}>
-                    <h2>About Us</h2>
-                    <ul>
-                        <li
-                            className={styles.footerLi}
-                        >
-                            <a onClick={() => window.open(`/`, '_blank')}
-                                style={{ cursor: "pointer" }}
-                            > Home</a></li>
-
-
-
-                        <li
-                            className={styles.footerLi}
-                        >
-                            <a
-                                onClick={() => window.open('/contact', '_blank')}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                Contact Us
-                            </a>
-
-                        </li>
-                        <li
-                            className={styles.footerLi}
-                        ><a> Shop All</a></li>
-
-                        <li
-                            className={styles.footerLi}
-                        ><a onClick={() => navigate(`/faqs`)}> FAQs</a>
-                        </li>
-
-                        <li
-                            className={styles.footerLi}
-                        ><a onClick={() => navigate(`/aboutus`)}> About Us</a>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div className={`${styles.footerFastLink} ${styles.Newsletter}`}>
-
-                    <div className='newsLetterContainer'>
-
-                        <div className={styles.newsLetterText}>
-                            <h2>Stay Updated</h2>
-                            <p>Subscribe to our newsletter for the latest
-                                fashion trends and  exclusive offers.</p>
-                        </div>
-
-
-                        <form onSubmit={handleSubmit}>
-                            <div className={styles.newsLetterFormGroup}>
-
-                                <div className={styles.formGrp}>
-                                    {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-                                    <input
-                                        type="email"
-                                        placeholder="Enter Your Email"
-                                        value={newsletter.email}
-                                        onChange={(e) => setNewsletter({ ...newsletter, email: e.target.value })}
-                                        required
-                                    />
-                                </div>
-                                <div className={styles.formGrp}>
-                                    <button type="submit" style={{ marginTop: '20px' }}>
-                                        Subscribe
-                                    </button>
-
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className={styles.downFooter}>
+        <div style={{ display: "flex", marginTop: "20px" }}>
+          <p >
+            &copy; {currentYear} <span>Linkstyles.</span> All rights reserved.
+          </p>
+        </div>
+        <div>
+          <ul>
+            <li>Privacy Policy</li>
+            <li>Terms</li>
+            <li>Support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }
 
+function Footer() {
+  const navigate = useNavigate();
+  const [newsletter, setNewsletter] = useState({ email: "" });
+  const [errors, setErrors] = useState({});
 
-export default Footer
+  const validateLetter = () => {
+    let newErrors = {};
+
+    if (!newsletter.email) {
+      newErrors.email = "Please input your email";
+    } else if (!/\S+@\S+\.\S+/.test(newsletter.email)) {
+      newErrors.email = "Invalid email";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const validationErrors = validateLetter();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({});
+
+    fetch(`${BASE_URL}/api/v1/subscribe`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newsletter),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          console.log(data);
+          alert(`${data.error}`);
+        } else {
+          alert(`${data.message}`);
+          setNewsletter({ email: "" });
+        }
+      });
+  };
+
+  return (
+    <>
+      <div className={styles.patnerBrand}>
+        <h2 className={styles.cardName}>Our Partner Brand</h2>
+      </div>
+      <Swiper
+        spaceBetween={0}
+        slidesPerView="auto"
+        loop={true}
+        speed={1800} // Adjust for smoothness (lower = slower, smoother)
+        autoplay={{
+          delay: 0, // No delay
+          disableOnInteraction: false,
+        }}
+        freeMode={true} // Allow natural movement
+        // centeredSlides={true} // Center slides smoothly
+        modules={[Autoplay]}
+        breakpoints={{
+          300: { slidesPerView: 2 },
+          500: { slidesPerView: 3 },
+          768: { slidesPerView: 4 },
+          1024: { slidesPerView: 4 },
+          1200: { slidesPerView: 6 },
+        }}
+      >
+        {PartnerBrands.map((PartnerBrand) => (
+          <SwiperSlide key={PartnerBrand.id}>
+            <div className={`${styles.card} ${styles.cardex}`}>
+              <img src={PartnerBrand.image} alt={PartnerBrand.name} />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <div className={styles.billBoardContainer}>
+        <div className={styles.billBoard}>
+          <a>
+            <img src={FooterBillBoard} alt="" />
+          </a>
+        </div>
+      </div>
+
+      <FooterCards />
+    </>
+  );
+}
+
+export default Footer;
