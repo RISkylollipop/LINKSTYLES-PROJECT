@@ -1,4 +1,5 @@
-/*  */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap');
 
 .detailDeliveryCard {
   display: flex;
@@ -93,34 +94,41 @@
 
 
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px;
-  background: #f9f9f9;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-style: normal;
   font-weight: 700;
-  background: #f5f5f5;
   padding-bottom: 20px;
-  justify-content: space-between;
-  align-items: normal;
+  justify-content: space-around;
+  font-family: 'DM Sans', sans-serif;
+  background: #f5f5f5;
+}
+
+.productDetailSections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-content: baseline;
+  align-items: center;
+
 }
 
 
 .imageSection {
-  flex: 1 1 350px;
+  min-width: 240px;
   max-width: 400px;
-  max-height: 400px;
-  position: relative;
+  max-height: fit-content;
   background: #fff;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 10px;
+
 }
 
 .imageSection img {
-  width: 300px;
+  width: 100%;
   height: 350px;
   object-fit: contain;
   border-radius: 10px;
@@ -131,25 +139,22 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: orange;
-  color: #fff;
   font-weight: bold;
   padding: 5px 8px;
   border-radius: 7px;
   font-size: 12px;
+  background: #fff0eb;
+  color: #FF4D00;
+  font-family: 'Montserrat', sans-serif;
   z-index: 3;
 }
 
 .detailsSection {
-  flex: 1 1 300px;
   max-width: 400px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
-  text-align: left;
-  text-wrap: none;
+  gap: 20px;
 }
 
 .detailsubsection {
@@ -170,11 +175,10 @@
 
 .newPrice {
   font-size: 24px;
-  ;
   font-weight: 700;
   text-align: left;
   margin: 0;
-  white-space: normal;
+  white-space: nowrap;
   color: #222;
 }
 
@@ -182,17 +186,42 @@
   font-size: 15px;
   color: #888;
   text-decoration: line-through;
+  white-space: nowrap;
 }
 
-.discountText {
-  color: #912c2a;
-  font-weight: bold;
-  font-size: 1rem;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+
+.descriptionBox {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-left: 3px solid #FF8C00;
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 4px 0;
 }
 
-.addToCartBtn,
-.buyNowBtn {
+.descriptionTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #FF8C00;
+  margin: 0 0 8px 0;
+}
+
+.descriptionText {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.addToCartBtn {
   padding: 12px 18px;
   border-radius: 6px;
   font-size: 1rem;
@@ -200,25 +229,18 @@
   border: none;
   cursor: pointer;
   transition: 0.2s ease-in-out;
-}
-
-.addToCartBtn {
-  background: #ff9800;
+  font-family: 'Montserrat', sans-serif;
+  background: #FF8C00;
   color: #fff;
 }
+
+
 
 .addToCartBtn:hover {
-  background: #e68900;
+  background: #e07a00;
 }
 
-.buyNowBtn {
-  background: #e53935;
-  color: #fff;
-}
-
-.buyNowBtn:hover {
-  background: #c62828;
-}
+/* */
 
 .promoCard {
   background: #fff8f0;
@@ -236,6 +258,8 @@
   font-size: 14px;
   text-transform: uppercase;
   text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  color: #FF8C00;
 }
 
 .promoCard p {
@@ -262,13 +286,16 @@
   flex-direction: row;
   overflow-wrap: hidden;
   white-space: normal;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 
-.title h2 {
+.title h5 {
   font-size: 20px;
   white-space: normal;
   font-weight: 800;
   color: #e88f35;
+  font-family: 'Cormorant Garamond', serif;
 }
 
 .titles {
@@ -314,11 +341,12 @@
 
 .deliverySection button {
   border-radius: 10px;
-  max-width: 300px;
+  max-width: 200px;
   margin: 10px auto;
-  background-color: orange;
   color: white;
   border: none;
+  background: #FF8C00;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .deliveryCard {
@@ -328,6 +356,8 @@
 .deliveryCard input {
   max-width: 90%;
   margin: 10px auto;
+  text-transform: lowercase;
+  text-align: center;
 }
 
 .deliveryCard select {
@@ -373,9 +403,17 @@
 
 
 
-@media (min-width: 300px) and (max-width: 540px) {
+
+@media  (max-width: 768px) {
+  .container{
+    display: flex;
+    width: 100%;
+  }
+
+  .productDetailSections{
+    grid-template-columns: 1fr;
+  }
   .imageSection {
-    flex: 1 1 350px;
     max-width: 100%;
     position: relative;
     background: #fff;
@@ -386,24 +424,34 @@
 
   .imageSection img {
     width: 100%;
-    height: 350px;
+    height: 300px;
+    max-height: 360px;
     object-fit: contain;
   }
 
-  .discountBadge {
-    background: orange;
-    color: #fff;
-    font-weight: bold;
-    padding: 5px 8px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    max-width: 50px;
-  }
+ .discountBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  padding: 5px 8px;
+  border-radius: 7px;
+  font-size: 12px;
+  background: #fff0eb;
+  color: #FF4D00;
+  font-family: 'Montserrat', sans-serif;
+}
+  .discountText {
+  font-weight: bold;
+  font-size: clamp(10px, 0.3vw, 13px);
+  font-family: 'Montserrat', sans-serif;
+  color: #FF4D00;
+}
 
   .detailsSection {
-    flex: 1 1 300px;
     display: flex;
-    flex-direction: column;
+    width: 90%;
+    margin: 10px auto;
     gap: 15px;
   }
 
@@ -415,8 +463,8 @@
     flex-direction: row;
   }
 
-  .title h2 {
-    font-size: 20px;
+  .title h5 {
+    font-size: 13px;
     font-weight: 800;
 
   }
@@ -442,17 +490,13 @@
     font-size: 1rem;
     color: #888;
     text-decoration: line-through;
-  }
-
-  .discountText {
-    color: orange;
-    font-weight: bold;
-    font-size: 1rem;
+    white-space: nowrap;
   }
 
   .promoCard {
     font-size: 0.85rem;
     padding: 10px 12px;
+    border-color: #FF8C00;
   }
 
   .promoCard p {
@@ -462,6 +506,26 @@
     gap: 4px;
   }
 }
+
+
+.newPrice {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+
+.deliveryCard select {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.pickupSection {
+  font-family: 'DM Sans', sans-serif;
+}
+
+
+.card h3 {
+  font-family: 'DM Sans', sans-serif;
+}
+
 
 
 /* Responsive Styles */
@@ -496,7 +560,8 @@
 .searchAlso h2 {
   font-size: 20px;
   font-weight: 700;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  color: #2c2c2c;
   text-transform: uppercase;
 
 }
@@ -526,14 +591,17 @@
 
 .card h3 {
   font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
   margin: 10px 0;
   font-weight: 800;
   white-space: normal;
   word-wrap: break-word;
+
 }
 
 .card p {
   font-size: 16px;
   font-weight: 700;
-  color: #ff6600;
+  font-family: 'Montserrat', sans-serif;
+  color: #FF8C00;
 }

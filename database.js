@@ -1,5 +1,6 @@
-const mysql = require(`mysql2`)
-require(`dotenv`).config()
+const mysql = require(`mysql2`);
+
+require(`dotenv`).config();
 
 const dbPool = mysql.createPool({ 
     host: process.env.MYSQLHOST,
@@ -7,10 +8,12 @@ const dbPool = mysql.createPool({
     password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQLDATABASE,
     port: process.env.MYSQLPORT,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
     ssl: {
     rejectUnauthorized: false // required for Aiven
-  }
-    
+  },
 })
 
 const db = mysql.createConnection({ 
@@ -19,8 +22,12 @@ const db = mysql.createConnection({
     password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQLDATABASE,
     port: process.env.MYSQLPORT,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
     ssl: {
     rejectUnauthorized: false // required for Aiven
+
   }
     
 })

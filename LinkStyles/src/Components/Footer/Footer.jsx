@@ -213,52 +213,8 @@ function FooterCards() {
 }
 
 function Footer() {
-  const navigate = useNavigate();
-  const [newsletter, setNewsletter] = useState({ email: "" });
-  const [errors, setErrors] = useState({});
-
-  const validateLetter = () => {
-    let newErrors = {};
-
-    if (!newsletter.email) {
-      newErrors.email = "Please input your email";
-    } else if (!/\S+@\S+\.\S+/.test(newsletter.email)) {
-      newErrors.email = "Invalid email";
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const validationErrors = validateLetter();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    setErrors({});
-
-    fetch(`${BASE_URL}/api/v1/subscribe`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newsletter),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          console.log(data);
-          alert(`${data.error}`);
-        } else {
-          alert(`${data.message}`);
-          setNewsletter({ email: "" });
-        }
-      });
-  };
-
+  
+  
   return (
     <>
       <div className={styles.patnerBrand}>

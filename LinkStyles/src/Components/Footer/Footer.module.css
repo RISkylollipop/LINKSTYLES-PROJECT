@@ -1,314 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
 .footer {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .cardContainer {
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    word-wrap: break-word;
-    white-space: normal;
-
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
+/* Partner Brands */
 .patnerBrand {
-    text-align: center;
+  text-align: center;
 }
 
 .cardName {
-    margin-top: 50px;
-    font-size: 30px;
-    line-height: 39px;
-    text-align: center;
-    font-weight: bolder;
+  margin-top: 60px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 300;
+  text-align: center;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
 }
 
 .cardex img {
-    width: 170px;
-    height: 120px;
+  width: 140px;
+  height: 90px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.55;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.cardex:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
 }
 
 .card {
-    padding: 10px;
+  padding: 10px;
 }
 
 .cardex {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.cardex:hover {
-    transform: scale(1.1);
-    transition: transform 0.5s;
-    border: none;
-}
-
+/* Billboard */
 .billBoardContainer {
-    position: relative;
-    width: 100vw;
+  position: relative;
+  width: 100vw;
 }
 
 .billBoardContainer img {
-    display: flex;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    width: 100%;
-    height: 600px;
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 100%;
+  height: 600px;
+  object-fit: contain;
 }
 
-
+/* Footer Cards */
 .FooterCardContainer {
-    display: flex;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 10px;
-    width: 100%;
-    padding: 10px;
-    background: #f1f1f2;
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  padding: 60px 5%;
+  background: #1a1a1a;
+  box-sizing: border-box;
 }
-
 
 .logo {
-    padding-top: 15px;
-    font-weight: 500;
-    color: gray;
-    text-transform: capitalize;
-    font-family: 'Alex Brush', cursive;
-    letter-spacing: 1px;
-    cursor: pointer;
+  padding-top: 0;
+  font-family: 'Alex Brush', cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  margin-bottom: 12px;
+  display: block;
 }
-.footerCardLogo{
-    max-width: 240px;
-    min-width: 230px;
+
+.footerCardLogo {
+  max-width: 240px;
+  min-width: 200px;
 }
 
 .footerCardLogo p {
-    font-size: clamp(12px, 1vw, 15px);
-    text-align: left;
-    margin-bottom: 10px;
-    white-space: normal;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+  text-align: left;
+  margin-bottom: 16px;
+  white-space: normal;
 }
 
 .footerCardLogo button {
-    font-size: 12px;
-    border-radius: 15px;
-    padding: 0 5px;
-    border: 1px solid orange;
-    font-weight: 700;
-    color: orange;
-    outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  padding: 10px 18px;
+  border: 1px solid #c9a96e;
+  color: #c9a96e;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  outline: none;
 }
 
+.footerCardLogo button:hover {
+  background: #c9a96e;
+  color: #1a1a1a;
+}
 
 .socialHandles {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    max-width: 160px;
-    min-width: 140px;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .socialHandles span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background: rgba(96, 95, 95, 0.07);
-    border: 1px solid rgba(112, 111, 111, 0.09);
-    border-radius: 50%;
-    font-size: 15px;
-    color: black;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.socialHandles span:hover {
+  border-color: #c9a96e;
+  color: #c9a96e;
+  background: rgba(201, 169, 110, 0.08);
 }
 
 .footerCardMiniConttainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    width: 100%;
-    margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin-top: 0;
 }
 
 .footerCard,
 .footerCardNews {
-    margin: 0;
-    padding: 0;
-    justify-content: flex-start;
+  margin: 0;
+  padding: 0;
 }
 
 .footerCard h1,
 .footerCardNews h1 {
-    font-size: clamp(12px, 0.7vw, 15px);
-    font-weight: 600;
-    text-align: left;
-    font-family: 'Montserrat', sans-serif, monospace;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .footerCard ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .footerCard ul li {
-    margin-bottom: 8px;
-    color: rgba(50, 49, 49, 0.8);
-    text-transform: capitalize;
-    transition: ease-in-out 0.3s;
-    font-size: clamp(13px, 1vw, 15px);
-    cursor: pointer;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: capitalize;
+  transition: color 0.2s ease;
+  font-size: 0.88rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  cursor: pointer;
 }
 
 .footerCard ul li:hover {
-    color: orange;
-    transition: ease-in-out 0.3s;
+  color: #c9a96e;
 }
 
 .footerCardNews {
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .footerCardNews p {
-    font-size: clamp(13px, 0.6vw, 15px);
-    text-align: left;
-    margin-bottom: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin-bottom: 16px;
 }
 
 .footerCardNews small {
-    white-space: normal;
-    font-size: 8px;
-    font-weight: 700;
+  white-space: normal;
+  font-size: 0.75rem;
+  font-weight: 400;
 }
 
 .newsLetter {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0;
-    width: 100%;
-}
-
-.newsLetter div {
-    padding: 0;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 .newsLetter input {
-    padding: 10px 8px 10px 4px;
-    margin: 0;
-    font-size: clamp(15px, 1vw, 17px);
-    border-radius: 8px;
-    margin-bottom: 0;
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  color: #fff;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
 }
 
+.newsLetter input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.newsLetter input:focus {
+  border-color: #c9a96e;
+}
 
 .newsLetter button {
-    width: fit-content;
-    font-size: 14px;
-    padding: 0 10px;
-    border: 1px solid orange;
-    border-radius: 10px;
-    margin-top: -5px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: fit-content;
+  padding: 12px 28px;
+  border: 1px solid #c9a96e;
+  border-radius: 2px;
+  background: #c9a96e;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+.newsLetter button:hover {
+  background: transparent;
+  color: #c9a96e;
+}
+
+.newsLetter button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Bottom Footer */
 .downFooter {
-    display: flex;
-    background: #f1f1f2;
-    border-top: 1px solid rgba(50, 49, 49, 0.8);
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  background: #111;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 5%;
+}
+
+.downFooter div p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
 }
 
 .downFooter div span {
-    color: orange;
-    font-weight: 600;
-    font-size: clamp(15px, 2vw, 17px);
+  color: #c9a96e;
+  font-weight: 400;
 }
 
-
 .downFooter div ul {
-    display: inline-flex;
-    list-style: none;
-    gap: 20px;
+  display: inline-flex;
+  list-style: none;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
 }
 
 .downFooter div ul li {
-    color: rgba(36, 36, 36, 0.8);
-    font: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
+.downFooter div ul li:hover {
+  color: #c9a96e;
+}
 
-
-/* MEDIA QUERY FOR MOBILE */
-@media screen and (min-width: 280px) and (max-width: 768px) {}
-
+/* Mobile */
 @media screen and (max-width: 768px) {
+  .billBoardContainer img {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 300px;
+  }
 
-    .billBoardContainer {
-        position: relative;
-        width: 100vw;
-    }
+  .FooterCardContainer {
+    flex-direction: column;
+    padding: 40px 6%;
+    gap: 32px;
+  }
 
-    .billBoardContainer img {
-        display: flex;
-        margin-top: 50px;
-        margin-bottom: 50px;
-        width: 100vw;
-        height: 300px;
+  .footerCardLogo {
+    max-width: 100%;
+  }
 
-    }
+  .footerCardMiniConttainer {
+    min-width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
 
-    .FooterCardContainer {
-        flex-direction: column;
-    }
+  .footerCardNews {
+    max-width: 100%;
+  }
 
-    .footerCardLogo {
-        max-width: 100%;
-        justify-content: space-evenly;
-    }
+  .newsLetter input {
+    width: 100%;
+  }
 
-    .socialHandles {
-        max-width: 160px;
-        min-width: 140px;
-    }
+  .downFooter {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 16px;
+  }
 
-    .footerCardMiniConttainer {
-        min-width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .footerCardNews {
-        max-width: 80%;
-        margin: 0 auto;
-        margin-top: 0;
-    }
-
-    .newsLetter input {
-        width: 100%;
-    }
-
-    .downFooter {
-        text-align: center;
-        padding: 10px;
-        gap: 0;
-    }
-    .downFooter div p, .downFooter div span{
-        font-size: 12px;
-    }
-
-    .downFooter div ul {
-        gap: 12px;
-        padding: 0;
-    }
-    .downFooter div ul li{
-        font-size: 12px;
-    }
+  .downFooter div ul {
+    gap: 16px;
+  }
 }

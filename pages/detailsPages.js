@@ -107,7 +107,7 @@ router.post("/deliverydetails", userAuth(), (req, res) => {
       // but different order number which will be meant for tracking
       //
       const generateTrackingID = () => {
-        const random = Math.floor(Math.random() * 900000) + 100000;
+        const random = Math.floor(Math.random() * 900000) + 132210;
         const timestamp = Date.now();
         const orderId = `DLV-${timestamp}-${random}`;
         return orderId;

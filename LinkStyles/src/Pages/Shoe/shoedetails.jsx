@@ -217,7 +217,7 @@ function ShoeDetails() {
             <div className={styles.promoCard}>
               <h3>Promotion</h3>
               <p>
-                <FaStar color="gold" /> Call <strong>07070000000</strong> to
+                <FaStar color="gold" /> Call <strong>08140470626</strong> to
                 place order
               </p>
               <p>

@@ -1,139 +1,158 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
-
-import logo from "../../assets/mainlogo.png";
-
-// Declared Global Variable
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { ClothContext } from "../Context/ClothContext";
 import { LoginContext } from "../UserLogin/LoginContext";
-
-import styles from "./Header.module.css";
 import { toast } from "react-toastify";
+import logo from "../../assets/mainlogo.png";
+import styles from "./Header.module.css";
+
 const URL = import.meta.env.VITE_APP_URL;
+
+const navLinks = [
+  { label: "Clothing",        path: "/clothes" },
+  { label: "Phones",          path: "/phones" },
+  { label: "Shoes",           path: "/shoes" },
+  { label: "Everyday Style",  path: "/householditem" },
+  { label: "Premium",         path: "/premium" },
+  { label: "Summer Essentials", path: "/summers" },
+];
 
 function Header() {
   const navigate = useNavigate();
   const { cartCount } = useContext(ClothContext);
   const { user } = useContext(LoginContext);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
-  const [expanded, setExpanded] = useState(false); // controls mobile menu
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  function handleScrollY() {
-    setScrollY(window.scrollY);
-  }
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  function handleNavClick() {
-    setExpanded(false); 
-  }
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setProfileMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, []);
 
-  const logout = async (user) => {
-    const res = await fetch(`${URL}/logout`, {
+  const logout = async () => {
+    await fetch(`${URL}/logout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
-    const logoutData = await res.json();
-    toast.success(`Logout Successfully, See You Soon`);
+    toast.success("Logged out. See you soon!");
     setTimeout(() => {
       localStorage.clear();
       window.location.href = "/login";
     }, 2000);
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScrollY);
-    return () => window.removeEventListener("scroll", handleScrollY);
-  }, []);
-
   return (
-    <Navbar expand="lg" expanded={expanded} className={styles.HeaderNavbar}>
-      <Container className={styles.navContainer}>
-        <Navbar.Brand onClick={() => navigate("/")}>
-          <h3 className={`${styles.logo} ${styles.navLinks}`}>LinkStyles</h3>
-        </Navbar.Brand>
+    <>
+      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+        <div className={styles.inner}>
 
-        {/* Cart & Profile always visible — outside collapse */}
-        {/* <div className={styles.iconsWrapper}>
-          <div
-            className={styles.profile}
-            
-            onClick={() => setProfileMenu((p) => !p)}
-          >
-            {user?.profilepicture ? (
-              <img
-                src={user.profilepicture}
-                alt=""
-                width={28}
-                height={28}
-                style={{ borderRadius: "50%" }}
-              />
-            ) : (
-              <FaUser size={22} color="gray" title="Profile" />
-            )}
-
-            {profileMenu && (
-              <ul className={styles.profileDropdown}>
-                <li>Profile</li>
-                <li>Settings</li>
-                <li onClick={() => logout(user)}>Logout</li>
-              </ul>
-            )}
+          {/* Logo */}
+          <div className={styles.logo} onClick={() => navigate("/")}>
+            LinkStyles
           </div>
 
-          <div className={styles.cart}>
-            <FaShoppingCart
-              size={22}
-              onClick={() => navigate("/product/cart")}
-              color="gray"
-              title="My Cart"
-            />
-            {cartCount > 0 && (
-              <span className={styles.cartCount}>{cartCount}</span>
-            )}
-          </div>
-        </div> */}
-
-        <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          onClick={() => setExpanded((e) => !e)}
-        />
-
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            {[
-              { label: "Clothing", path: "/clothes" },
-              { label: "Phones", path: "/phones" },
-              { label: "Shoes", path: "/shoes" },
-              { label: "Everyday Style", path: "/householditem" },
-              { label: "Premium Collection", path: "/premium" },
-              { label: "Summer Essential", path: "/summers" },
-            ].map((link) => (
-              <li key={link.path} className={styles.li}>
-                <a
-                  onClick={(e) => {navigate(link.path),
-                    handleNavClick(e)
-                  }}
-                  className={styles.a}
-                >
-                  {link.label}
-                </a>
-              </li>
+          {/* Desktop Nav */}
+          <nav className={styles.nav}>
+            {navLinks.map((link) => (
+              <button
+                key={link.path}
+                className={styles.navLink}
+                onClick={() => navigate(link.path)}
+              >
+                {link.label}
+              </button>
             ))}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </nav>
+
+          {/* Icons */}
+          <div className={styles.icons}>
+            {/* Cart */}
+            <button
+              className={styles.iconBtn}
+              onClick={() => navigate("/product/cart")}
+              aria-label="Cart"
+            >
+              <FaShoppingCart size={18} />
+              {cartCount > 0 && (
+                <span className={styles.badge}>{cartCount}</span>
+              )}
+            </button>
+
+            {/* Profile */}
+            <div className={styles.profileWrap} ref={dropdownRef}>
+              <button
+                className={styles.iconBtn}
+                onClick={() => setProfileMenu(p => !p)}
+                aria-label="Profile"
+              >
+                {user?.profilepicture ? (
+                  <img src={user.profilepicture} alt="" className={styles.avatar} />
+                ) : (
+                  <FaUser size={17} />
+                )}
+              </button>
+
+              {profileMenu && (
+                <ul className={styles.dropdown}>
+                  <li onClick={() => { navigate('/profile'); setProfileMenu(false); }}>Profile</li>
+                  <li onClick={() => { navigate('/settings'); setProfileMenu(false); }}>Settings</li>
+                  <li className={styles.logoutItem} onClick={logout}>Logout</li>
+                </ul>
+              )}
+            </div>
+
+            {/* Mobile hamburger */}
+            <button
+              className={`${styles.hamburger} ${mobileOpen ? styles.hamburgerOpen : ''}`}
+              onClick={() => setMobileOpen(o => !o)}
+              aria-label="Menu"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
+
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileMenuOpen : ''}`}>
+        {navLinks.map((link) => (
+          <button
+            key={link.path}
+            className={styles.mobileLink}
+            onClick={() => { navigate(link.path); setMobileOpen(false); }}
+          >
+            {link.label}
+          </button>
+        ))}
+        <div className={styles.mobileDivider} />
+        <button className={styles.mobileLink} onClick={() => { navigate('/product/cart'); setMobileOpen(false); }}>
+          Cart {cartCount > 0 && <span className={styles.mobileCartCount}>{cartCount}</span>}
+        </button>
+        <button className={styles.mobileLink} onClick={logout}>Logout</button>
+      </div>
+
+      {/* Overlay */}
+      {mobileOpen && (
+        <div className={styles.overlay} onClick={() => setMobileOpen(false)} />
+      )}
+    </>
   );
 }
 
 export default Header;
-
-{
-  /* <FaShoppingCart size={24} color="orange" />
-<FaUser size={24} color="white" />
-<FaBars size={24} /> */
-}

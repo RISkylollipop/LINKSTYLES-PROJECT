@@ -2,71 +2,51 @@ import React, { useEffect, useState } from "react";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollY, setScrollY] = useState();
 
   useEffect(() => {
-    const toggleButtonVisbilty = () => {
-      if (window.scrollY > 800) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener(`scroll`, toggleButtonVisbilty);
-
-    return () => {
-      window.removeEventListener(`scroll`, toggleButtonVisbilty);
-    };
-  }, [scrollY]);
+    const handleScroll = () => setIsVisible(window.scrollY > 800);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleBackToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  function HandleStyle() {
-    return {
-      position: "fixed",
-      bottom: "50px",
-      right: "20px",
-      maxWidth: "70px",
-      borderRadius: "7px",
-      zIndex: 1000,
-    };
-  }
-
-  const scrollButtonStyle = {
-    position: "fixed",
-    bottom: "40px",
-    right: "40px",
-    backgroundColor: "#00f0a7",
-    color: "#0a0a0f",
-    border: "2px solid #00f0a7",
-    borderRadius: "50%",
-    width: "50px",
-    height: "50px",
-    fontSize: "24px",
-    cursor: "pointer",
-    boxShadow: "0 0 20px rgba(0, 240, 167, 0.4)",
-    zIndex: 1000,
-    transition: "all 0.3s ease",
-  };
-  return (
-    <>
-      {isVisible && (
-        <button
-          style={scrollButtonStyle}
-          onClick={handleBackToTop}
-          
-        >
-          &uarr;
-        </button>
-      )}
-    </>
-  );
+  return isVisible ? (
+    <button
+      onClick={handleBackToTop}
+      style={{
+        position: "fixed",
+        bottom: "36px",
+        right: "36px",
+        width: "44px",
+        height: "44px",
+        background: "#1a1a1a",
+        color: "#c9a96e",
+        border: "1px solid #c9a96e",
+        borderRadius: "50%",
+        fontSize: "18px",
+        cursor: "pointer",
+        zIndex: 1000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "background 0.3s ease, color 0.3s ease",
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.background = "#c9a96e";
+        e.currentTarget.style.color = "#1a1a1a";
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.background = "#1a1a1a";
+        e.currentTarget.style.color = "#c9a96e";
+      }}
+      aria-label="Back to top"
+    >
+      ↑
+    </button>
+  ) : null;
 };
 
 export default ScrollToTop;

@@ -13,6 +13,7 @@ function Contact() {
   });
 
   const [errors, setErrors] = useState({});
+  
 
 
   function validate() {

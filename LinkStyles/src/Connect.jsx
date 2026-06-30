@@ -5,9 +5,11 @@ function Connect() {
     const [result, setResult] = useState([])
     const [maindata, setMaindata] = useState([])
 
+    const BASE_URL = import.meta.env.VITE_APP_URL
+
 
     useEffect(() => {
-        fetch(`https://linkstyles-project-production.up.railway.app/api/v1/products`)
+        fetch(`${BASE_URL}/api/v1/products`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)

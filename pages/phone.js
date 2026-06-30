@@ -1,46 +1,43 @@
 const express = require(`express`);
 const router = express.Router();
-const {db, dbPool} = require(`../database`)
+const { db, dbPool } = require(`../database`);
 
+router.get(`/api/v1/phones`, async (req, res) => {
+  try {
+    const query = `select * from products where productName LIKE '%phone%' or category = 'electronics' order by rand();`;
+    const [data] = await dbPool.query(query);
 
-
-
-
-router.get(`/api/v1/phones`, (req, res) => {
-  console.log(req.body);
-
-  const query = `select * from products where productName LIKE '%phone%' or category = 'electronics' order by rand();`
-
-  db.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
+    if (data.length > 0) {
+      return res.status(200).json(data);
     } else {
-      // console.log(data);
-      res.json(data);
+      return res
+        .status(400)
+        .json({ error: `Network Error: Unable to load phones` });
     }
-  });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: `Server Error` });
+  }
 });
 
+router.get(`/api/v1/phone/:id`, async (req, res) => {
+  try {
+    const phoneID = req.params.id;
+    const query = `select * from products where category = 'electronics' and product_id = ?`;
 
-router.get(`/api/v1/phone/:id`, (req, res) => {
-  const phoneID = req.params.id;
+    const [data] = await dbPool.query(query, [phoneID]);
 
-  db.query(
-    `select * from products where category = 'electronics' and product_id = ?`,
-    [phoneID],
-    (err, data) => {
-      if (err) {
-        console.log(err, `Phone detail fetching Error`);
-      } else if (data) {
-        // console.log(`Data from Phone View Detail`,data);
-        res.json(data);
-      }
+    if (data.length > 0) {
+      return res.status(200).json(data);
+    } else {
+      return res
+        .status(404)
+        .json({ error: `Network Error: Unable to load phone details` });
     }
-  );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: `Server Error` });
+  }
 });
 
-
-
-
-
-module.exports = router
+module.exports = router;

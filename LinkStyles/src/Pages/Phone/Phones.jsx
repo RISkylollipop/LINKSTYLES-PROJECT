@@ -7,6 +7,12 @@ import StarRating from "../../Components/Context/StarRating";
 import styles from "./Phone.module.css";
 import image1 from "./images/image1.png";
 
+
+export const FilterPhone = () => {
+  return(
+    <></>
+  )
+}
 function Phones() {
   const { user } = useContext(LoginContext);
   const { addToCart, symbol } = useContext(ClothContext);
@@ -14,24 +20,16 @@ function Phones() {
   const navigate = useNavigate();
   const URL = import.meta.env.VITE_APP_URL;
 
-  // Dynamic date — "1ST — 14TH NOV" becomes today + 14 days
-  const today = new Date();
-  const endDate = new Date(today);
-  endDate.setDate(today.getDate() + 14);
-
-  const formatDay = (d) => {
-    const day = d.getDate();
-    const suffix = day === 1 || day === 21 || day === 31 ? "ST"
-      : day === 2 || day === 22 ? "ND"
-      : day === 3 || day === 23 ? "RD" : "TH";
-    return `${day}${suffix}`;
-  };
 
   const monthName = (d) =>
     d.toLocaleString("en-US", { month: "short" }).toUpperCase();
 
   const dealDateRange = `${formatDay(today)} — ${formatDay(endDate)} ${monthName(endDate)}`;
 
+  const fetchPhone = async ()=> {
+
+    // const res = await
+  }
   useEffect(() => {
     fetch(`${URL}/api/v1/phones`)
       .then((res) => res.json())
