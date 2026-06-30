@@ -21,10 +21,6 @@ function Phones() {
   const URL = import.meta.env.VITE_APP_URL;
 
 
-  const monthName = (d) =>
-    d.toLocaleString("en-US", { month: "short" }).toUpperCase();
-
-  const dealDateRange = `${formatDay(today)} — ${formatDay(endDate)} ${monthName(endDate)}`;
 
   const fetchPhone = async ()=> {
 
