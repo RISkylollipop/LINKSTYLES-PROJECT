@@ -9,7 +9,7 @@ router.get(`/shoes`, async (req, res)=> {
         const [data] = await dbPool.query(shoequery)
         
         if(data.length > 0){
-            console.log(`Shoe Data is here`);
+            // console.log(`Shoe Data is here`);
             return res.status(200).json(data)
             
         }else{

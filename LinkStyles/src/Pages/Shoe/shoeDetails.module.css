@@ -1,148 +1,162 @@
 /*  */
 
 .detailDeliveryCard {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
 }
 
 
-.detailCard{
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    gap: 20px;
-    align-items:flex-start;
+.detailCard {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 
-.ImageCard{
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+.ImageCard {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
 }
 
 .ImageCard img {
-    width: 290px;
-    height: 290px;
+  width: 290px;
+  height: 290px;
 }
+
 /* General container styling */
 .productContainer {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
 }
 
 /* Main product card */
 .productCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
 }
 
 .productImage {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    max-height: 500px;
-    border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  max-height: 500px;
+  border-radius: 10px;
 }
 
 .productDetails {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .productPrice {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ff6600;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff6600;
 }
 
 .productDescription {
-    font-size: 16px;
-    color: #555;
-    max-width: 600px;
-    margin: 10px auto;
+  font-size: 16px;
+  color: #555;
+  max-width: 600px;
+  margin: 10px auto;
 }
 
 /* Related Products Section */
 .relatedProducts {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Swiper adjustments */
 .swiper {
-    width: 100%;
-    padding: 20px 0;
+  width: 100%;
+  padding: 20px 0;
 }
 
 .swiper-slide {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 /* Card inside Swiper */
+
 .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: 250px;
-    text-align: center;
-    transition: transform 0.3s ease;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .card h3 {
-    font-size: 18px;
-    margin: 10px 0;
+  color: #e68900;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px 0;
+  font-weight: 600;
+  white-space: normal;
+  word-wrap: break-word;
+
 }
 
 .card p {
-    font-size: 16px;
-    font-weight: bold;
-    /* color: #ff6600; */
+  font-size: 16px;
+  font-weight: bold;
+  /* color: #ff6600; */
 }
 
 
 
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px;
-  background: #f9f9f9;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-style: normal;
   font-weight: 700;
-  background: #f5f5f5;
   padding-bottom: 20px;
-  justify-content: space-between;
-  align-items:normal;
+  justify-content: space-around;
+  font-family: 'DM Sans', sans-serif;
+  background: #f5f5f5;
+}
+
+.productDetailSections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-content: baseline;
+  align-items: center;
+
 }
 
 
 .imageSection {
-  flex: 1 1 350px;
+  min-width: 240px;
   max-width: 400px;
-  max-height: 400px;
-  position: relative;
+  max-height: fit-content;
   background: #fff;
   border: 1px solid #eee;
   border-radius: 8px;
@@ -199,7 +213,8 @@
 }
 
 .newPrice {
-  font-size: 24px;;
+  font-size: 24px;
+  ;
   font-weight: 700;
   text-align: left;
   margin: 0;
@@ -218,6 +233,36 @@
   font-weight: bold;
   font-size: 1rem;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.descriptionBox {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-left: 3px solid #FF8C00;
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 4px 0;
+}
+
+.descriptionTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #FF8C00;
+  margin: 0 0 8px 0;
+}
+
+.descriptionText {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .addToCartBtn,
@@ -260,7 +305,7 @@
   padding: 10px;
 }
 
-.promoCard h3{
+.promoCard h3 {
   font-weight: 500;
   font-size: 14px;
   text-transform: uppercase;
@@ -281,7 +326,8 @@
   min-width: 450px;
   margin: 20px auto;
   padding: 15px;
-  background: #fff8f0; /* soft orange tint */
+  background: #fff8f0;
+  /* soft orange tint */
   color: rgb(49, 49, 51);
   border: 1px solid #f68b1e;
   border-radius: 10px;
@@ -292,16 +338,17 @@
   overflow-wrap: hidden;
   white-space: normal;
 }
+
 .title {
   font-size: 20px;
 }
 
-.titles {
-  color: #f68b1e;
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 14px;
-  font-weight: 600;
+.title h5 {
+  font-size: 20px;
+  white-space: normal;
+  font-weight: 800;
+  color: #e88f35;
+  font-family: 'Cormorant Garamond', serif;
 }
 
 .deliveryCard {
@@ -336,17 +383,18 @@
   border-radius: 10px;
   padding: 15px;
   margin-top: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .deliveryCard {
   line-height: 1.6;
 }
 
-.deliveryCard input{
+.deliveryCard input {
   max-width: 90%;
   margin: 10px auto;
 }
+
 .deliveryCard select {
   display: block;
   width: 100%;
@@ -356,11 +404,13 @@
   border: 1px solid #ddd;
   font-family: "Poppins", sans-serif;
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -373,7 +423,7 @@
   border-radius: 10px;
   padding: 15px;
   margin-top: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
 }
 
@@ -435,46 +485,18 @@
   background: #fff5e6;
 }
 
-/* Responsive */
-@media (max-width: 540px) {
-  .pickupSection {
-    padding: 10px;
+
+/* Responsive Styles */
+@media  (max-width: 768px) {
+  .container{
+    display: flex;
+    width: 100%;
   }
 
-  .pickupOption {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
+  .productDetailSections{
+    grid-template-columns: 1fr;
   }
-
-  .pickupLabel {
-    font-size: 14px;
-  }
-
-  .pickupDetails {
-    font-size: 13px;
-  }
-}
-/* Responsive Design */
-@media (max-width: 600px) {
-  .deliverySection {
-    max-width: 30%;
-    padding: 10px;
-  }
-  
-  .titles {
-    font-size: 18px;
-  }
-
-  .text {
-    font-size: 14px;
-  }
-}
-
-
-@media (min-width: 300px) and (max-width: 540px) {
   .imageSection {
-    flex: 1 1 350px;
     max-width: 100%;
     position: relative;
     background: #fff;
@@ -485,27 +507,34 @@
 
   .imageSection img {
     width: 100%;
-    height: 350px;
+    height: 300px;
+    max-height: 360px;
     object-fit: contain;
   }
 
-  .discountBadge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: #e53935;
-    color: #fff;
-    font-weight: bold;
-    padding: 5px 8px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    z-index: 3;
-  }
+ .discountBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  padding: 5px 8px;
+  border-radius: 7px;
+  font-size: 12px;
+  background: #fff0eb;
+  color: #FF4D00;
+  font-family: 'Montserrat', sans-serif;
+}
+  .discountText {
+  font-weight: bold;
+  font-size: clamp(10px, 0.3vw, 13px);
+  font-family: 'Montserrat', sans-serif;
+  color: #FF4D00;
+}
 
   .detailsSection {
-    flex: 1 1 300px;
     display: flex;
-    flex-direction: column;
+    width: 90%;
+    margin: 10px auto;
     gap: 15px;
   }
 
@@ -517,10 +546,10 @@
     flex-direction: row;
   }
 
-  .title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #333;
+  .title h5 {
+    font-size: 13px;
+    font-weight: 800;
+
   }
 
   .subtext {
@@ -544,17 +573,13 @@
     font-size: 1rem;
     color: #888;
     text-decoration: line-through;
-  }
-
-  .discountText {
-    color: #e53935;
-    font-weight: bold;
-    font-size: 1rem;
+    white-space: nowrap;
   }
 
   .promoCard {
     font-size: 0.85rem;
     padding: 10px 12px;
+    border-color: #FF8C00;
   }
 
   .promoCard p {
@@ -565,23 +590,52 @@
   }
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .productCard {
-        padding: 15px;
-    }
+.searchAlso {
+  text-align: center;
+  width: fit-content;
+  margin: 10px auto;
+  padding: 2px 10px;
+}
 
-    .productImage {
-        max-width: 300px;
-    }
+.searchAlso h2 {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: #2c2c2c;
+  text-transform: uppercase;
 
-    .swiper-slide {
-        flex-direction: column;
-    }
+}
 
-    .card {
-        width: 220px;
-        margin: 20px auto;
-    }
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  width: 300px;
+  margin: 10px auto;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  color: #e68900;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px 0;
+  font-weight: 800;
+  white-space: normal;
+  word-wrap: break-word;
 
 }

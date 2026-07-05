@@ -19,12 +19,24 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 
 function CustomerSearch({ relatedProducts, symbol }) {
+  const URL = import.meta.env.VITE_APP_URL;
+  const navigate = useNavigate();
+
+  const handlescroll = () => {
+    if (window.scrollY > 300) {
+      window.scrollTo({
+        top: 50,
+        behavior: "auto",
+      });
+    }
+
+    return;
+  };
   return (
     <div style={{ background: "#f1f1f1" }}>
       <div className={styles.searchAlso}>
         <h2>Customers Also Search</h2>
       </div>
-
       <div>
         <Swiper
           spaceBetween={5}
@@ -296,17 +308,6 @@ function ProductDetails() {
   let percentDiscount = ((discount / originalPrice) * 100).toFixed(0);
   let Pdiscount = `-${percentDiscount}%`;
 
-  const handlescroll = () => {
-    if (window.scrollY > 300) {
-      window.scrollTo({
-        top: 50,
-        behavior: "auto",
-      });
-    }
-
-    return;
-  };
-
   const stockCount = Number(product?.stock);
 
   return (
@@ -381,7 +382,7 @@ function ProductDetails() {
           </div>
         </div>
 
-        {/* DELIVERY SECTION */}
+        {/* PRODUCT DESCRIPTION SECTION*/}
         {product?.description && (
           <div className={styles.descriptionBox}>
             <h4 className={styles.descriptionTitle}>Product Description</h4>
@@ -402,9 +403,8 @@ function ProductDetails() {
             )}
           </div>
         )}
-
       </main>
-        {/* <DeliverySection mainData={mainData} /> */}
+      {/* <DeliverySection mainData={mainData} /> */}
       <CustomerSearch relatedProducts={relatedProducts} symbol={symbol} />
     </div>
   );

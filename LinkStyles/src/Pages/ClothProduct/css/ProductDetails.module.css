@@ -298,11 +298,6 @@
   font-family: 'Cormorant Garamond', serif;
 }
 
-.titles {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-}
 
 .deliveryCard {
   background: #ffffff;
@@ -517,37 +512,21 @@
   font-family: 'DM Sans', sans-serif;
 }
 
-.pickupSection {
-  font-family: 'DM Sans', sans-serif;
-}
 
 
 .card h3 {
-  font-family: 'DM Sans', sans-serif;
-}
-
-
-
-/* Responsive Styles */
-@media (min-width: 768px) {
-  .productCard {
-    padding: 15px;
-  }
-
-  .productImage {
-    max-width: 300px;
-  }
-
-  .swiper-slide {
-    flex-direction: column;
-  }
-
-  .card {
-    width: 220px;
-    margin: 20px auto;
-  }
+  color: #e68900;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px 0;
+  font-weight: 600;
+  white-space: normal;
+  word-wrap: break-word;
 
 }
+
+
+
 
 
 .searchAlso {
@@ -590,6 +569,7 @@
 }
 
 .card h3 {
+  color: #e68900;
   font-size: 15px;
   font-family: 'Montserrat', sans-serif;
   margin: 10px 0;
