@@ -25,6 +25,7 @@ function Phonedetail() {
 
   const { phoneID } = useParams();
   const [phonedata, setPhonedata] = useState(null);
+  const [showdetail, setShowdetail] = useState(false);
 
   const URL = import.meta.env.VITE_APP_URL;
 
@@ -33,20 +34,17 @@ function Phonedetail() {
 
     const fetchPhone = async () => {
       try {
-        const res = await fetch(`${URL}/api/v1/phone/${phoneID}`)
-        const data = await res.json()
+        const res = await fetch(`${URL}/api/v1/phone/${phoneID}`);
+        const data = await res.json();
         if (isMounted) {
-          setPhonedata(data[0])
-          
+          setPhonedata(data[0]);
         }
-
       } catch (error) {
-        console.log(`Unable to Fetch Phone Datails`);
-        console.error(`Unable to Fetch Phone Datails`)
+        console.error(`Unable to Fetch Phone Datails`);
       }
-    }
+    };
 
-    fetchPhone()
+    fetchPhone();
 
     return () => {
       isMounted = false;
@@ -60,7 +58,7 @@ function Phonedetail() {
   // IMAGES
   const phoneimages = [phonedata?.image1, phonedata?.image2, phonedata?.image3];
   if (phoneimages.length > 1 && phoneimages.length < 3) {
-    phoneimages.push(...phoneimages)
+    phoneimages.push(...phoneimages);
   }
 
   // PRICE CALC
@@ -82,177 +80,116 @@ function Phonedetail() {
   const Pdiscount = ((discount / originalPrice) * 100).toFixed(0);
   const PdiscountPercent = `-${Pdiscount}%`;
 
-
-  /* Delivery date specification */
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const currentDay = now.getDate();
-  const currentMonth = now.toLocaleString("default", { month: "long" })
-  const weekDay = now.toLocaleString("default", { weekday: "long" })
-  const newDate = new Date(now);
-  newDate.setDate(now.getDate() + 4);
-  const forDaysLater = newDate.toLocaleString("default", { weekday: 'long' })
+  // /* Delivery date specification */
+  // const now = new Date();
+  // const currentYear = now.getFullYear();
+  // const currentDay = now.getDate();
+  // const currentMonth = now.toLocaleString("default", { month: "long" })
+  // const weekDay = now.toLocaleString("default", { weekday: "long" })
+  // const newDate = new Date(now);
+  // newDate.setDate(now.getDate() + 4);
+  // const forDaysLater = newDate.toLocaleString("default", { weekday: 'long' })
 
   return (
     <>
       <main className={styles.container}>
-        {/* IMAGE SECTION */}
-        <div className={styles.imageSection}>
-          <Swiper
-            spaceBetween={5}
-            slidesPerView={1}
-            slidesPerGroup={1}
-            autoplay={{ delay: 2000 }}
-            loop={phoneimages.length > 1}
-            navigation
-            modules={[Navigation, Autoplay]}
-          >
-            {phoneimages.map((img, idx) => (
-              <SwiperSlide key={idx}>
-                <img src={img} alt={phonedata.productName} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className={styles.productDetailSections}>
+          {/* IMAGE SECTION */}
+          <div className={styles.imageSection}>
+            <Swiper
+              spaceBetween={5}
+              slidesPerView={1}
+              slidesPerGroup={1}
+              autoplay={{ delay: 2000 }}
+              loop={phoneimages.length > 1}
+              navigation
+              modules={[Navigation, Autoplay]}
+            >
+              {phoneimages.map((img, idx) => (
+                <SwiperSlide key={idx}>
+                  <img src={img} alt={phonedata.productName} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-          <p className={styles.discountBadge}>{PdiscountPercent}</p>
-        </div>
+            <p className={styles.discountBadge}>{PdiscountPercent}</p>
+          </div>
 
-        {/* DETAILS SECTION */}
-        <div className={styles.detailsSection}>
-          <div className={styles.detailsubsection}>
-            <h2 className={styles.title}>
-              {phonedata.productName}
-              {/* {phonedata.display}
+          {/* DETAILS SECTION */}
+          <div className={styles.detailsSection}>
+            <div className={styles.detailsubsection}>
+              <h2 className={styles.title}>
+                {phonedata.productName}
+                {/* {phonedata.display}
               {phonedata.connectivity} - {phonedata.color} */}
-            </h2>
+              </h2>
+              <hr />
+
+              <div className={styles.priceBox}>
+                <span className={styles.newPrice}>
+                  {symbol} {new Intl.NumberFormat("en-Us").format(newPrice)}
+                </span>
+                <span className={styles.oldPrice}>
+                  {symbol}
+                  {new Intl.NumberFormat("en-Us").format(originalPrice)}
+                </span>
+                <span className={styles.discountText}>{PdiscountPercent}</span>
+              </div>
+
+              <small
+                style={
+                  phonedata?.stock < 15 ? { color: "red" } : { color: "green" }
+                }
+              >
+                ⚠️ {phonedata.stock} Unit left
+              </small>
+            </div>
+
+            <StarRating rating={phonedata.rating} />
             <hr />
 
-            <div className={styles.priceBox}>
-              <span className={styles.newPrice}>
-                {symbol} {new Intl.NumberFormat("en-Us").format(newPrice)}
-              </span>
-              <span className={styles.oldPrice}>
-                {symbol}
-                {new Intl.NumberFormat("en-Us").format(originalPrice)}
-              </span>
-              <span className={styles.discountText}>{PdiscountPercent}</span>
+            <button
+              onClick={() => addToCart(phonedata)}
+              className={styles.addToCartBtn}
+            >
+              Add to Cart
+            </button>
+
+            <div className={styles.promoCard}>
+              <h3>Promotion</h3>
+              <p>
+                <FaStar color="gold" /> Call <strong>08140470626</strong> to
+                place order
+              </p>
+              <p>
+                <FaStar color="gold" /> Enjoy cheaper shipping fees at{" "}
+                <strong>PickUp Station</strong>
+              </p>
             </div>
-
-            <small style={phonedata?.stock < 15 ? { color: "red" } : { color: "green" }}>⚠️ {phonedata.stock} Unit left</small>
-          </div>
-
-          <StarRating rating={phonedata.rating} />
-          <hr />
-
-          <button
-            onClick={() => addToCart(phonedata)}
-            className={styles.addToCartBtn}
-          >
-            Add to Cart
-          </button>
-
-          <div className={styles.promoCard}>
-            <h3>Promotion</h3>
-            <p>
-              <FaStar color="gold" /> Call <strong>08140470626</strong> to
-              place order
-            </p>
-            <p>
-              <FaStar color="gold" /> Enjoy cheaper shipping fees at{" "}
-              <strong>PickUp Station</strong>
-            </p>
           </div>
         </div>
 
-        {/* DELIVERY SECTION */}
-        <div className={styles.deliverySection}>
-          {mainData ? (
-            <div className={styles.deliveryCard}>
-              <p>
-                <strong>Full Name:</strong>
-                <br />
-                <input
-                  type="text"
-                  value={formData.full_name || mainData.full_name || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, full_name: e.target.value })
-                  }
-                />
-              </p>
+        {/* PRODUCT DESCRIPTION SECTION*/}
+        {phonedata?.description && (
+          <div className={styles.descriptionBox}>
+            <h4 className={styles.descriptionTitle}>Product Description</h4>
 
-              <p>
-                <strong>Email:</strong>
-                <br />
-                <input
-                  type="email"
-                  value={formData.email || mainData.email || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-              </p>
+            <p className={styles.descriptionText}>
+              {showdetail || phonedata.description.length <= 100
+                ? phonedata.description
+                : `${phonedata.description.slice(0, 100)}...`}
+            </p>
 
-              {/* COUNTRY SELECT */}
-              <select
-                name="country"
-                value={formData.country}
-                onChange={handleCountryChange}
+            {phonedata.description.length > 100 && (
+              <small
+                onClick={() => setShowdetail(!showdetail)}
+                style={{ color: "black", cursor: "pointer" }}
               >
-                <option value="">Select Country</option>
-                {countries.map((country, idx) => (
-                  <option key={idx} value={country.name}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-
-              {/* STATES SELECT */}
-              {states.length > 0 && (
-                <select
-                  name="state"
-                  value={formData.state}
-                  onChange={(e) =>
-                    setFormData({ ...formData, state: e.target.value })
-                  }
-                >
-                  <option value="">Select State / Region</option>
-                  {states.map((state, idx) => (
-                    <option key={idx} value={state.name}>
-                      {state.name}
-                    </option>
-                  ))}
-                </select>
-              )}
-
-              {/* DELIVERY CARDS */}
-              <div className="card" style={{ marginTop: 10 }}>
-                <small>
-                  Pickup Station — ₦950 <br /> Ready between 20–21 October
-                </small>
-              </div>
-
-              <div className="card" style={{ marginTop: 10 }}>
-                <small>
-                  Door Delivery — ₦1,710 <br /> Delivery between
-                  <br />
-                  {weekDay} {currentDay} – {currentDay + 4} {forDaysLater} {currentMonth} {currentYear}
-                </small>
-              </div>
-
-              <div className="card" style={{ marginTop: 10 }}>
-                <small>Return Policy — Free return within 7 days</small>
-              </div>
-
-              <p style={{ color: "palevioletred" }}>
-                Update your delivery address below:
-              </p>
-
-              <button>Update Delivery Address</button>
-            </div>
-          ) : (
-            <p>User details not available</p>
-          )}
-        </div>
+                {showdetail ? "Show less" : "Show more"}
+              </small>
+            )}
+          </div>
+        )}
       </main>
     </>
   );
